@@ -11,6 +11,7 @@
                     $type = Session::get('success') ? 'success' : 'danger';
                     $desc = Session::get('success') ? session('success') : session('error');
                   ?>
+                  
                   @if ($flash)
                   <div class="col-lg-12">
                       <div class="alert alert-{{ $type }}">
