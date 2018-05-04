@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\datamahasiswa;
 use App\datafakultas;
+use App\nilai_mahasiswa;
+use App\kriteria;
 use Illuminate\Support\Facades\DB;
 class adminMahasiswasetting extends Controller
 {
@@ -33,7 +35,8 @@ class adminMahasiswasetting extends Controller
      */
     public function create()
     {
-        //
+        $data = kriteria::all()->first();
+        return $data;
     }
 
     /**

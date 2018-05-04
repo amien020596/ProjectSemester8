@@ -17,7 +17,7 @@ class CreateKriteriasTable extends Migration
             $table->increments('id');
             $table->string('kriteria');
             $table->enum('jenis',['cost','benefit']);
-            $table->integer('bobot');
+            $table->integer('bobot')->unsigned();
             $table->SoftDeletes();
             $table->timestamps();
         });

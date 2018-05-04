@@ -19,7 +19,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Data Mahasiswa</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="fa fa-puzzle-piece"></i><a href="{{route('view-mahasiswa')}}">Lihat Data</a></li>
-                        <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Tambah Data</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="{{route('insert-mahasiswa')}}">Tambah Data</a></li>
                     </ul>
                 </li>
                 <h3 class="menu-title">Kriteria</h3><!-- /.menu-title -->
