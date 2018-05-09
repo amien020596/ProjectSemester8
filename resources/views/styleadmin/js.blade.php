@@ -27,4 +27,19 @@
         $(document).ready(function() {
           $('#bootstrap-data-table-export').DataTable();
         } );
+
+        $('#fakultas').on('change', function(e){
+        console.log(e);
+        var fakultas_id = e.target.value;
+        $.get('/admin/mahasiswa/json-fakultas?fakultas_id=' + fakultas_id,function(data) {
+          console.log(data);
+          $('#jurusan').empty();
+          $('#jurusan').append('<option value="0" disable="true" selected="true">=== Pilih Jurusan ===</option>');
+
+          $.each(data, function(index, jurusanObj){
+            $('#jurusan').append('<option value="'+ jurusanObj.id +'">'+ jurusanObj.jurusan +'</option>');
+          })
+        });
+      });
+
     </script>

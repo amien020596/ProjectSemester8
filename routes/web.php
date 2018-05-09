@@ -57,6 +57,7 @@ Route::Group([
     ],function(){
         Route::get('/mahasiswa','adminMahasiswasetting@index')->name('view-mahasiswa');
         Route::get('/insert/mahasiswa','adminMahasiswasetting@create')->name('insert-mahasiswa');
+        Route::get('/json-fakultas','adminMahasiswasetting@selectfakultas')->name('json-fakultas');
       });
       Route::Group([
         'prefix'=>'softdelete',

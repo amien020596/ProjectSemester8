@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\datamahasiswa;
 use App\datafakultas;
+use App\datajurusan;
 use App\nilai_mahasiswa;
 use App\kriteria;
 use Illuminate\Support\Facades\DB;
@@ -35,8 +37,15 @@ class adminMahasiswasetting extends Controller
      */
     public function create()
     {
-        $data = kriteria::all()->first();
-        return $data;
+        $data = datafakultas::all();
+        $kriteria = kriteria::all();
+        //return $kriteria;
+        return view('admin/addmahasiswa',['Dfakultas'=>$data,'Dkritria'=>$kriteria]);
+    }
+    public function selectfakultas(){
+      $fakultas_id = Input::get('fakultas_id');
+      $jurusan = datajurusan::where('id_fakultas', '=', $fakultas_id)->get();
+      return response()->json($jurusan);
     }
 
     /**
