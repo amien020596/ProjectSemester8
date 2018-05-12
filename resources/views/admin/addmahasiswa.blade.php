@@ -43,14 +43,8 @@
                               <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="">{{$value->kriteria}}</label>
-                                  <input type="text" class="form-control" id="" name="{{$value->id}}" placeholder="">
+                                  <input type="text" class="form-control" id="" name="{{$value->id}}" placeholder="{{$value->kriteria}}">
                                   {{-- <p class="help-block">Help text here.</p> --}}
-                                </div>
-                              </div>
-                              <div class="col-lg-6">
-                                <div class="form-group">
-                                  <label for="">{{$value->kriteria}}</label>
-                                  <input type="text" class="form-control" id="" name="{{$value->id}}" placeholder="">
                                 </div>
                               </div>
                                 @endforeach
