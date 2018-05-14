@@ -13,7 +13,7 @@
                           <strong>Tambah</strong> Mahasiswa
                         </div>
                         <div class="card-body card-block">
-                          <form class="" action="index.html" method="post">
+                          <form class="" action="{{route('store-mahasiswa')}}" method="post">
                             {{csrf_field()}}
                             <div class="form-group">
                               <label for="">Nama Mahasiswa</label>
@@ -49,8 +49,16 @@
                               </div>
                                 @endforeach
                             </div>
-                          </form>
-                        </div>
+                          </div>
+                          <div class="card-footer">
+                            <button type="submit" value="Submit" class="btn btn-primary btn-sm">
+                              <i class="fa fa-dot-circle-o"></i> Tambah
+                            </button>
+                            <button type="reset" value="Reset" class="btn btn-danger btn-sm">
+                              <i class="fa fa-ban"></i> Reset
+                            </button>
+                          </div>
+                        </form>
                       </div>
                     </div>
   <!-- sampe ini -->

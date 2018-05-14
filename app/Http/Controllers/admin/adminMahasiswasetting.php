@@ -56,7 +56,44 @@ class adminMahasiswasetting extends Controller
      */
     public function store(Request $request)
     {
+      // $validator = Validator::make($request->all(), [
+      //       'nim'=>'required',
+      //       'id_kriteria'=>'required|alpha',
+      //       'nilai'=>'required|numeric|between:1,5'
+      //       'id_user'=>'required|numeric|between:1,5'
+      //   ]);
+      $kriteria = kriteria::all();
+
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //                 ->withErrors($validator)
+        //                 ->withInput();
+        // }
         //
+        // $kriteria = kriteria::create([
+        //   'kriteria'=>$request->kriteria,
+        //   'jenis'=>$request->jenis,
+        //   'bobot'=>$request->bobot,
+        // ]);
+        //
+        // if($kriteria == false){
+        //   return redirect()->route('view-kriteria')->with('error', 'Insert Data Kriteria Failed');
+        // }
+        // return redirect()->route('view-kriteria')->with('success', 'Insert Data Kriteria Success');
+
+
+          foreach ($kriteria as $key => $value) {
+            $a = $value->id;
+            $nilai = nilai_mahasiswa::create([
+            'id_kriteria'=>$value->id,
+            'nilai'=>$request->$a,
+            'nim'=>$request->nim,
+            'id_user'=>1
+            ]);
+          }
+
+        return $nilai;
+
     }
 
     /**
