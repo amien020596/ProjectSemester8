@@ -58,7 +58,13 @@ Route::Group([
         Route::get('/mahasiswa','adminMahasiswasetting@index')->name('view-mahasiswa');
         Route::get('/insert/mahasiswa','adminMahasiswasetting@create')->name('insert-mahasiswa');
         Route::post('/store/mahasiswa','adminMahasiswasetting@store')->name('store-mahasiswa');
+        Route::post('/show/mahasiswa/{id}','adminMahasiswasetting@show')->name('show-mahasiswa');
         Route::get('/json-fakultas','adminMahasiswasetting@selectfakultas')->name('json-fakultas');
+      });
+      Route::Group([
+        'prefix'=>'perhitungan'
+      ],function(){
+        Route::get('perhitunga1','PerhitunganMoora@PerhitunganHasilAnalisaData')->name('perhitungan1');
       });
       Route::Group([
         'prefix'=>'softdelete',

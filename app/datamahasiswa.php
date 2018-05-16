@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class datamahasiswa extends Model
 {
-
+  protected $fillable = [
+      'nim', 'nama', 'id_fakultas','id_jurusan'
+  ];
   public function fakultas1(){
     return $this->hasOne('App\datafakultas');
   }

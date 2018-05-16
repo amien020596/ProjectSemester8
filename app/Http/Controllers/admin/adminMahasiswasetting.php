@@ -10,6 +10,9 @@ use App\datajurusan;
 use App\nilai_mahasiswa;
 use App\kriteria;
 use Illuminate\Support\Facades\DB;
+use Validator;
+use Auth;
+
 class adminMahasiswasetting extends Controller
 {
     /**
@@ -56,44 +59,67 @@ class adminMahasiswasetting extends Controller
      */
     public function store(Request $request)
     {
-      // $validator = Validator::make($request->all(), [
-      //       'nim'=>'required',
-      //       'id_kriteria'=>'required|alpha',
-      //       'nilai'=>'required|numeric|between:1,5'
-      //       'id_user'=>'required|numeric|between:1,5'
-      //   ]);
       $kriteria = kriteria::all();
+        $validator = Validator::make($request->all(), [
+              'nama'=>'required',
+              'nim'=>'required',
+              'fakultas'=>'required',
+              'jurusan'=>'required'
+          ]);
 
-        // if ($validator->fails()) {
-        //     return redirect()->back()
-        //                 ->withErrors($validator)
-        //                 ->withInput();
-        // }
-        //
-        // $kriteria = kriteria::create([
-        //   'kriteria'=>$request->kriteria,
-        //   'jenis'=>$request->jenis,
-        //   'bobot'=>$request->bobot,
-        // ]);
-        //
-        // if($kriteria == false){
-        //   return redirect()->route('view-kriteria')->with('error', 'Insert Data Kriteria Failed');
-        // }
-        // return redirect()->route('view-kriteria')->with('success', 'Insert Data Kriteria Success');
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
+      $datamahasiswa = datamahasiswa::where('nim', $request->nim)->first();
+
+      if($datamahasiswa || $request->nim == null){
+        return redirect()->route('insert-mahasiswa')->with('error', 'The NIM Already Used or NIM no Null');
+      }
+
+      if($request->fakultas == 0){
+        return redirect()->route('insert-mahasiswa')->with('error', 'Kolom Fakultas Tidak Boleh Kosong');
+      }
+
+      if($request->jurusan == 0){
+        return redirect()->route('insert-mahasiswa')->with('error', 'Kolom Jurusan Tidak Boleh Kosong');
+      }
+      $s=8;
+      if($request->$s >= 5){
+        return redirect()->route('insert-mahasiswa')->with('error', 'Nilai Kolom HM Rumah Tidak lebih dari 4 ');
+      }
+      $s=11;
+      if($request->$s >= 4){
+        return redirect()->route('insert-mahasiswa')->with('error', 'Nilai Kolom Dinding Tidak Lebih dari 3 ');
+      }
+
+          $datamahasiswa = datamahasiswa::create([
+            'nim'=>$request->nim,
+            'nama'=>$request->nama,
+            'id_fakultas'=>$request->fakultas,
+            'id_jurusan'=>$request->jurusan
+          ]);
 
           foreach ($kriteria as $key => $value) {
             $a = $value->id;
+            if($request->$a == null){
+              $request->$a = 0;
+            }
             $nilai = nilai_mahasiswa::create([
             'id_kriteria'=>$value->id,
             'nilai'=>$request->$a,
             'nim'=>$request->nim,
-            'id_user'=>1
+            'id_user'=>Auth::user()->id
             ]);
           }
 
-        return $nilai;
-
+          if($datamahasiswa != True || $nilai != True){
+            //ini perlu diperbaiki lagi
+            return redirect()->route('insert-mahasiswa')->with('error', 'Insert Data Mahasiswa Failed');
+          }
+          return redirect()->route('view-mahasiswa')->with('success', 'Insert Data Mahasiswa Success');
     }
 
     /**
@@ -104,7 +130,7 @@ class adminMahasiswasetting extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
