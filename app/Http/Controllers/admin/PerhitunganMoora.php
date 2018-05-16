@@ -32,8 +32,9 @@ class PerhitunganMoora extends Controller
         'kriteria'=>$kriteria,
         'nilai'=>$rows
       ];
-      return view('admin/Pmoora1')->with($data);
+      //return view('admin/Pmoora1')->with($data);
       //print_r($rows);
+
      }
      public function ujicobaarray(){
        $rows[0][0]=1;
