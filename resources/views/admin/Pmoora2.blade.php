@@ -1,6 +1,6 @@
 @extends('layouts.layoutadmin')
 @section('title')
-  Hasil Analisa
+  Hasil Normalisasi
 @endsection
       @section('body')
         <div class="content mt-3">
@@ -9,7 +9,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Data Analisa Nilai</strong>
+                            <strong class="card-title">Data Normalisasi Nilai</strong>
                         </div>
                         <div class="card-body">
                           <font size="1">

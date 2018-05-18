@@ -30,10 +30,41 @@ class PerhitunganMoora extends Controller
       }
       $data = [
         'kriteria'=>$kriteria,
-        'nilai'=>$rows
+        'nilai'=>$rows,
+        'id'=>$nim
       ];
-      //return view('admin/Pmoora1')->with($data);
+
+      // foreach ($rows as $key => $value) {
+      //   echo $value['1'];
+      //   return $value;
+      // }
+      // $a = $rows['21120114120003']['11'];
+      // return $a;
+      return view('admin/Pmoora1')->with($data);
       //print_r($rows);
+
+     }
+     public function PerhitunganHasilNormalisasi(){
+       $kriteria = kriteria::select('id','kriteria')->get();
+       $nilaimahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->get();
+       $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
+       $a = datamahasiswa::count();
+
+       $datamahasiswa = datamahasiswa::select('nim')->get();
+
+
+       foreach ($nilaimahasiswa as $key => $value) {
+         $name1 = $value->nim;
+         $name2 = $value->id_kriteria;
+
+         $rows[$name1][$name2]=$value->nilai;
+       }
+       $data = [
+         'kriteria'=>$kriteria,
+         'nilai'=>$rows,
+         'id'=>$nim
+       ];
+       return view('admin/Pmoora2')->with($data);
 
      }
      public function ujicobaarray(){

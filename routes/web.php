@@ -65,6 +65,7 @@ Route::Group([
         'prefix'=>'perhitungan'
       ],function(){
         Route::get('perhitunga1','PerhitunganMoora@PerhitunganHasilAnalisaData')->name('perhitungan1');
+        Route::get('perhitunga2','PerhitunganMoora@PerhitunganHasilNormalisasi')->name('perhitungan2');
       });
       Route::Group([
         'prefix'=>'softdelete',
