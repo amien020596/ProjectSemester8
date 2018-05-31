@@ -19,16 +19,18 @@
 
                                   <th class="text-center">NIM</th>
                                   @foreach ($kriteria as $key => $value)
-                                  <th class="text-center">{{$value->kriteria}}</th>
+                                  <th class="text-center">{{$value["kriteria"]}}</th>
                                   @endforeach
                                 </tr>
                               </thead>
                               <tbody>
                                 @foreach ($id as $key => $nim)
+
                                   <tr>
                                       <td class="text-center">{{$nim->nim}}</td>
                                       @foreach ($kriteria as $key => $value)
-                                      <td class="text-center">{{$nilai["$nim->nim"]["$value->id"]}}</td>
+                                      <td class="text-center">{{str_limit($nilai["$nim->nim"]["$value->id"],5)}}</td>
+                                      {{-- <td class="text-center">{{$nilai["$nim->nim"]["$value->id"]}}</td> --}}
                                       @endforeach
                                   </tr>
                                 @endforeach

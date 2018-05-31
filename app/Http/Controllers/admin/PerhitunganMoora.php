@@ -40,6 +40,7 @@ class PerhitunganMoora extends Controller
       // }
       // $a = $rows['21120114120003']['11'];
       // return $a;
+      //return $nim;
       return view('admin/Pmoora1')->with($data);
       //print_r($rows);
 
@@ -52,18 +53,63 @@ class PerhitunganMoora extends Controller
 
        $datamahasiswa = datamahasiswa::select('nim')->get();
 
-
        foreach ($nilaimahasiswa as $key => $value) {
          $name1 = $value->nim;
          $name2 = $value->id_kriteria;
 
          $rows[$name1][$name2]=$value->nilai;
+
        }
+
+       $results = array();
+       foreach ($kriteria as $id) {
+         $k = array();
+         foreach ($rows as $krit) {
+           array_push($k, $krit[$id->id]);
+         }
+         array_push($results, $k);
+         unset($k);
+       }
+
+       $hasil = array();
+       foreach ($results as $key => $value) {
+         $index = $key+1;
+         $hasil["kriteria$index"] = sqrt(pow(array_sum($value),2));
+          // $hasil["kriteria$key"] = sqrt(pow(array_sum($value),2));
+       }
+      // foreach ($kriteria as $id) {
+
+        // $contain = array();
+         // foreach ($nilaimahasiswa as $key => $nilai) {
+           // $b["data$nilai->id_kriteria"] = $rows;
+            // foreach ($nilai->nim as $key => $value) {
+            //   $count = $key+1;
+            //   $b["index$count"] = $rows["$value"][$nilai->id_kriteria];
+            //   array_push($contain, $b);
+            // }
+            // array_push($contain, $b);
+         // }
+       // }
+       foreach ($nilaimahasiswa as $key => $value) {
+         $name1 = $value->nim;
+         $name2 = $value->id_kriteria;
+
+         $hasilnormalisasi[$name1][$name2]=$rows[$name1][$name2]/$hasil["kriteria$value->id_kriteria"];
+
+       }
+
+
        $data = [
          'kriteria'=>$kriteria,
-         'nilai'=>$rows,
+         'nilai'=>$hasilnormalisasi,
          'id'=>$nim
        ];
+      //  return $rows;
+       // print_r($results);
+       //return($hasilnormalisasi);
+       // print_r($hasil);
+// return $nim;
+    // $lol["$value->id"][] = $rows["$value->nim"][""] / ;
        return view('admin/Pmoora2')->with($data);
 
      }
