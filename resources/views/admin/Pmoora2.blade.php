@@ -29,7 +29,7 @@
                                   <tr>
                                       <td class="text-center">{{$nim->nim}}</td>
                                       @foreach ($kriteria as $key => $value)
-                                      <td class="text-center">{{str_limit($nilai["$nim->nim"]["$value->id"],5)}}</td>
+                                      <td class="text-center">{{number_format($nilai["$nim->nim"]["$value->id"],5)}}</td>
                                       {{-- <td class="text-center">{{$nilai["$nim->nim"]["$value->id"]}}</td> --}}
                                       @endforeach
                                   </tr>
