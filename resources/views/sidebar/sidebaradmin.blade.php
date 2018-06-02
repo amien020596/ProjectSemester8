@@ -46,7 +46,8 @@
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('perhitungan1')}}">Perhitungan 1</a></li>
                         <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('perhitungan2')}}">Perhitungan 2</a></li>
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Perhitungan 3</a></li>
+                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('perhitungan3')}}">Perhitungan 3</a></li>
+                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('perhitungan4')}}">Perhitungan 4</a></li>
                     </ul>
                 </li>
                 <h3 class="menu-title">Soft Delete</h3><!-- /.menu-title -->
