@@ -14,7 +14,7 @@ class CreateDatamahasiswasTable extends Migration
     public function up()
     {
         Schema::create('datamahasiswas', function (Blueprint $table) {
-            $table->bigIncrements('nim');
+            $table->bigInteger('nim',20)->unsigned();
             $table->string('nama');
             $table->unsignedInteger('id_fakultas');
             $table->foreign('id_fakultas')->references('id')->on('datafakultas');

@@ -56,6 +56,19 @@ Route::Group([
         'prefix'=>'mahasiswa'
     ],function(){
         Route::get('/mahasiswa','adminMahasiswasetting@index')->name('view-mahasiswa');
+        Route::get('/insert/mahasiswa','adminMahasiswasetting@create')->name('insert-mahasiswa');
+        Route::post('/store/mahasiswa','adminMahasiswasetting@store')->name('store-mahasiswa');
+        Route::post('/show/mahasiswa/{id}','adminMahasiswasetting@show')->name('show-mahasiswa');
+        Route::get('/json-fakultas','adminMahasiswasetting@selectfakultas')->name('json-fakultas');
+      });
+      Route::Group([
+        'prefix'=>'perhitungan'
+      ],function(){
+        Route::get('perhitungan1','PerhitunganMoora@PerhitunganHasilAnalisaData')->name('perhitungan1');
+        Route::get('perhitungan2','PerhitunganMoora@PerhitunganHasilNormalisasi')->name('perhitungan2');
+        Route::get('perhitungan3','PerhitunganMoora@nilaioptimasiterbobot')->name('perhitungan3');
+        Route::get('perhitungan4','PerhitunganMoora@nilaioptimasiterbobotYi')->name('perhitungan4');
+        Route::get('perhitungan5','PerhitunganMoora@nilairating')->name('perhitungan5');
       });
       Route::Group([
         'prefix'=>'softdelete',

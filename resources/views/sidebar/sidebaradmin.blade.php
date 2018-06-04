@@ -19,7 +19,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Data Mahasiswa</a>
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="fa fa-puzzle-piece"></i><a href="{{route('view-mahasiswa')}}">Lihat Data</a></li>
-                        <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Tambah Data</a></li>
+                        <li><i class="fa fa-puzzle-piece"></i><a href="{{route('insert-mahasiswa')}}">Tambah Data</a></li>
                     </ul>
                 </li>
                 <h3 class="menu-title">Kriteria</h3><!-- /.menu-title -->
@@ -44,9 +44,11 @@
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Perhitungan Moora</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Perhitungan 1</a></li>
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Perhitungan 2</a></li>
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Perhitungan 3</a></li>
+                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('perhitungan1')}}">Perhitungan 1</a></li>
+                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('perhitungan2')}}">Perhitungan 2</a></li>
+                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('perhitungan3')}}">Perhitungan 3</a></li>
+                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('perhitungan4')}}">Perhitungan 4</a></li>
+                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('perhitungan5')}}">Perhitungan 5</a></li>
                     </ul>
                 </li>
                 <h3 class="menu-title">Soft Delete</h3><!-- /.menu-title -->

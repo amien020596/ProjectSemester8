@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateKriteriasTable extends Migration
+class CreateAmiensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateKriteriasTable extends Migration
      */
     public function up()
     {
-        Schema::create('kriterias', function (Blueprint $table) {
+        Schema::create('amiens', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('kriteria');
-            $table->enum('jenis',['cost','benefit']);
-            $table->integer('bobot')->unsigned();
-            $table->SoftDeletes();
+            $table->string('fakultas');
+            $table->string('jurusan');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateKriteriasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kriterias');
+        Schema::dropIfExists('amiens');
     }
 }

@@ -8,7 +8,6 @@
           <div class="row">
   <!-- kita butuh ini -->
 
-
             <div class="col-lg-12">
                       <div class="card">
                         <div class="card-header">
@@ -108,7 +107,7 @@
                         </div>
                         <div class="card-footer">
                           <button type="submit" value="Submit" class="btn btn-primary btn-sm">
-                            <i class="fa fa-dot-circle-o"></i> Update
+                            <i class="fa fa-dot-circle-o"></i> Tambah
                           </button>
                           <button type="reset" value="Reset" class="btn btn-danger btn-sm">
                             <i class="fa fa-ban"></i> Reset

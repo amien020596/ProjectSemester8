@@ -13,5 +13,9 @@ class kriteria extends Model
   protected $fillable = [
       'kriteria', 'bobot', 'jenis'
   ];
+  
+  public function kriteriainput(){
+    return $this->belongsTo('App\kriteria');
+  }
 
 }
