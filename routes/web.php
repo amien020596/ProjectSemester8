@@ -68,6 +68,7 @@ Route::Group([
         Route::get('perhitungan2','PerhitunganMoora@PerhitunganHasilNormalisasi')->name('perhitungan2');
         Route::get('perhitungan3','PerhitunganMoora@nilaioptimasiterbobot')->name('perhitungan3');
         Route::get('perhitungan4','PerhitunganMoora@nilaioptimasiterbobotYi')->name('perhitungan4');
+        Route::get('perhitungan5','PerhitunganMoora@nilairating')->name('perhitungan5');
       });
       Route::Group([
         'prefix'=>'softdelete',

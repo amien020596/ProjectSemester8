@@ -189,4 +189,78 @@ class PerhitunganMoora extends Controller
       return view('admin/Pmoora4')->with($data);
      }
 
+
+     public function nilairating(){
+       $kriteria = kriteria::select('id','kriteria','jenis','bobot')->get();
+       $nilaimahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->get();
+       $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
+
+
+       $datamahasiswa = datamahasiswa::select('nim')->get();
+
+       foreach ($nilaimahasiswa as $key => $value) {
+         $name1 = $value->nim;
+         $name2 = $value->id_kriteria;
+         $rows[$name1][$name2]=$value->nilai;
+       }
+
+       $results = array();
+       foreach ($kriteria as $id) {
+         $k = array();
+         foreach ($rows as $krit) {
+           $a = pow($krit[$id->id],2);
+           array_push($k, $a);
+           unset($a);
+         }
+         array_push($results, $k);
+         unset($k);
+
+       }
+
+       $hasil = array();
+       foreach ($results as $key => $value) {
+         $index = $key+1;
+         $hasil["kriteria$index"] = sqrt(array_sum($value));
+       }
+
+       foreach ($nilaimahasiswa as $key => $value) {
+           $name1 = $value->nim;
+           $name2 = $value->id_kriteria;
+           foreach ($kriteria as $nilaibobot) {
+           $hasilnormalisasiterbobot[$name1][$name2]=($rows[$name1][$name2]/$hasil["kriteria$value->id_kriteria"])*$nilaibobot->bobot;
+         }
+       }
+       foreach ($nilaimahasiswa as $key => $value) {
+         $name1 = $value->nim;
+           foreach ($kriteria as $nilaibobot) {
+           $hasilbobot[$name1]=array_sum($hasilnormalisasiterbobot[$name1]);
+         }
+       }
+
+
+       foreach ($nim as $key => $urutan) {
+         $rating = array();
+         $rating = $hasilbobot;
+         for($i=1;$i==count($rating);$i++){
+           $val = $rating["$urutan->nim"];
+           $j=$i-1;
+           while($j>=0 && $rating["$urutan->nim"]>$val){
+             $rating["$urutan->nim"] = $i;
+             $j--;
+           }
+         }
+       }
+
+       $data = [
+         'kriteria'=>$kriteria,
+         'nilai'=>$hasilnormalisasiterbobot,
+         'id'=>$nim,
+         'bobot'=>$hasilbobot,
+         'rating'=>$rating
+       ];
+       return $hasilbobot;
+      //return view('admin/Pmoora5')->with($data);
+     }
+
+
 }
