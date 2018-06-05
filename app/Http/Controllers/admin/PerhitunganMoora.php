@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\nilai_mahasiswa;
 use App\kriteria;
 use App\datamahasiswa;
+use App\hasilbobot;
+
 class PerhitunganMoora extends Controller
 {
     public function __construct()
@@ -36,6 +38,7 @@ class PerhitunganMoora extends Controller
       return view('admin/Pmoora1')->with($data);
 
      }
+
      public function PerhitunganHasilNormalisasi(){
        $kriteria = kriteria::select('id','kriteria')->get();
        $nilaimahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->get();
@@ -49,7 +52,6 @@ class PerhitunganMoora extends Controller
          $name2 = $value->id_kriteria;
 
          $rows[$name1][$name2]=$value->nilai;
-
        }
 
        $results = array();
@@ -85,6 +87,7 @@ class PerhitunganMoora extends Controller
 
       return view('admin/Pmoora2')->with($data);
      }
+
      public function nilaioptimasiterbobot(){
        $kriteria = kriteria::select('id','kriteria','jenis','bobot')->get();
        $nilaimahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->get();
@@ -185,6 +188,7 @@ class PerhitunganMoora extends Controller
          'id'=>$nim,
          'bobot'=>$hasilbobot
        ];
+
        //return $hasilbobot;
       return view('admin/Pmoora4')->with($data);
      }
@@ -193,8 +197,8 @@ class PerhitunganMoora extends Controller
      public function nilairating(){
        $kriteria = kriteria::select('id','kriteria','jenis','bobot')->get();
        $nilaimahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->get();
-       $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
-
+       // $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
+       $nim = datamahasiswa::select('nim')->get();
 
        $datamahasiswa = datamahasiswa::select('nim')->get();
 
@@ -237,30 +241,30 @@ class PerhitunganMoora extends Controller
          }
        }
 
+       $kuikui = hasilbobot::all();
 
-       foreach ($nim as $key => $urutan) {
-         $rating = array();
-         $rating = $hasilbobot;
-         for($i=1;$i==count($rating);$i++){
-           $val = $rating["$urutan->nim"];
-           $j=$i-1;
-           while($j>=0 && $rating["$urutan->nim"]>$val){
-             $rating["$urutan->nim"] = $i;
-             $j--;
-           }
-         }
+       if(!empty($kuikui)){
+         hasilbobot::truncate();
+         $this->inputhasilbobot($nim,$hasilbobot);
+       }else{
+         $this->inputhasilbobot($nim,$hasilbobot);
        }
 
-       $data = [
-         'kriteria'=>$kriteria,
-         'nilai'=>$hasilnormalisasiterbobot,
-         'id'=>$nim,
-         'bobot'=>$hasilbobot,
-         'rating'=>$rating
+      $hasilbobot = hasilbobot::orderBy('nilai','ASC')->get();
+         $data = [
+         'id'=>$hasilbobot,
        ];
-       return $hasilbobot;
-      //return view('admin/Pmoora5')->with($data);
-     }
+    return view('admin/Pmoora5')->with($data);
+    }
 
+      function inputhasilbobot($nim,$hasilbobot){
 
+        foreach ($nim as $key => $value) {
+          $rating = hasilbobot::create(
+            [
+              'nilai'=>$hasilbobot["$value->nim"],
+              'nim'=>$value->nim
+            ]);
+        }
+      }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAmiensTable extends Migration
+class CreateHasilbobotsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateAmiensTable extends Migration
      */
     public function up()
     {
-        Schema::create('amiens', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('fakultas');
-            $table->string('jurusan');
+        Schema::create('hasilbobots', function (Blueprint $table) {
+            $table->bigInteger('nim',20)->unsigned();
+            $table->Integer('nilai');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateAmiensTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('amiens');
+        Schema::dropIfExists('hasilbobots');
     }
 }

@@ -105,19 +105,19 @@ class DatabaseSeeder extends Seeder
                 array('id_fakultas'=>'11','jurusan'=>'Perikanan Tangkap'),
                 array('id_fakultas'=>'11','jurusan'=>'Teknologin Hasil Perikanan'),
               ]);
-              DB::table('datamahasiswas')->insert([
-                  array('nim'=>'26050117130051','nama'=>'Azmya Sabiya Nasira Raesha','id_fakultas'=>'11','id_jurusan'=>'49'),
-                  array('nim'=>'14020217130085','nama'=>'Assyfa Putri Aura Zaskia','id_fakultas'=>'4','id_jurusan'=>'13'),
-                  array('nim'=>'12010117130167','nama'=>'Azka Zaina Ardiningrum','id_fakultas'=>'1','id_jurusan'=>'3'),
-                  array('nim'=>'13040217130039','nama'=>'Ashalina Yumnaa Naladhipa','id_fakultas'=>'3','id_jurusan'=>'6'),
-                  array('nim'=>'12020117130114','nama'=>'Omar Jannes','id_fakultas'=>'1','id_jurusan'=>'4'),
-                  array('nim'=>'21030117130146','nama'=>'Opal Suwardi','id_fakultas'=>'9','id_jurusan'=>'39'),
-                  array('nim'=>'21070117130123','nama'=>'Almeera Azzahra Alfathunissa','id_fakultas'=>'9','id_jurusan'=>'38'),
-                  array('nim'=>'15000117130127','nama'=>'Orlando Azel','id_fakultas'=>'7','id_jurusan'=>'26'),
-                  array('nim'=>'25000117130168','nama'=>'Osahar Shunnar','id_fakultas'=>'10','id_jurusan'=>'45'),
-                  array('nim'=>'21030117120065','nama'=>'Aqilla Fariza Mufia','id_fakultas'=>'9','id_jurusan'=>'39'),
-                  array('nim'=>'25000117130182','nama'=>'Osaze Alejandro','id_fakultas'=>'10','id_jurusan'=>'45'),
-                ]);
+              // DB::table('datamahasiswas')->insert([
+              //     array('nim'=>'26050117130051','nama'=>'Azmya Sabiya Nasira Raesha','id_fakultas'=>'11','id_jurusan'=>'49'),
+              //     array('nim'=>'14020217130085','nama'=>'Assyfa Putri Aura Zaskia','id_fakultas'=>'4','id_jurusan'=>'13'),
+              //     array('nim'=>'12010117130167','nama'=>'Azka Zaina Ardiningrum','id_fakultas'=>'1','id_jurusan'=>'3'),
+              //     array('nim'=>'13040217130039','nama'=>'Ashalina Yumnaa Naladhipa','id_fakultas'=>'3','id_jurusan'=>'6'),
+              //     array('nim'=>'12020117130114','nama'=>'Omar Jannes','id_fakultas'=>'1','id_jurusan'=>'4'),
+              //     array('nim'=>'21030117130146','nama'=>'Opal Suwardi','id_fakultas'=>'9','id_jurusan'=>'39'),
+              //     array('nim'=>'21070117130123','nama'=>'Almeera Azzahra Alfathunissa','id_fakultas'=>'9','id_jurusan'=>'38'),
+              //     array('nim'=>'15000117130127','nama'=>'Orlando Azel','id_fakultas'=>'7','id_jurusan'=>'26'),
+              //     array('nim'=>'25000117130168','nama'=>'Osahar Shunnar','id_fakultas'=>'10','id_jurusan'=>'45'),
+              //     array('nim'=>'21030117120065','nama'=>'Aqilla Fariza Mufia','id_fakultas'=>'9','id_jurusan'=>'39'),
+              //     array('nim'=>'25000117130182','nama'=>'Osaze Alejandro','id_fakultas'=>'10','id_jurusan'=>'45'),
+              //   ]);
       }
     }
 }
