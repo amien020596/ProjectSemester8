@@ -49,6 +49,7 @@
                         <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('perhitungan3')}}">Perhitungan 3</a></li>
                         <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('perhitungan4')}}">Perhitungan 4</a></li>
                         <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('perhitungan5')}}">Perhitungan 5</a></li>
+                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('print')}}">Print</a></li>
                     </ul>
                 </li>
                 <h3 class="menu-title">Soft Delete</h3><!-- /.menu-title -->

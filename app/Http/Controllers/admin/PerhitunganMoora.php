@@ -7,6 +7,7 @@ use App\nilai_mahasiswa;
 use App\kriteria;
 use App\datamahasiswa;
 use App\hasilbobot;
+use PDF;
 
 class PerhitunganMoora extends Controller
 {
@@ -242,7 +243,6 @@ class PerhitunganMoora extends Controller
        }
 
        $kuikui = hasilbobot::all();
-
        if(!empty($kuikui)){
          hasilbobot::truncate();
          $this->inputhasilbobot($nim,$hasilbobot);
@@ -255,6 +255,19 @@ class PerhitunganMoora extends Controller
          'id'=>$hasilbobot,
        ];
     return view('admin/Pmoora5')->with($data);
+    }
+
+    public function print(){
+      $hasilbobot = hasilbobot::orderBy('nilai','ASC')->get();
+         $data = [
+         'id'=>$hasilbobot,
+       ];
+      $view = \View::make('Print')->with($data);
+      $html_content = $view->render();
+      PDF::SetTitle('Sample PDF');
+      PDF::AddPage();
+      PDF::writeHTML($html_content,true,false,true,false,'');
+      PDF::Output(uniqid().'_SamplePDF.pdf');
     }
 
       function inputhasilbobot($nim,$hasilbobot){

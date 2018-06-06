@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -69,6 +58,7 @@ Route::Group([
         Route::get('perhitungan3','PerhitunganMoora@nilaioptimasiterbobot')->name('perhitungan3');
         Route::get('perhitungan4','PerhitunganMoora@nilaioptimasiterbobotYi')->name('perhitungan4');
         Route::get('perhitungan5','PerhitunganMoora@nilairating')->name('perhitungan5');
+        Route::get('print','PerhitunganMoora@print')->name('print');
       });
       Route::Group([
         'prefix'=>'softdelete',
@@ -85,6 +75,6 @@ Route::Group([
 
 
     Route::get('/setting','AdminController@settingprofile')->name('admin-setting');
-    Route::get('/home', 'AdminController@index')->name('admin-home');
+    Route::get('/home','AdminController@index')->name('admin-home');
     Route::get('/profile','AdminController@profile')->name('admin-profile');
 });
