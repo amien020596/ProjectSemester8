@@ -46,6 +46,8 @@ Route::Group([
     ],function(){
         Route::get('/mahasiswa','adminMahasiswasetting@index')->name('view-mahasiswa');
         Route::get('/insert/mahasiswa','adminMahasiswasetting@create')->name('insert-mahasiswa');
+        Route::post('/destroy/mahasiswa/{id}','adminMahasiswasetting@destroy')->name('destroy-mahasiswa');
+        Route::get('/edit/mahasiswa/{id}','adminMahasiswasetting@edit')->name('edit-mahasiswa');
         Route::post('/store/mahasiswa','adminMahasiswasetting@store')->name('store-mahasiswa');
         Route::post('/show/mahasiswa/{id}','adminMahasiswasetting@show')->name('show-mahasiswa');
         Route::get('/json-fakultas','adminMahasiswasetting@selectfakultas')->name('json-fakultas');

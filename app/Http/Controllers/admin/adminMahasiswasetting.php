@@ -141,7 +141,9 @@ class adminMahasiswasetting extends Controller
      */
     public function edit($id)
     {
-        //
+        $mahasiswa = datamahasiswa::find($id)->first();
+        $data = datafakultas::all();
+        return view('admin.updatemahasiswa')->with('Dmahasiswa',$mahasiswa);
     }
 
     /**
@@ -162,8 +164,14 @@ class adminMahasiswasetting extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
-        //
+      $mahasiswa = datamahasiswa::find($id)->first();
+      if(!isset($mahasiswa)){
+        return redirect()->route('view-mahasiswa')->with('error', 'The NIM does not exist');
+      }
+      $mahasiswa = datamahasiswa::where('nim',$id)->delete();
+      return redirect()->route('view-mahasiswa')->with('success', 'Delete Data Mahasiswa Success');
     }
 }

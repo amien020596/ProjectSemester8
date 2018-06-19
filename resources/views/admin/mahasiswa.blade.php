@@ -31,7 +31,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Data Kriteria</strong>
+                            <strong class="card-title">Data Mahasiswa</strong>
                         </div>
                         <div class="card-body">
                           <font size="2">
@@ -55,20 +55,42 @@
                                     <td class="text-center" >{{$key->jurusan}}</td>
                                     <td class="text-center" >{{$key->fakultas}}</td>
                                     <td style="width:20%;" class="text-center">
-                                      <span data-toggle="tooltip" data-placement="top" title="Detail Surveyor">
+                                      <span data-toggle="tooltip" data-placement="top" title="Detail Data Mahasiswa">
                                       <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$key->nim}}">Detail</button>
                                       </span>
-                                      <span data-toggle="tooltip" data-placement="top" title="Edit Surveyor">
-                                      <a class="btn btn-success btn-sm" href="#">Edit</a>
+                                      <span data-toggle="tooltip" data-placement="top" title="Edit Data Mahasiswa">
+                                      <a class="btn btn-success btn-sm" href="{{route('edit-mahasiswa',['id'=>$key->nim])}}">Edit</a>
                                       </span>
-                                      <span data-toggle="tooltip" data-placement="top" title="Hapus Surveyor">
-                                      <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#ModalHapus{{$key->nim}}">Hapus</button>
+                                      <span data-toggle="tooltip" data-placement="top" title="Hapus Data Mahasiswa">
+                                      <button  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#ModalHapus" data-target-id="{{$key->nim}}" >Hapus</button>
                                       </span>
                                     </td>
                                 </tr>
                                 @endforeach
                               </tbody>
                             </table>
+                            @foreach ($Dmahasiswa as $key)
+                              <div class="modal fade" id="ModalHapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                  <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                          <div class="modal-header">
+                                              <h4 class="modal-title" id="myModalLabel">Hapus Data Mahasiswa</h4>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            Apa Anda Yakin Menghapus Data Mahasiswa {{$key->nama}}?
+                                          </div>
+                                          <div class="modal-footer">
+                                            <form class="" action="{{route('destroy-mahasiswa',['id'=>$key->nim])}}" method="post">
+                                              @csrf
+                                              <button type="submit" name="" class="btn btn-danger">Ya</button>
+                                              <button type="button" class="btn btn-primary" data-dismiss="modal">Tidak</button>
+                                            </form>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                            @endforeach
                           </font>
                         </div>
                     </div>

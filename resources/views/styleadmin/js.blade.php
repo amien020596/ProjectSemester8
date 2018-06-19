@@ -42,4 +42,13 @@
         });
       });
 
+    //   $(document).ready(function(){
+    //     $("#ModalHapus").on("show.bs.modal", function(e) {
+    //         var id = $(e.relatedTarget).data('target-id');
+    //         $.get( "/controller/" + id, function( data ) {
+    //             $(".modal-body").html(data.html);
+    //         });
+    //
+    //     });
+    // });
     </script>

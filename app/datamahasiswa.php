@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class datamahasiswa extends Model
 {
+  protected $primaryKey = 'nim';
+  public $incrementing = false;
+
   protected $fillable = [
       'nim', 'nama', 'id_fakultas','id_jurusan'
   ];

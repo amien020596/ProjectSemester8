@@ -16,9 +16,9 @@ class CreateNilaiMahasiswasTable extends Migration
         Schema::create('nilai_mahasiswas', function (Blueprint $table) {
             $table->increments('id');
             $table->bigInteger('nim')->unsigned();
-            $table->foreign('nim')->references('nim')->on('datamahasiswas');
+            $table->foreign('nim')->references('nim')->on('datamahasiswas')->onDelete('cascade');
             $table->unsignedInteger('id_kriteria');
-            $table->foreign('id_kriteria')->references('id')->on('kriterias');
+            $table->foreign('id_kriteria')->references('id')->on('kriterias')->onDelete('cascade');
             $table->unsignedInteger('nilai');
             $table->unsignedInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users');
