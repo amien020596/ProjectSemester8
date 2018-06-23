@@ -23,19 +23,19 @@
             <div class="col-lg-12">
                       <div class="card">
                         <div class="card-header">
-                          <strong>Tambah</strong> Mahasiswa
+                          <strong>Ubah Data</strong> Mahasiswa
                         </div>
                         <div class="card-body card-block">
-                          <form class="" action="{{route('store-mahasiswa')}}" method="post">
+                          <form class="" action="{{route('update-mahasiswa',['id'=>$mahasiswa->nim])}}" method="post">
                             {{csrf_field()}}
                             <div class="form-group">
                               <label for="">Nama Mahasiswa</label>
-                              <input type="text" class="form-control" id="" value="{{ old('nama') }}" name="nama" placeholder="Nama Mahasiswa">
+                              <input type="text" class="form-control" id="" value="{{$mahasiswa->nama}}" name="nama" placeholder="Nama Mahasiswa">
                               @if($errors->has('nama'))<p class="help-block text text-danger">*{{$errors->first('nama')}}</p>@endif
                             </div>
                             <div class="form-group">
                               <label for="">NIM</label>
-                              <input type="number" class="form-control" id="" value="{{ old('nim') }}" name="nim" placeholder="NIM">
+                              <input type="number" class="form-control" id="" value="{{ $mahasiswa->nim }}" name="nim" placeholder="NIM">
                               @if($errors->has('nim'))<p class="help-block text text-danger">*{{$errors->first('nim')}}</p>@endif
                             </div>
                             <div class="form-group">
@@ -56,11 +56,13 @@
                               </select>
                             </div>
                             <div class="row">
-                              @foreach ($Dkritria as $key => $value)
+                              <?php use App\Http\Controllers\admin\adminMahasiswasetting; ?>
+                              @foreach ($kriteria as $key => $value)
                               <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="">{{$value->kriteria}}</label>
-                                  <input type="text" onkeypress="javascript:return isNumber(event)" required class="form-control" id="tbNumbers" value="{{ old($value->id) }}" name="{{$value->id}}" placeholder="{{$value->kriteria}}">
+                                  <?php $a = adminMahasiswasetting::ambilnilai($mahasiswa->nim,$value->id); ?>
+                                  <input type="text" onkeypress="javascript:return isNumber(event)" required class="form-control" id="tbNumbers" value="{{ $a['nilai'] }}" name="{{$value->id}}" placeholder="{{$value->kriteria}}">
                                 </div>
                               </div>
                                 @endforeach
@@ -68,7 +70,7 @@
                           </div>
                           <div class="card-footer">
                             <button type="submit" value="Submit" class="btn btn-primary btn-sm">
-                              <i class="fa fa-dot-circle-o"></i> Tambah
+                              <i class="fa fa-dot-circle-o"></i> Update
                             </button>
                             <button type="reset" value="Reset" class="btn btn-danger btn-sm">
                               <i class="fa fa-ban"></i> Reset

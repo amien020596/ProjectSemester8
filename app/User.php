@@ -35,6 +35,7 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\user_profile');
     }
+    
     public function userinput()
     {
         return $this->belongsTo('App\nilai_mahasiswa');

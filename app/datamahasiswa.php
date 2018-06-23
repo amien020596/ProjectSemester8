@@ -18,7 +18,8 @@ class datamahasiswa extends Model
   public function jurusan(){
     return $this->hasOne('App\datajurusan');
   }
-  public function mahasiswainput(){
-    return $this->belongsTo('App\nilai_mahasiswa');
+  public function nilaiMahasiswa(){
+    return $this->hasMany('App\nilai_mahasiswa','nim');
   }
+
 }

@@ -76,7 +76,7 @@ class adminMahasiswasetting extends Controller
       $datamahasiswa = datamahasiswa::where('nim', $request->nim)->first();
 
       if($datamahasiswa || $request->nim == null){
-        return redirect()->route('insert-mahasiswa')->with('error', 'The NIM Already Used or NIM no Null');
+        return redirect()->route('insert-mahasiswa')->with('error', 'The NIM Already Used or NIM Null');
       }
 
       if($request->fakultas == 0){
@@ -139,13 +139,29 @@ class adminMahasiswasetting extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($nim)
     {
-        $mahasiswa = datamahasiswa::find($id)->first();
-        $data = datafakultas::all();
-        return view('admin.updatemahasiswa')->with('Dmahasiswa',$mahasiswa);
+        $mahasiswa = datamahasiswa::find($nim)->first();
+        $fakultas = datafakultas::all();
+        $kriteria = kriteria::all();
+        $data = [
+          'mahasiswa'=>$mahasiswa,
+          'Dfakultas'=>$fakultas,
+          'kriteria'=>$kriteria
+        ];
+        return view('admin.updatemahasiswa')->with($data);
     }
 
+  public static function ambilnilai($nim,$id_kriteria){
+    $nilai = nilai_mahasiswa::select('nilai')->where('id_kriteria','=',$id_kriteria)->where('nim','=',$nim)->first();
+      return $nilai;
+      //1. gimana caranya ngjoin menggunakan leftjoin jika kriteria ada tapi nilai Null
+        //SELECT nilai_mahasiswas.id_kriteria, nilai_mahasiswas.nilai, kriterias.kriteria
+        // FROM kriterias
+        // LEFT JOIN nilai_mahasiswas
+        // ON nilai_mahasiswas.id_kriteria = kriterias.id
+      //2. gimana caranya membuat query diatas menjadi eloquent agar softdelete tidak kebaca
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -155,7 +171,63 @@ class adminMahasiswasetting extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $validator = Validator::make($request->all(), [
+            'nama'=>'required',
+            'nim'=>'required',
+            'fakultas'=>'required',
+            'jurusan'=>'required'
+        ]);
+
+      if ($validator->fails()) {
+          return redirect()->back()
+                      ->withErrors($validator)
+                      ->withInput();
+      }
+
+            if($request->fakultas == 0){
+              return redirect()->route('edit-mahasiswa',['id'=>$id])->with('error', 'Kolom Fakultas Tidak Boleh Kosong');
+            }
+
+            if($request->jurusan == 0){
+              return redirect()->route('edit-mahasiswa',['id'=>$id])->with('error', 'Kolom Jurusan Tidak Boleh Kosong');
+            }
+            $s=8;
+            if($request->$s >= 5){
+              return redirect()->route('edit-mahasiswa',['id'=>$id])->with('error', 'Nilai Kolom HM Rumah Tidak lebih dari 4 ');
+            }
+            $s=11;
+            if($request->$s >= 4){
+              return redirect()->route('edit-mahasiswa',['id'=>$id])->with('error', 'Nilai Kolom Dinding Tidak Lebih dari 3 ');
+            }
+
+            $datamahasiswa = datamahasiswa::where('nim', $id)->update([
+              'nim'=>$request->nim,
+              'nama'=>$request->nama,
+              'id_fakultas'=>$request->fakultas,
+              'id_jurusan'=>$request->jurusan
+            ]);
+
+            $nilaiforceDelete = nilai_mahasiswa::where('nim',$id)->forceDelete();
+            $kriteria = kriteria::all();
+            foreach ($kriteria as $key => $value) {
+              $a = $value->id;
+              if($request->$a == null){
+                $request->$a = 0;
+              }
+
+              $nilai = nilai_mahasiswa::create([
+              'id_kriteria'=>$value->id,
+              'nilai'=>$request->$a,
+              'nim'=>$request->nim,
+              'id_user'=>Auth::user()->id
+              ]);
+            }
+
+            if($datamahasiswa != True || $nilai != True){
+              //ini perlu diperbaiki lagi
+              return redirect()->route('view-mahasiswa')->with('error', 'Insert Data Mahasiswa Failed');
+            }
+            return redirect()->route('view-mahasiswa')->with('success', 'Insert Data Mahasiswa Success');
     }
 
     /**
