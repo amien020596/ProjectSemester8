@@ -2239,4 +2239,10 @@ header .form-inline {
 .modal-backdrop{
   display: none;
 }
+.row1{
+  background-color:#6497b1;
+}
+.row2{
+  background-color: #b3cde0;
+}
 /*# sourceMappingURL=style.css.map */

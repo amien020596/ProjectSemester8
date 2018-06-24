@@ -34,14 +34,14 @@ class PerhitunganMoora extends Controller
          $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
 
          $hasilnormalisasi = $this->HasilNormalisasi($kriteria, $nilaimahasiswa);
-
-         $data = [
-           'kriteria'=>$kriteria,
-           'nilai'=>$hasilnormalisasi,
-           'id'=>$nim
-         ];
-
-        return view('admin/Pmoora2')->with($data);
+         return $hasilnormalisasi;
+        //  $data = [
+        //    'kriteria'=>$kriteria,
+        //    'nilai'=>$hasilnormalisasi,
+        //    'id'=>$nim
+        //  ];
+        //
+        // return view('admin/Pmoora2')->with($data);
        }
       public function nilaioptimasiterbobot(){
          $kriteria = kriteria::select('id','kriteria','jenis','bobot')->get();
@@ -156,12 +156,15 @@ class PerhitunganMoora extends Controller
         return $rows;
       }
       function HasilNormalisasi($kriteria, $nilaimahasiswa ){
+
                foreach ($nilaimahasiswa as $key => $value) {
                  $name1 = $value->nim;
                  $name2 = $value->id_kriteria;
                  $rows[$name1][$name2]=$value->nilai;
                }
+
                $results = array();
+
                foreach ($kriteria as $id) {
                  $k = array();
                  foreach ($rows as $krit) {
@@ -172,16 +175,25 @@ class PerhitunganMoora extends Controller
                  unset($k);
                  unset($a);
                }
+
                $hasil = array();
+
+
+               //return $results;
                foreach ($results as $key => $value) {
                  $index = $key+1;
                  $hasil["kriteria$index"] = sqrt(array_sum($value));
+                 //$hasil["kriteria$index"] = array_sum($value);
                }
+               return $hasil;
+
+
                foreach ($nilaimahasiswa as $key => $value) {
                  $name1 = $value->nim;
                  $name2 = $value->id_kriteria;
                  $hasilnormalisasi[$name1][$name2]=$rows[$name1][$name2]/$hasil["kriteria$value->id_kriteria"];
                }
+
              return $hasilnormalisasi;
       }
       function inputhasilbobot($nim,$hasilbobot){

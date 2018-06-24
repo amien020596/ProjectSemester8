@@ -48,6 +48,7 @@ Route::Group([
         Route::get('/insert/mahasiswa','adminMahasiswasetting@create')->name('insert-mahasiswa');
         Route::post('/destroy/mahasiswa/{id}','adminMahasiswasetting@destroy')->name('destroy-mahasiswa');
         Route::get('/edit/mahasiswa/{id}','adminMahasiswasetting@edit')->name('edit-mahasiswa');
+        Route::get('/detail/mahasiswa/{id}','adminMahasiswasetting@show')->name('detail-mahasiswa');
         Route::post('/update/mahasiswa/{id}','adminMahasiswasetting@update')->name('update-mahasiswa');
         Route::post('/store/mahasiswa','adminMahasiswasetting@store')->name('store-mahasiswa');
         Route::post('/show/mahasiswa/{id}','adminMahasiswasetting@show')->name('show-mahasiswa');

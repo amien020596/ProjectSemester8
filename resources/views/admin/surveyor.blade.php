@@ -159,9 +159,9 @@
 
                   <div class="form-group container">
                     <div class="row">
-                      <label class="col-md-2">email</label>
+                      <label class="col-md-2">foto</label>
                       <div class="col-md-10">
-                        <img src="https://i1.sndcdn.com/avatars-000145481005-8x4evx-t500x500.jpg" alt="" width="150px">
+                        <img src="{{asset('storage/'.$key->picture)}}" alt="" width="150px">
                       </div>
                     </div>
                   </div>

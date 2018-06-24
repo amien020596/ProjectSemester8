@@ -1,6 +1,6 @@
 @extends('layouts.layoutadmin')
 @section('title')
-  Tembah Mahasiswa
+  Tambah Data Mahasiswa
 @endsection
 @section('body')
   <div class="content mt-3">

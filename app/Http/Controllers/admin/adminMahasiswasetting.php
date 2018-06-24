@@ -128,9 +128,19 @@ class adminMahasiswasetting extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($nim)
     {
-
+      $mahasiswa = datamahasiswa::find($nim)->first();
+      $fakultas = datafakultas::find($mahasiswa->id_fakultas)->select('fakultas')->first();
+      $jurusan = datajurusan::find($mahasiswa->id_jurusan)->select('jurusan')->first();
+      $kriteria = kriteria::all();
+      $data = [
+        'mahasiswa'=>$mahasiswa,
+        'Dfakultas'=>$fakultas,
+        'Djurusan'=>$jurusan,
+        'kriteria'=>$kriteria
+      ];
+      return view('admin.detailmahasiswa')->with($data);
     }
 
     /**
@@ -155,12 +165,6 @@ class adminMahasiswasetting extends Controller
   public static function ambilnilai($nim,$id_kriteria){
     $nilai = nilai_mahasiswa::select('nilai')->where('id_kriteria','=',$id_kriteria)->where('nim','=',$nim)->first();
       return $nilai;
-      //1. gimana caranya ngjoin menggunakan leftjoin jika kriteria ada tapi nilai Null
-        //SELECT nilai_mahasiswas.id_kriteria, nilai_mahasiswas.nilai, kriterias.kriteria
-        // FROM kriterias
-        // LEFT JOIN nilai_mahasiswas
-        // ON nilai_mahasiswas.id_kriteria = kriterias.id
-      //2. gimana caranya membuat query diatas menjadi eloquent agar softdelete tidak kebaca
     }
     /**
      * Update the specified resource in storage.
@@ -225,9 +229,9 @@ class adminMahasiswasetting extends Controller
 
             if($datamahasiswa != True || $nilai != True){
               //ini perlu diperbaiki lagi
-              return redirect()->route('view-mahasiswa')->with('error', 'Insert Data Mahasiswa Failed');
+              return redirect()->route('view-mahasiswa')->with('error', 'Update Data Mahasiswa Failed');
             }
-            return redirect()->route('view-mahasiswa')->with('success', 'Insert Data Mahasiswa Success');
+            return redirect()->route('view-mahasiswa')->with('success', 'Update Data Mahasiswa Success');
     }
 
     /**

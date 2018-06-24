@@ -56,7 +56,7 @@
                                     <td class="text-center" >{{$key->fakultas}}</td>
                                     <td style="width:20%;" class="text-center">
                                       <span data-toggle="tooltip" data-placement="top" title="Detail Data Mahasiswa">
-                                      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter{{$key->nim}}">Detail</button>
+                                      <a class="btn btn-info btn-sm" href="{{route('detail-mahasiswa',['id'=>$key->nim])}}">Detail</a>
                                       </span>
                                       <span data-toggle="tooltip" data-placement="top" title="Edit Data Mahasiswa">
                                       <a class="btn btn-success btn-sm" href="{{route('edit-mahasiswa',['id'=>$key->nim])}}">Edit</a>
