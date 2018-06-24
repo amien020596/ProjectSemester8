@@ -9,17 +9,29 @@ Auth::routes();
 Route::Group([
     'namespace'=>'surveyor'
   ],function(){
-
     Route::get('/home', 'surveyorController@index')->name('home');
     Route::get('/surveyor/home','SurveyorController@index');
+    Route::Group([
 
+      'prefix'=>'surveyor'
+        ],function(){
+            Route::get('/mahasiswa','surveyormahasiswasetting@index')->name('view-mahasiswa-surveyor');
+            Route::get('/insert/mahasiswa','surveyormahasiswasetting@create')->name('insert-mahasiswa-surveyor');
+            // Route::post('/destroy/mahasiswa/{id}','adminMahasiswasetting@destroy')->name('destroy-mahasiswa');
+            // Route::get('/edit/mahasiswa/{id}','adminMahasiswasetting@edit')->name('edit-mahasiswa');
+            // Route::get('/detail/mahasiswa/{id}','adminMahasiswasetting@show')->name('detail-mahasiswa');
+            // Route::post('/update/mahasiswa/{id}','adminMahasiswasetting@update')->name('update-mahasiswa');
+            Route::post('/store/mahasiswa','surveyormahasiswasetting@store')->name('store-mahasiswa-surveyor');
+            // Route::post('/show/mahasiswa/{id}','adminMahasiswasetting@show')->name('show-mahasiswa');
+            Route::get('/json-fakultas','surveyormahasiswasetting@selectfakultas')->name('json-fakultas');
+          });
 });
 
 Route::Group([
       'prefix'=>'admin',
       'namespace'=>'admin'
     ],function(){
-    //Route untuk Setting Surveyor
+
         Route::Group([
           'prefix'=>'surveyor',
       ],function(){
@@ -79,6 +91,6 @@ Route::Group([
 
 
     Route::get('/setting','AdminController@settingprofile')->name('admin-setting');
-    Route::get('/home','AdminController@index')->name('admin-home');
+    Route::get('/admin-home','AdminController@index')->name('admin-home');
     Route::get('/profile','AdminController@profile')->name('admin-profile');
 });

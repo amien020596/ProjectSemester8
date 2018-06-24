@@ -156,7 +156,6 @@ class PerhitunganMoora extends Controller
         return $rows;
       }
       function HasilNormalisasi($kriteria, $nilaimahasiswa ){
-
                foreach ($nilaimahasiswa as $key => $value) {
                  $name1 = $value->nim;
                  $name2 = $value->id_kriteria;
@@ -174,30 +173,24 @@ class PerhitunganMoora extends Controller
                  array_push($results, $k);
                  unset($k);
                  unset($a);
-               }
-
-               $hasil = array();
-
-
-               //return $results;
-               foreach ($results as $key => $value) {
+               } 
+              $hasil = array
+               foreach ($results as $key => $value){
                  $index = $key+1;
                  $hasil["kriteria$index"] = sqrt(array_sum($value));
                  //$hasil["kriteria$index"] = array_sum($value);
                }
                return $hasil;
 
-
                foreach ($nilaimahasiswa as $key => $value) {
                  $name1 = $value->nim;
                  $name2 = $value->id_kriteria;
                  $hasilnormalisasi[$name1][$name2]=$rows[$name1][$name2]/$hasil["kriteria$value->id_kriteria"];
                }
-
              return $hasilnormalisasi;
       }
-      function inputhasilbobot($nim,$hasilbobot){
 
+      function inputhasilbobot($nim,$hasilbobot){
           foreach ($nim as $key => $value) {
             $rating = hasilbobot::create(
               [
