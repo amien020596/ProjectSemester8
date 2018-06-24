@@ -10,7 +10,7 @@ class datamahasiswa extends Model
   public $incrementing = false;
 
   protected $fillable = [
-      'nim', 'nama', 'id_fakultas','id_jurusan'
+      'nim', 'nama', 'id_fakultas','id_jurusan','id_user'
   ];
   public function fakultas1(){
     return $this->hasOne('App\datafakultas');

@@ -26,7 +26,8 @@ class surveyormahasiswasetting extends Controller
      }
     public function index()
     {
-        return "ini liat mahasiswa di surveyor";
+      $mahasiswa = DB::table('datamahasiswas')->where('id_user','=', Auth::user()->id)->select('datamahasiswas.nim','datamahasiswas.nama','datajurusans.jurusan','datafakultas.fakultas')->join('datafakultas','datamahasiswas.id_fakultas','=','datafakultas.id')->join('datajurusans', 'datamahasiswas.id_jurusan', '=', 'datajurusans.id')->get();
+        return view('surveyor.viewmahasiswa')->with('Dmahasiswa',$mahasiswa);
     }
 
     /**
@@ -94,7 +95,8 @@ class surveyormahasiswasetting extends Controller
             'nim'=>$request->nim,
             'nama'=>$request->nama,
             'id_fakultas'=>$request->fakultas,
-            'id_jurusan'=>$request->jurusan
+            'id_jurusan'=>$request->jurusan,
+            'id_user'=>Auth::user()->id
           ]);
 
           foreach ($kriteria as $key => $value) {

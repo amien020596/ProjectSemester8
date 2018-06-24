@@ -64,7 +64,8 @@ class adminMahasiswasetting extends Controller
               'nama'=>'required',
               'nim'=>'required',
               'fakultas'=>'required',
-              'jurusan'=>'required'
+              'jurusan'=>'required',
+
           ]);
 
         if ($validator->fails()) {
@@ -99,7 +100,8 @@ class adminMahasiswasetting extends Controller
             'nim'=>$request->nim,
             'nama'=>$request->nama,
             'id_fakultas'=>$request->fakultas,
-            'id_jurusan'=>$request->jurusan
+            'id_jurusan'=>$request->jurusan,
+            'id_user'=>Auth::user()->id
           ]);
 
           foreach ($kriteria as $key => $value) {
