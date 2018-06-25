@@ -26,7 +26,8 @@
     <div class="admin-menu">
       <h5 class="sidenav-heading">Setting Profile</h5>
       <ul id="side-admin-menu" class="side-menu list-unstyled">
-        <li> <a href="#"> <i class="fa fa-bar-chart"></i>Password</a></li>
+        <li> <a href="{{route('profile-mahasiswa-surveyor')}}"> <i class="fa fa-bar-chart"></i>Profile Surveyor</a></li>
+        <li> <a href="{{route('password-mahasiswa-surveyor')}}"> <i class="fa fa-bar-chart"></i>Password</a></li>
       </ul>
     </div>
   </div>

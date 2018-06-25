@@ -19,7 +19,9 @@ Route::Group([
             Route::get('/insert/mahasiswa','surveyormahasiswasetting@create')->name('insert-mahasiswa-surveyor');
             // Route::post('/destroy/mahasiswa/{id}','adminMahasiswasetting@destroy')->name('destroy-mahasiswa');
             // Route::get('/edit/mahasiswa/{id}','adminMahasiswasetting@edit')->name('edit-mahasiswa');
-            // Route::get('/detail/mahasiswa/{id}','adminMahasiswasetting@show')->name('detail-mahasiswa');
+            Route::get('/profile/mahasiswa/','surveyormahasiswasetting@settingprofile')->name('profile-mahasiswa-surveyor');
+            Route::get('/password/mahasiswa/','surveyormahasiswasetting@settingpassword')->name('password-mahasiswa-surveyor');
+            Route::post('/password/mahasiswa/{id}','surveyormahasiswasetting@storepassword')->name('savepassword-mahasiswa-surveyor');
             // Route::post('/update/mahasiswa/{id}','adminMahasiswasetting@update')->name('update-mahasiswa');
             Route::post('/store/mahasiswa','surveyormahasiswasetting@store')->name('store-mahasiswa-surveyor');
             // Route::post('/show/mahasiswa/{id}','adminMahasiswasetting@show')->name('show-mahasiswa');

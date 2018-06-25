@@ -10,6 +10,7 @@ use App\datajurusan;
 use App\kriteria;
 use App\datamahasiswa;
 use App\nilai_mahasiswa;
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use Auth;
@@ -117,6 +118,40 @@ class surveyormahasiswasetting extends Controller
             return redirect()->route('insert-mahasiswa-surveyor')->with('error', 'Insert Data Mahasiswa Failed');
           }
           return redirect()->route('view-mahasiswa-surveyor')->with('success', 'Insert Data Mahasiswa Success');
+    }
+    public function settingpassword(){
+      return view('surveyor.passwordsetting');
+    }
+    public function storepassword(Request $request){
+
+      $validator = Validator::make($request->all(), [
+            'password'=>'required|confirmed|min:6'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $users = User::where('id', Auth::user()->id)->first();
+
+        if(!isset($users)){
+          return redirect()->route('password-mahasiswa-surveyor')->with('error', 'The id does not exist');
+        }
+
+        $user = User::where('id',Auth::user()->id);
+        $user->update([
+          'password'=>bcrypt($request->password)
+        ]);
+
+        if($user == false){
+              return redirect()->route('password-mahasiswa-surveyor')->with('error', 'Update Password Surveyor Surveyor Failed');
+        }
+        return redirect()->route('password-mahasiswa-surveyor')->with('success', 'Update Password Surveyor Success');
+    }
+    public function settingprofile(){
+      // $userprofile = 
+      return view('surveyor.profilesetting');
     }
 
     /**
