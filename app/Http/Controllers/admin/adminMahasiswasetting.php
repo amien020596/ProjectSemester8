@@ -164,11 +164,11 @@ class adminMahasiswasetting extends Controller
         return view('admin.updatemahasiswa')->with($data);
     }
 
-  public static function ambilnilai($nim,$id_kriteria){
-    $nilai = nilai_mahasiswa::select('nilai')->where('id_kriteria','=',$id_kriteria)->where('nim','=',$nim)->first();
-      return $nilai;
-    }
-    /**
+    public static function ambilnilai($nim,$id_kriteria){
+      $nilai = nilai_mahasiswa::select('nilai')->where('id_kriteria','=',$id_kriteria)->where('nim','=',$nim)->first();
+        return $nilai;
+      }
+      /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

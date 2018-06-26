@@ -10,6 +10,7 @@ use App\datajurusan;
 use App\kriteria;
 use App\datamahasiswa;
 use App\nilai_mahasiswa;
+use App\user_profile;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Validator;
@@ -27,8 +28,13 @@ class surveyormahasiswasetting extends Controller
      }
     public function index()
     {
-      $mahasiswa = DB::table('datamahasiswas')->where('id_user','=', Auth::user()->id)->select('datamahasiswas.nim','datamahasiswas.nama','datajurusans.jurusan','datafakultas.fakultas')->join('datafakultas','datamahasiswas.id_fakultas','=','datafakultas.id')->join('datajurusans', 'datamahasiswas.id_jurusan', '=', 'datajurusans.id')->get();
-        return view('surveyor.viewmahasiswa')->with('Dmahasiswa',$mahasiswa);
+      $datamahasiswa = DB::table('datamahasiswas')->where('id_user','=', Auth::user()->id)->select('datamahasiswas.nim','datamahasiswas.nama','datajurusans.jurusan','datafakultas.fakultas')->join('datafakultas','datamahasiswas.id_fakultas','=','datafakultas.id')->join('datajurusans', 'datamahasiswas.id_jurusan', '=', 'datajurusans.id')->get();
+      $kriteria = kriteria::all();
+      $data = array(
+        'Dmahasiswa'=>$datamahasiswa,
+        'kriteria'=>$kriteria
+      );
+        return view('surveyor.viewmahasiswa')->with($data);
     }
 
     /**
@@ -150,10 +156,55 @@ class surveyormahasiswasetting extends Controller
         return redirect()->route('password-mahasiswa-surveyor')->with('success', 'Update Password Surveyor Success');
     }
     public function settingprofile(){
-      // $userprofile = 
-      return view('surveyor.profilesetting');
+      $userprofile = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
+      $data = array(
+        'user'=>$userprofile
+      );
+      //return $data;
+      return view('surveyor.profilesetting')->with($data);
     }
+    public function saveprofile(Request $request){
+      $validator = Validator::make($request->all(), [
+            'firstname'=>'required|alpha',
+            'lastname'=>'required|alpha',
+            'email'=>'required|email',
+            'address'=>'required',
+            'file'=>'required|image|mimes:jpeg,bmp,png'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        $users = user::where('id',Auth::user()->id)->first();
+        if(!isset($users)){
+          return redirect()->route('profile-mahasiswa-surveyor')->with('error', 'The id does not exist');
+        }
+                $id = Auth::user()->id;
+                $ext = $request->file('file')->getClientOriginalExtension();
+                $filename = str_slug(strtolower($request->firstname)).'-'.$id.'.'.$ext;
+                $picture = $request->file('file')->storeAs('Filepicture',$filename);
 
+                $user = User::where('id',Auth::user()->id);
+                $user->update([
+                  'email'=>$request->email,
+                  'picture'=>$picture
+                ]);
+
+                $user_profile = user_profile::where('user_id',Auth::user()->id);
+                $user_profile->update([
+                  'firstname'=>$request->firstname,
+                  'lastname'=>$request->lastname,
+                  'address'=>$request->address
+                ]);
+
+                  return redirect()->route('profile-mahasiswa-surveyor')->with('success', 'Update Data Success');
+
+    }
+    public static function ambilnilai($nim,$id_kriteria){
+      $nilai = nilai_mahasiswa::select('nilai')->where('id_kriteria','=',$id_kriteria)->where('nim','=',$nim)->first();
+        return $nilai;
+      }
     /**
      * Display the specified resource.
      *

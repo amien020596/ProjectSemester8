@@ -58,7 +58,7 @@
                         <div class="card-header">
                           <strong>Detail Nilai</strong> Mahasiswa
                         </div>
-                        <div class="card-body card-block
+                        <div class="card-body card-block">
                           <br>
                           <div class="row">
                             <?php use App\Http\Controllers\admin\adminMahasiswasetting; ?>

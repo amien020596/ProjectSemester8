@@ -24,6 +24,6 @@ class SurveyorController extends Controller
      */
     public function index()
     {
-        return view('surveyor.dashboard');
+        return redirect()->route('view-mahasiswa-surveyor');
     }
 }

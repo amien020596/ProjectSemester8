@@ -10,40 +10,78 @@ Setting Profile {{Auth::user()->name}} | Bidikmisi
         <h1 class="h3 display">Setting Profile {{Auth::user()->name}}</h1>
       </header>
       <div class="row">
-        <div class="col-lg-6">
+
+        @if ($errors->has('firstname'))
+          <div class="col-lg-12">
+              <div class="alert alert-danger">
+                  {{$errors->first('firstname')}}
+                  <span class="close-flash float-right" style="cursor: pointer;">&times;</span>
+              </div>
+          </div>
+        @elseif ($errors->has('lastname'))
+          <div class="col-lg-12">
+              <div class="alert alert-danger">
+                  {{$errors->first('lastname')}}
+                  <span class="close-flash float-right" style="cursor: pointer;">&times;</span>
+              </div>
+          </div>
+        @elseif ($errors->has('address'))
+          <div class="col-lg-12">
+              <div class="alert alert-danger">
+                  {{$errors->first('address')}}
+                  <span class="close-flash float-right" style="cursor: pointer;">&times;</span>
+              </div>
+          </div>
+        @elseif ($errors->has('email'))
+          <div class="col-lg-12">
+              <div class="alert alert-danger">
+                  {{$errors->first('email')}}
+                  <span class="close-flash float-right" style="cursor: pointer;">&times;</span>
+              </div>
+          </div>
+        @elseif ($errors->has('file'))
+          <div class="col-lg-12">
+              <div class="alert alert-danger">
+                  {{$errors->first('file')}}
+                  <span class="close-flash float-right" style="cursor: pointer;">&times;</span>
+              </div>
+          </div>
+        @endif
+        <?php
+            $flash = Session::get('success') || Session::get('error');
+            $type = Session::get('success') ? 'success' : 'danger';
+            $desc = Session::get('success') ? session('success') : session('error');
+          ?>
+        @if ($flash)
+          <div class="col-lg-12">
+              <div class="alert alert-{{ $type }}">
+                  {{ $desc }}
+                  <span class="close-flash float-right" style="cursor: pointer;">&times;</span>
+              </div>
+          </div>
+        @endif
+        <div class="col-lg-9">
           <div class="card">
             <div class="card-header">
-              <h4>Basic Table</h4>
+              <h4>Data Profile Surveyor {{Auth::user()->name}}</h4>
             </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table">
                   <thead>
                     <tr>
-                      <th>#</th>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>Username</th>
+                      <th>Nama</th>
+                      <th>Alamat</th>
+                      <th>Email</th>
+                      <th>Role</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <th scope="row">1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                      <td>@fat</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Larry</td>
-                      <td>the Bird</td>
-                      <td>@twitter</td>
+                      <th scope="row">{{$user->firstname}} {{$user->lastname}}</th>
+                      <td>{{$user->address}}</td>
+                      <td>{{$user->user->email}}</td>
+                      <td>{{$user->user->role}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -51,147 +89,64 @@ Setting Profile {{Auth::user()->name}} | Bidikmisi
             </div>
           </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-3">
           <div class="card">
             <div class="card-header">
-              <h4>Striped Table</h4>
+              <h4>Foto Profile</h4>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>Username</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                      <td>@fat</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Larry</td>
-                      <td>the Bird</td>
-                      <td>@twitter                            </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              <img src="{{asset('storage/'.$user->user->picture)}}" alt="" width="200px">
             </div>
           </div>
         </div>
-        <div class="col-lg-6">
+      </div>
+      <div class="row">
+        <div class="col-lg-9">
           <div class="card">
-            <div class="card-header">
-              <h4>Striped table with hover effect</h4>
+            <div class="card-header d-flex align-items-center">
+              <h4>Ubah Profile</h4>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>Username</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                      <td>@fat</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Larry</td>
-                      <td>the Bird</td>
-                      <td>@twitter                            </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <form class="form-horizontal" action="{{route('saveprofile-mahasiswa-surveyor',['id'=>Auth::user()->id])}}"  method="post" enctype="multipart/form-data" >
+                  {{csrf_field()}}
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <input type="text" name="firstname" placeholder="Nama Depan" value="{{$user->firstname}}" class="mr-3 form-control">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <input type="text" name="lastname" placeholder="Nama Belakang" value="{{$user->lastname}}" class="mr-3 form-control">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <input type="text"  name="address" placeholder="Alamat" value="{{$user->address}}" class="mr-3 form-control">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <input type="text"  name="email" placeholder="Email" value="{{$user->user->email}}" class="mr-3 form-control">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <input type="file" name="file" value="">
+                      </div>
+                    </div>
+                  </div>
+                <div class="row">
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-large btn-block btn btn-primary">Update</button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
         </div>
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="card-header">
-              <h4>Compact Table</h4>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-striped table-sm">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>Username</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                      <td>@fat</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Larry</td>
-                      <td>the Bird</td>
-                      <td>@twitter      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">4</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">5</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                      <td>@fat</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">6</th>
-                      <td>Larry</td>
-                      <td>the Bird</td>
-                      <td>@twitter       </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+      </form>
       </div>
     </div>
   </section>
