@@ -15,6 +15,7 @@ class CreateHasilbobotsTable extends Migration
     {
         Schema::create('hasilbobots', function (Blueprint $table) {
             $table->bigInteger('nim',20)->unsigned();
+            $table->foreign('nim')->references('nim')->on('datamahasiswas')->onDelete('cascade');
             $table->decimal('nilai',8, 4);
             $table->timestamps();
         });

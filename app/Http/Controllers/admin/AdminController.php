@@ -22,7 +22,7 @@ class AdminController extends Controller
    */
   public function index()
   {
-      return view('admin.dashboard');
+      return redirect()->route('view-mahasiswa');
   }
   public function profile(){
     // $admin = new App\User;

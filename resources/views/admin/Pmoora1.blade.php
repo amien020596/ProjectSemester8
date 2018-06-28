@@ -28,7 +28,11 @@
                                   <tr>
                                       <td class="text-center">{{$nim->nim}}</td>
                                       @foreach ($kriteria as $key => $value)
-                                      <td class="text-center">{{$nilai["$nim->nim"]["$value->id"]}}</td>
+                                        @if (isset($nilai["$nim->nim"]["$value->id"]))
+                                            <td class="text-center">{{$nilai["$nim->nim"]["$value->id"]}}</td>
+                                        @else
+                                            <td class="text-center">belom di berinilai</td>
+                                        @endif
                                       @endforeach
                                   </tr>
                                 @endforeach
