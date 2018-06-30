@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\user_profile;
+use App\nilai_mahasiswa;
+use App\datamahasiswa;
 use Storage;
 use Validator;
 class AdminSettingSurveyor extends Controller
@@ -208,6 +210,9 @@ class AdminSettingSurveyor extends Controller
 
         $user = User::where('id',$id)->delete();
         $user_profile = user_profile::where('user_id',$id)->delete();
+
+        $nilai_mahasiswa = nilai_mahasiswa::where('id_user',$id)->delete();
+        $mahasiswa = datamahasiswa::where('id_user',$id)->delete();
 
         return redirect()->route('view-surveyor')->with('success', 'Delete Account Success');
     }

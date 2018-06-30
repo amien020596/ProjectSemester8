@@ -139,7 +139,7 @@ class adminKriteriaSetting extends Controller
       }
 
       $kriteria = kriteria::where('id',$id)->delete();
-
+      
       return redirect()->route('view-kriteria')->with('success', 'Delete Kriteria Success');
     }
 }

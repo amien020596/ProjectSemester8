@@ -22,6 +22,7 @@ class CreateDatamahasiswasTable extends Migration
             $table->foreign('id_jurusan')->references('id')->on('datajurusans');
             $table->unsignedInteger('id_user');
             $table->timestamps();
+            $table->SoftDeletes();
         });
     }
 

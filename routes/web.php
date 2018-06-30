@@ -79,12 +79,12 @@ Route::Group([
         'prefix'=>'softdelete',
     ],function(){
       Route::get('/surveyor','adminsoftdelete@surveyorsoftdelete')->name('surveyor');
-      Route::post('/retrive/{id}','adminsoftdelete@retrivesurveyor')->name('retrive-surveyor');
-      Route::post('/delete/{id}','adminsoftdelete@deletesurveyor')->name('delete-surveyor');
+      Route::post('/surveyor/retrive/{id}','adminsoftdelete@retrivesurveyor')->name('retrive-surveyor');
+      Route::post('/surveyor/delete/{id}','adminsoftdelete@deletesurveyor')->name('delete-surveyor');
 
       Route::get('/kriteria','adminsoftdelete@kriteriasoftdelete')->name('kriteria');
-      Route::post('/retrive/{id}','adminsoftdelete@retrivekriteria')->name('retrive-kriteria');
-      Route::post('/delete/{id}','adminsoftdelete@deletekriteria')->name('delete-kriteria');
+      Route::post('/kriteria/retrive/{id}','adminsoftdelete@retrivekriteria')->name('retrive-kriteria');
+      Route::post('/kriteria/delete/{id}','adminsoftdelete@deletekriteria')->name('delete-kriteria');
     });
 
 

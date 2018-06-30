@@ -23,6 +23,7 @@ class CreateNilaiMahasiswasTable extends Migration
             $table->unsignedInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users');
             $table->timestamps();
+            $table->SoftDeletes();
         });
     }
 

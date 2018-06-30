@@ -62,7 +62,7 @@
                                       <a class="btn btn-success btn-sm" href="{{route('edit-mahasiswa',['id'=>$key->nim])}}">Edit</a>
                                       </span>
                                       <span data-toggle="tooltip" data-placement="top" title="Hapus Data Mahasiswa">
-                                      <button  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#ModalHapus" data-target-id="{{$key->nim}}" >Hapus</button>
+                                      <button  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#ModalHapus{{$key->nim}}" data-target-id="{{$key->nim}}" >Hapus</button>
                                       </span>
                                     </td>
                                 </tr>
@@ -70,7 +70,7 @@
                               </tbody>
                             </table>
                             @foreach ($Dmahasiswa as $key)
-                              <div class="modal fade" id="ModalHapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                              <div class="modal fade" id="ModalHapus{{$key->nim}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                   <div class="modal-dialog" role="document">
                                       <div class="modal-content">
                                           <div class="modal-header">

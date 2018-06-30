@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\User;
 use App\user_profile;
 use App\kriteria;
+use App\nilai_mahasiswa;
+use App\datamahasiswa;
 
 class adminsoftdelete extends Controller
 {
@@ -31,6 +33,9 @@ class adminsoftdelete extends Controller
 
       user_profile::where('user_id',$id)->onlyTrashed()->restore();
       User::where('id',$id)->onlyTrashed()->restore();
+      nilai_mahasiswa::where('id_user',$id)->onlyTrashed()->restore();
+      datamahasiswa::where('id_user',$id)->onlyTrashed()->restore();
+
       return redirect()->route('surveyor')->with('success', 'Restore Data Account Success');
     }
 
