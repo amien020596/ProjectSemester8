@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\kriteria;
+use App\nilai_mahasiswa;
 use Validator;
 
 class adminKriteriaSetting extends Controller
@@ -134,12 +135,13 @@ class adminKriteriaSetting extends Controller
     {
       $kriteria = kriteria::find($id)->first();
 
+
       if(!isset($kriteria)){
         return redirect()->route('view-kriteria')->with('error', 'The id does not exist');
       }
 
       $kriteria = kriteria::where('id',$id)->delete();
-      
+      $nilai_mahasiswa = nilai_mahasiswa::where('id_kriteria',$id)->delete();
       return redirect()->route('view-kriteria')->with('success', 'Delete Kriteria Success');
     }
 }

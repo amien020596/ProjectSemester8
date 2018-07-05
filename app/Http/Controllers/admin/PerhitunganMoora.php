@@ -35,7 +35,7 @@ class PerhitunganMoora extends Controller
          $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
 
            $hasilnormalisasi = $this->HasilNormalisasi($kriteria);
-        
+
            $data = [
              'kriteria'=>$kriteria,
              'nilai'=>$hasilnormalisasi,
@@ -43,7 +43,7 @@ class PerhitunganMoora extends Controller
            ];
 
         return view('admin/Pmoora2')->with($data);
-      //  return $hasilnormalisasi;
+
        }
       public function nilaioptimasiterbobot(){
 
@@ -127,7 +127,7 @@ class PerhitunganMoora extends Controller
 
         $bobot = hasilbobot::orderBy('nilai','ASC')->first();
         if(isset($bobot)){
-              $hasilbobot = hasilbobot::orderBy('nilai','ASC')->get();
+              $hasilbobot = hasilbobot::with('datamahasiswa','datamahasiswa.fakultas','datamahasiswa.jurusan')->orderBy('nilai','ASC')->get();
               $data = [
               'id'=>$hasilbobot,
             ];
@@ -218,13 +218,14 @@ class PerhitunganMoora extends Controller
               unset($k);
               unset($a);
             }
+            //return $results;
            $hasil = array();
             foreach ($results as $key => $value){
               $index = $key+1;
               $hasil["kriteria$index"] = sqrt(array_sum($value));
               //$hasil["kriteria$index"] = array_sum($value);
             }
-          //  return $hasil;
+          //return $hasil;
 
             foreach ($nilaimahasiswa as $key => $value) {
               $name1 = $value->nim;

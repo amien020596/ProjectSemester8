@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
       $faker = Faker\Factory::create();
-      for($i = 0; $i < 10; $i++) {
+
 
       DB::table('users')->insert([
         array('name'=>'admin','email'=>'amienkurniawan01@gmail.com','password'=>bcrypt('password'),'role'=>'admin'),
@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder
         array('name'=>'ayod','email'=>'ayod@ce.undip.ac.id','password'=>bcrypt('password'),'role'=>'surveyor'),
       ]);
       DB::table('user_profiles')->insert([
-          array('firstname'=>'admin ','lastname'=>'bidikmisi','no_hp'=>'085727747959','address'=>'jalan prof soedarto','user_id'=>1),
-          array('firstname'=>'amien ','lastname'=>'kurniawan','no_hp'=>'085727747959','address'=>'jalan prof soedarto','user_id'=>2),
-          array('firstname'=>'amri ','lastname'=>'lutfi','no_hp'=>'085727747959','address'=>'jalan prof soedarto','user_id'=>3),
-          array('firstname'=>'ayodya ','lastname'=>'purba','no_hp'=>'085727747959','address'=>'jalan prof soedarto','user_id'=>4),
+          array('firstname'=>'admin ','lastname'=>'bidikmisi','address'=>'jalan prof soedarto','user_id'=>1),
+          array('firstname'=>'amien ','lastname'=>'kurniawan','address'=>'jalan prof soedarto','user_id'=>2),
+          array('firstname'=>'amri ','lastname'=>'lutfi','address'=>'jalan prof soedarto','user_id'=>3),
+          array('firstname'=>'ayodya ','lastname'=>'purba','address'=>'jalan prof soedarto','user_id'=>4),
         ]);
         DB::table('kriterias')->insert([
             array('kriteria'=>'Penghasilan Orang tua','jenis'=>'cost','bobot'=>'5'),
@@ -118,6 +118,6 @@ class DatabaseSeeder extends Seeder
               //     array('nim'=>'21030117120065','nama'=>'Aqilla Fariza Mufia','id_fakultas'=>'9','id_jurusan'=>'39'),
               //     array('nim'=>'25000117130182','nama'=>'Osaze Alejandro','id_fakultas'=>'10','id_jurusan'=>'45'),
               //   ]);
-      }
+      
     }
 }

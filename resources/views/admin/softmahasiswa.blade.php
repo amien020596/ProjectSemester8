@@ -55,40 +55,57 @@
                                     <td class="text-center" >{{$key->jurusan->jurusan}}</td>
                                     <td class="text-center" >{{$key->fakultas->fakultas}}</td>
                                     <td style="width:20%;" class="text-center">
-                                      <span data-toggle="tooltip" data-placement="top" title="Detail Data Mahasiswa">
-                                      <a class="btn btn-info btn-sm" href="{{route('detail-mahasiswa',['id'=>$key->nim])}}">Detail</a>
-                                      </span>
-                                      <span data-toggle="tooltip" data-placement="top" title="Edit Data Mahasiswa">
-                                      <a class="btn btn-success btn-sm" href="{{route('edit-mahasiswa',['id'=>$key->nim])}}">Edit</a>
-                                      </span>
-                                      <span data-toggle="tooltip" data-placement="top" title="Hapus Data Mahasiswa">
-                                      <button  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#ModalHapus{{$key->nim}}" data-target-id="{{$key->nim}}" >Hapus</button>
-                                      </span>
+                                      <button class="btn btn-danger" data-toggle="modal" data-target="#ModalHapus{{$key->id}}">Hapus</button>
+                                      <button class="btn btn-warning" data-toggle="modal" data-target="#ModalRestorage{{$key->id}}">Restorage</button>
                                     </td>
                                 </tr>
                                 @endforeach
                               </tbody>
                             </table>
                             @foreach ($Dmahasiswa as $key)
-                              <div class="modal fade" id="ModalHapus{{$key->nim}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                  <div class="modal-dialog" role="document">
-                                      <div class="modal-content">
-                                          <div class="modal-header">
-                                              <h4 class="modal-title" id="myModalLabel">Hapus Data Mahasiswa</h4>
-                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                                          </div>
-                                          <div class="modal-body">
-                                            Apa Anda Yakin Menghapus Data Mahasiswa {{$key->nama}}?
-                                          </div>
-                                          <div class="modal-footer">
-                                            <form class="" action="{{route('destroy-mahasiswa',['id'=>$key->nim])}}" method="post">
-                                              @csrf
-                                              <button type="submit" name="" class="btn btn-danger">Ya</button>
-                                              <button type="button" class="btn btn-primary" data-dismiss="modal">Tidak</button>
-                                            </form>
-                                          </div>
-                                      </div>
+                              <div class="modal fade" id="ModalRestorage{{$key->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h4 class="modal-title" id="myModalLabel">Re-storage Data Mahasiswa</h4>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      Apa Anda Yakin Me-restorage Data Mahasiswa {{$key->nama}}?
+                                    </div>
+                                    <div class="modal-footer">
+                                      <form class="" action="{{route('retrive-mahasiswa',['id'=>$key->nim])}}" method="post">
+                                        @csrf
+                                        <button type="submit" name="" class="btn btn-danger">Ya</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Tidak</button>
+                                      </form>
+                                    </div>
                                   </div>
+                                </div>
+                              </div>
+                              <div class="modal fade" id="ModalHapus{{$key->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h4 class="modal-title" id="myModalLabel">Permanent Hapus Data Mahasiswa</h4>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      Apa Anda Yakin Menghapus Permanent Data Mahasiswa {{$key->nama}}?
+                                    </div>
+                                    <div class="modal-footer">
+                                      <form class="" action="{{route('delete-mahasiswa',['id'=>$key->nim])}}" method="post">
+                                        @csrf
+                                        <button type="submit" name="" class="btn btn-danger">Ya</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Tidak</button>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             @endforeach
                           </font>

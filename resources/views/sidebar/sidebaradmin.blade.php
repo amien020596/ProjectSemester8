@@ -56,7 +56,7 @@
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Data Softdelete</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Data Mahasiswa</a></li>
+                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('mahasiswa')}}">Data Mahasiswa</a></li>
                         <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('kriteria')}}">Data Kriteria</a></li>
                         <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('surveyor')}}">Data Surveyor</a></li>
                     </ul>

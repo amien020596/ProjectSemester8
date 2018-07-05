@@ -28,7 +28,8 @@ class adminMahasiswasetting extends Controller
     {
       //$mahasiswa = DB::table('datamahasiswas')->select('datamahasiswas.nim','datamahasiswas.nama')->get();
       //$mahasiswa = DB::table('datafakultas')->select('datafakultas.fakultas','datafakultas.id')->get();
-      $mahasiswa = DB::table('datamahasiswas')->select('datamahasiswas.nim','datamahasiswas.nama','datajurusans.jurusan','datafakultas.fakultas')->join('datafakultas','datamahasiswas.id_fakultas','=','datafakultas.id')->join('datajurusans', 'datamahasiswas.id_jurusan', '=', 'datajurusans.id')->get();
+      //$mahasiswa = DB::table('datamahasiswas')->select('datamahasiswas.nim','datamahasiswas.nama','datajurusans.jurusan','datafakultas.fakultas')->join('datafakultas','datamahasiswas.id_fakultas','=','datafakultas.id')->join('datajurusans', 'datamahasiswas.id_jurusan', '=', 'datajurusans.id')->get();
+      $mahasiswa = datamahasiswa::with('fakultas')->with('jurusan')->get();
       //return $mahasiswa;
       return view('admin.mahasiswa')->with('Dmahasiswa',$mahasiswa);
     }
@@ -153,7 +154,8 @@ class adminMahasiswasetting extends Controller
      */
     public function edit($nim)
     {
-        $mahasiswa = datamahasiswa::find($nim)->first();
+
+        $mahasiswa = datamahasiswa::where('nim',$nim)->first();
         $fakultas = datafakultas::all();
         $kriteria = kriteria::all();
         $data = [
@@ -250,6 +252,7 @@ class adminMahasiswasetting extends Controller
         return redirect()->route('view-mahasiswa')->with('error', 'The NIM does not exist');
       }
       $mahasiswa = datamahasiswa::where('nim',$id)->delete();
+      $nilai_mahasiswa = nilai_mahasiswa::where('nim',$id)->delete();
       return redirect()->route('view-mahasiswa')->with('success', 'Delete Data Mahasiswa Success');
     }
 }

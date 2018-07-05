@@ -17,7 +17,6 @@ class CreateUserProfilesTable extends Migration
             $table->increments('id');
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('no_hp')->nullable();
             $table->string('address');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

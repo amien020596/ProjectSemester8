@@ -82,14 +82,17 @@ Route::Group([
       Route::post('/surveyor/retrive/{id}','adminsoftdelete@retrivesurveyor')->name('retrive-surveyor');
       Route::post('/surveyor/delete/{id}','adminsoftdelete@deletesurveyor')->name('delete-surveyor');
 
+      Route::get('/mahasiswa','adminsoftdelete@mahasiswasoftdelete')->name('mahasiswa');
+      Route::post('/mahasiswa/retrive/{id}','adminsoftdelete@retrivemahasiswa')->name('retrive-mahasiswa');
+      Route::post('/mahasiswa/delete/{id}','adminsoftdelete@deletemahasiswa')->name('delete-mahasiswa');
+
       Route::get('/kriteria','adminsoftdelete@kriteriasoftdelete')->name('kriteria');
       Route::post('/kriteria/retrive/{id}','adminsoftdelete@retrivekriteria')->name('retrive-kriteria');
       Route::post('/kriteria/delete/{id}','adminsoftdelete@deletekriteria')->name('delete-kriteria');
     });
 
-
-
     Route::get('/setting','AdminController@settingprofile')->name('admin-setting');
     Route::get('/admin-home','AdminController@index')->name('admin-home');
-    Route::get('/profile','AdminController@profile')->name('admin-profile');
+    Route::post('/save/profile','AdminController@saveprofile')->name('save-profile');
+    Route::post('/save/password','AdminController@savepassword')->name('save-password');
 });

@@ -15,11 +15,14 @@ class datamahasiswa extends Model
   protected $fillable = [
       'nim', 'nama', 'id_fakultas','id_jurusan','id_user'
   ];
-  public function fakultas1(){
-    return $this->hasOne('App\datafakultas');
+  public function fakultas(){
+    return $this->hasOne('App\datafakultas','id','id_fakultas');
+  }
+  public function nilai(){
+    return $this->hasOne('App\hasilbobot','nim','nim');
   }
   public function jurusan(){
-    return $this->hasOne('App\datajurusan');
+    return $this->hasOne('App\datajurusan','id','id_jurusan');
   }
   public function nilaiMahasiswa(){
     return $this->hasMany('App\nilai_mahasiswa','nim');
