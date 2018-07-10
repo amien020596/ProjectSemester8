@@ -22,6 +22,6 @@ class nilai_mahasiswa extends Model
   }
 
   public function kearahkriteria(){
-    return $this->belongsTo('App\kriteria');
+    return $this->belongsTo('App\kriteria','id_kriteria','id');
   }
 }

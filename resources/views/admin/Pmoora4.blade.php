@@ -30,8 +30,11 @@
                                   <tr>
                                       <td class="text-center">{{$nim->nim}}</td>
                                       @foreach ($kriteria as $key => $value)
-                                      <td class="text-center">{{number_format($nilai["$nim->nim"]["$value->id"],3)}}</td>
-                                      {{-- <td class="text-center">{{$nilai["$nim->nim"]["$value->id"]}}</td> --}}
+                                        @if (isset($nilai["$nim->nim"]["$value->id"]))
+                                            <td class="text-center">{{number_format($nilai["$nim->nim"]["$value->id"],3)}}</td>
+                                        @else
+                                            <td class="text-center cie">belom di berinilai</td>
+                                        @endif
                                       @endforeach
                                         <td class="text-center">{{number_format($bobot["$nim->nim"],5)}}</td>
                                   </tr>

@@ -34,7 +34,6 @@
                                   <tr>
                                     <th scope="col" class="text-center" >No</th>
                                     <th scope="col" class="text-center" >Nama</th>
-                                    <th scope="col" class="text-center" >No Hp</th>
                                     <th scope="col" class="text-center" >Alamat</th>
                                     <th scope="col" class="text-center" >Role</th>
                                     <th scope="col" class="text-center" >Action</th>
@@ -46,7 +45,6 @@
                                   <tr>
                                       <th scope="row" class="text-center" >{{$loop->iteration}}</th>
                                       <td class="text-center" >{{$key->profile->firstname}} {{$key->profile->lastname}}</td>
-                                      <td class="text-center" >{{$key->profile->no_hp}}</td>
                                       <td class="text-center" >{{str_limit($key->profile->address,25)}}</td>
                                       <td class="text-center" >{{$key->role}}</td>
                                       <td class="text-center">

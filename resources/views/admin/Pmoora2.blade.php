@@ -3,6 +3,7 @@
   Hasil Normalisasi
 @endsection
       @section('body')
+
         <div class="content mt-3">
             <div class="animated fadeIn">
                 <div class="row">
@@ -24,17 +25,23 @@
                                 </tr>
                               </thead>
                               <tbody>
+
                                 @foreach ($id as $key => $nim)
 
                                   <tr>
                                       <td class="text-center">{{$nim->nim}}</td>
                                       @foreach ($kriteria as $key => $value)
-                                      <td class="text-center">{{number_format($nilai["$nim->nim"]["$value->id"],3)}}</td>
-                                      {{-- <td class="text-center">{{$nilai["$nim->nim"]["$value->id"]}}</td> --}}
+                                      @if (isset($nilai["$nim->nim"]["$value->id"]))
+                                          <td class="text-center">{{number_format($nilai["$nim->nim"]["$value->id"],3)}}</td>
+                                      @else
+                                          <td class="text-center cie">belom di berinilai</td>
+                                      @endif
                                       @endforeach
+
                                   </tr>
                                 @endforeach
                               </tbody>
+
                             </table>
                           </font>
                         </div>
@@ -42,5 +49,6 @@
                 </div>
                 </div>
             </div><!-- .animated -->
-        </div><!-- .content -->
+
+
       @endsection

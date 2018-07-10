@@ -31,7 +31,7 @@
                                         @if (isset($nilai["$nim->nim"]["$value->id"]))
                                             <td class="text-center">{{$nilai["$nim->nim"]["$value->id"]}}</td>
                                         @else
-                                            <td class="text-center">belom di berinilai</td>
+                                            <td class="text-center cie">belom di berinilai</td>
                                         @endif
                                       @endforeach
                                   </tr>

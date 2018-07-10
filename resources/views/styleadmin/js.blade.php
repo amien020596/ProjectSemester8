@@ -22,7 +22,12 @@
           });
           $('.modal').on('show.bs.modal', function (event) {
             $(body).css('padding-right', 0);
-          })
+          });
+
+          if ($('.cie').length) {
+              IsEmpty();
+          }
+
         } );
         $(document).ready(function() {
           $('#bootstrap-data-table-export').DataTable();
@@ -41,4 +46,20 @@
           })
         });
       });
+
+      function Redirect(){
+        window.location = "http://localhost:8000/admin/mahasiswa/mahasiswa";
+      }
+      function IsEmpty(){
+        alert("Nilai Kriteria Tidak Boleh Kosong, Pindah ke halaman Mahasiswa");
+        setTimeout(function(){
+          	Redirect();
+          }, 1000);
+      }
+      function CekIsEmpty(){
+        var x = document.getElementById("EmptyValue");
+        if(x){
+          IsEmpty();
+        }
+      }
     </script>

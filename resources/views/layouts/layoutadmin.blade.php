@@ -32,12 +32,12 @@
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="{{asset('images/admin.jpg')}}" alt="User Avatar">
+                            <img class="user-avatar rounded-circle" height="40" src="{{asset('storage/'.Auth::user()->picture)}}" alt="User Avatar">
                         </a>
 
-                        <div class="user-menu dropdown-menu">
-                                <a class="nav-link" href="{{route('admin-setting')}}"><i class="fa fa -cog"></i>Setting Profile</a>
-                                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                        <div class="user-menu dropdown-menu bg-dark">
+                                <a class="nav-link text-white" href="{{route('admin-setting')}}"><i class="fa fa -cog"></i>Setting Profile</a>
+                                <a class="nav-link text-white" href="{{ route('logout') }}" onclick="event.preventDefault();
                                               document.getElementById('logout-form').submit();">{{ __('Logout') }}
                                               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                   @csrf

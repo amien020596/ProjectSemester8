@@ -35,6 +35,8 @@ class PerhitunganMoora extends Controller
          $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
 
            $hasilnormalisasi = $this->HasilNormalisasi($kriteria);
+          // return $hasilnormalisasi;
+           //print_r($hasilnormalisasi);
 
            $data = [
              'kriteria'=>$kriteria,
@@ -51,7 +53,8 @@ class PerhitunganMoora extends Controller
          $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
 
          $hasilnormalisasiterbobot = $this->NormalisasiTerbobot($kriteria);
-
+         //
+        // return $hasilnormalisasiterbobot;
          $data = [
            'kriteria'=>$kriteria,
            'nilai'=>$hasilnormalisasiterbobot,
@@ -62,21 +65,48 @@ class PerhitunganMoora extends Controller
        }
       public function nilaioptimasiterbobotYi(){
          $kriteria = kriteria::select('id','kriteria','jenis','bobot')->get();
+         $kriteriaMax = kriteria::select('id','kriteria','jenis','bobot')->where('jenis','=','benefit')->get();
 
-         $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
          $hasilnormalisasiterbobot = $this->NormalisasiTerbobot($kriteria);
+         $hasilnormalisasiterbobotMax = $this->NormalisasiTerbobotMax($kriteriaMax);
+         //return $hasilnormalisasiterbobot;
+         $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
          $mahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->first();
 
            if(isset($mahasiswa)){
+
+             // $nilaimahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->get();
+             //  foreach ($nilaimahasiswa as $key => $value) {
+             //    $name1 = $value->nim;
+             //      foreach ($kriteria as $nilaibobot) {
+             //      $hasilbobot[$name1]=array_sum($hasilnormalisasiterbobot[$name1]);
+             //    }
+             //  }
 
                $nilaimahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->get();
                 foreach ($nilaimahasiswa as $key => $value) {
                   $name1 = $value->nim;
                     foreach ($kriteria as $nilaibobot) {
-                    $hasilbobot[$name1]=array_sum($hasilnormalisasiterbobot[$name1]);
+                    $hasilbobotMin[$name1]=array_sum($hasilnormalisasiterbobot[$name1]);
                   }
-
                 }
+                 //return $hasilbobotMin;
+                $nilaimahasiswa2 = kriteria::where('jenis','=','benefit')->get();
+                foreach ($nilaimahasiswa2 as $key => $value) {
+                  $nilaimahasiswa3 = nilai_mahasiswa::where('id_kriteria','=',$value->id)->get();
+                  foreach ($nilaimahasiswa3 as $key => $value) {
+                    $name1 = $value->nim;
+                    $hasilbobotMax[$name1]=array_sum($hasilnormalisasiterbobotMax[$name1]);
+                  }
+                }
+                // return $hasilbobotMax;
+
+                foreach ($nilaimahasiswa as $key => $value) {
+                  $name1 = $value->nim;
+                  $BFhasilbobot[$name1] = $hasilbobotMin[$name1] - $hasilbobotMax[$name1];
+                  $hasilbobot[$name1] =  $hasilbobotMax[$name1] - $BFhasilbobot[$name1];
+                }
+                //return $hasilbobot;
           }else{
             $hasilbobot = null;
           }
@@ -91,18 +121,39 @@ class PerhitunganMoora extends Controller
         return view('admin/Pmoora4')->with($data);
        }
       public function nilairating(){
-         $kriteria = kriteria::select('id','kriteria','jenis','bobot')->get();
-         $nilaimahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->get();
-         $nim = datamahasiswa::select('nim')->get();
-         $hasilnormalisasiterbobot = $this->NormalisasiTerbobot($kriteria);
-         $mahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->first();
+        $kriteria = kriteria::select('id','kriteria','jenis','bobot')->get();
+        $kriteriaMax = kriteria::select('id','kriteria','jenis','bobot')->where('jenis','=','benefit')->get();
 
-           if(isset($mahasiswa)){
+        $hasilnormalisasiterbobot = $this->NormalisasiTerbobot($kriteria);
+        $hasilnormalisasiterbobotMax = $this->NormalisasiTerbobotMax($kriteriaMax);
+        //return $hasilnormalisasiterbobot;
+        $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
+        $mahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->first();
+
+          if(isset($mahasiswa)){
+
+              $nilaimahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->get();
                foreach ($nilaimahasiswa as $key => $value) {
                  $name1 = $value->nim;
                    foreach ($kriteria as $nilaibobot) {
-                   $hasilbobot[$name1]=array_sum($hasilnormalisasiterbobot[$name1]);
+                   $hasilbobotMin[$name1]=array_sum($hasilnormalisasiterbobot[$name1]);
                  }
+               }
+                //return $hasilbobotMin;
+               $nilaimahasiswa2 = kriteria::where('jenis','=','benefit')->get();
+               foreach ($nilaimahasiswa2 as $key => $value) {
+                 $nilaimahasiswa3 = nilai_mahasiswa::where('id_kriteria','=',$value->id)->get();
+                 foreach ($nilaimahasiswa3 as $key => $value) {
+                   $name1 = $value->nim;
+                   $hasilbobotMax[$name1]=array_sum($hasilnormalisasiterbobotMax[$name1]);
+                 }
+               }
+               // return $hasilbobotMax;
+
+               foreach ($nilaimahasiswa as $key => $value) {
+                 $name1 = $value->nim;
+                 $BFhasilbobot[$name1] = $hasilbobotMin[$name1] - $hasilbobotMax[$name1];
+                 $hasilbobot[$name1] =  $hasilbobotMax[$name1] - $BFhasilbobot[$name1];
                }
 
                $kuikui = hasilbobot::all();
@@ -112,7 +163,7 @@ class PerhitunganMoora extends Controller
                }else{
                  $this->inputhasilbobot($nim,$hasilbobot);
                }
-             $hasilbobot = hasilbobot::orderBy('nilai','ASC')->get();
+             $hasilbobot = hasilbobot::orderBy('nilai','DESC')->get();
 
            }else{
              $hasilbobot = null;
@@ -194,12 +245,15 @@ class PerhitunganMoora extends Controller
       }
 
       function HasilNormalisasi($kriteria){
+        // $nilai = nilai_mahasiswa::with('kearahkriteria')->get();
+        // return $nilai;
+
         $mahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->first();
 
         if(isset($mahasiswa)){
 
-          $nilaimahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->get();
-
+          $nilaimahasiswa = nilai_mahasiswa::with('kearahkriteria')->select('nim','id_kriteria','nilai')->get();
+           //return $nilaimahasiswa;
             foreach ($nilaimahasiswa as $key => $value) {
               $name1 = $value->nim;
               $name2 = $value->id_kriteria;
@@ -207,25 +261,28 @@ class PerhitunganMoora extends Controller
             }
 
             $results = array();
-
             foreach ($kriteria as $id) {
               $k = array();
               foreach ($rows as $krit) {
-                $a = pow($krit[$id->id],2);
-                array_push($k, $a);
+                if(isset($krit[$id->id]) == false){
+                  $a = 0;
+                }else{
+                  $a = pow($krit[$id->id],2);
+                }
+                  array_push($k, $a);
               }
-              array_push($results, $k);
+              $results["$id->id"] = $k;
+              //array_push($results, $k);
               unset($k);
               unset($a);
             }
             //return $results;
-           $hasil = array();
-            foreach ($results as $key => $value){
-              $index = $key+1;
-              $hasil["kriteria$index"] = sqrt(array_sum($value));
-              //$hasil["kriteria$index"] = array_sum($value);
-            }
-          //return $hasil;
+
+            $hasil = array();
+              foreach ($results as $key => $value){
+                  $hasil["kriteria$key"] = sqrt(array_sum($value));
+              }
+            //return $hasil;
 
             foreach ($nilaimahasiswa as $key => $value) {
               $name1 = $value->nim;
@@ -255,31 +312,35 @@ class PerhitunganMoora extends Controller
               $rows[$name1][$name2]=$value->nilai;
             }
 
+
             $results = array();
             foreach ($kriteria as $id) {
               $k = array();
               foreach ($rows as $krit) {
-                $a = pow($krit[$id->id],2);
+                if(isset($krit[$id->id]) == false){
+                  $a = 0;
+                }else{
+                  $a = pow($krit[$id->id],2);
+                }
                 array_push($k, $a);
                 unset($a);
               }
-              array_push($results, $k);
+              $results["$id->id"] = $k;
               unset($k);
 
             }
 
             $hasil = array();
             foreach ($results as $key => $value) {
-              $index = $key+1;
-              $hasil["kriteria$index"] = sqrt(array_sum($value));
+
+              $hasil["kriteria$key"] = sqrt(array_sum($value));
             }
 
             foreach ($nilaimahasiswa as $key => $value) {
                 $name1 = $value->nim;
                 $name2 = $value->id_kriteria;
-                foreach ($kriteria as $nilaibobot) {
+                $nilaibobot = $this->nilaibobot($value->id_kriteria);
                 $hasilnormalisasiterbobot[$name1][$name2]=($rows[$name1][$name2]/$hasil["kriteria$value->id_kriteria"])*$nilaibobot->bobot;
-              }
             }
             return $hasilnormalisasiterbobot;
 
@@ -290,6 +351,74 @@ class PerhitunganMoora extends Controller
 
           }
 
+        }
+
+      function NormalisasiTerbobotMax($kriteria){
+          $mahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->first();
+
+          if(isset($mahasiswa)){
+              $nilaimahasiswa = kriteria::where('jenis','=','benefit')->get();
+              foreach ($nilaimahasiswa as $key => $value) {
+                  $nilaimahasiswa2 = nilai_mahasiswa::where('id_kriteria','=',$value->id)->get();
+                  foreach ($nilaimahasiswa2 as $key => $value) {
+                    $name1 = $value->nim;
+                    $name2 = $value->id_kriteria;
+
+                    $rows[$name1][$name2]=$value->nilai;
+                  }
+              }
+
+              //return $nilaimahasiswa;
+
+
+              //return $rows;
+
+              $results = array();
+              foreach ($kriteria as $id) {
+                $k = array();
+                foreach ($rows as $krit) {
+                  if(isset($krit[$id->id]) == false){
+                    $a = 0;
+                  }else{
+                    $a = pow($krit[$id->id],2);
+                  }
+                  array_push($k, $a);
+                  unset($a);
+                }
+                $results["$id->id"] = $k;
+                unset($k);
+
+              }
+              //return $results;
+              $hasil = array();
+              foreach ($results as $key => $value) {
+
+                $hasil["kriteria$key"] = sqrt(array_sum($value));
+              }
+              // return $hasil;
+              foreach ($nilaimahasiswa as $key => $value) {
+                $nilaimahasiswa2 = nilai_mahasiswa::where('id_kriteria','=',$value->id)->get();
+                foreach ($nilaimahasiswa2 as $key => $value) {
+                  $name1 = $value->nim;
+                  $name2 = $value->id_kriteria;
+                  $nilaibobot = $this->nilaibobot($value->id_kriteria);
+                  $hasilnormalisasiterbobot[$name1][$name2]=($rows[$name1][$name2]/$hasil["kriteria$value->id_kriteria"])*$nilaibobot->bobot;
+
+                }
+              }
+              return $hasilnormalisasiterbobot;
+
+              }else{
+
+              $nilaimahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->get();
+              return $nilaimahasiswa;
+
+            }
+
+          }
+
+      function nilaibobot($id_kriteria){
+          return $kriteriabobot = kriteria::select('bobot','id')->where('id','=',$id_kriteria)->first();
         }
 
       function inputhasilbobot($nim,$hasilbobot){

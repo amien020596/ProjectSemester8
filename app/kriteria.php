@@ -15,6 +15,6 @@ class kriteria extends Model
   ];
 
   public function kearahnilia_mahasiswa(){
-    return $this->hasOne('App\nilai_mahasiswa','id_kriteria');
+    return $this->hasmany('App\nilai_mahasiswa','id_kriteria','id');
   }
 }
