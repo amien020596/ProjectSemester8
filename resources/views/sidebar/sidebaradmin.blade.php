@@ -3,7 +3,7 @@
 
         <div class="navbar-header">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa fa-bars"></i>
+                <i class="fa fa-file"></i>
             </button>
             <a class="navbar-brand" href="./"><img src="{{asset('images/logo.png')}}" alt="Logo"></a>
             <a class="navbar-brand hidden" href="./"><img src="{{asset('images/logo2.png')}}" alt="Logo"></a>
@@ -16,52 +16,53 @@
               </li>
                 <h3 class="menu-title">Mahasiswa</h3><!-- /.menu-title -->
                 <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Data Mahasiswa</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-address-book"></i>Data Mahasiswa</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-puzzle-piece"></i><a href="{{route('view-mahasiswa')}}">Lihat Data</a></li>
-                        <li><i class="fa fa-puzzle-piece"></i><a href="{{route('insert-mahasiswa')}}">Tambah Data</a></li>
+                        <li><i class="fa fa-address-book"></i><a href="{{route('view-mahasiswa')}}">Lihat Data</a></li>
+                        <li><i class="fa fa-file"></i><a href="{{route('insert-mahasiswa')}}">Tambah Data</a></li>
+                        <li><i class="menu-icon fa fa-file"></i><a href="{{route('finalresult')}}">Ranking Mahasiswa</a></li>
+                        <li><i class="menu-icon fa fa-file"></i><a href="{{route('print')}}">Cetak Hasil</a></li>
                     </ul>
                 </li>
-                <h3 class="menu-title">Kriteria</h3><!-- /.menu-title -->
-
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Data Kriteria</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-puzzle-piece"></i><a href="{{route('view-kriteria')}}">Daftar Kriteria</a></li>
-                        <li><i class="menu-icon ti-themify-logo"></i><a href="#" data-toggle="modal" data-target="#modaltambah">Tambah Kriteria</a></li>
-                    </ul>
-                </li>
-
-                <h3 class="menu-title">Surveyor</h3><!-- /.menu-title -->
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Data Surveyor</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('view-surveyor')}}">Daftar Surveyor</a></li>
-                        <li><i class="menu-icon ti-themify-logo"></i><a href="{{route('add-surveyor')}}">Tambah Surveyor</a></li>
-                    </ul>
-                </li>
-                <h3 class="menu-title">Proses Perhitungan</h3><!-- /.menu-title -->
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Perhitungan Moora</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('perhitungan1')}}">Matriks Data Nilai</a></li>
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('perhitungan2')}}">Matriks Normalisasi</a></li>
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('perhitungan3')}}">Nilai Terbobot</a></li>
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('perhitungan4')}}">Nilai Yi</a></li>
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('perhitungan5')}}">Nilai Rating</a></li>
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('print')}}">Print</a></li>
-                    </ul>
-                </li>
-                <h3 class="menu-title">Soft Delete</h3><!-- /.menu-title -->
-                <li class="menu-item-has-children dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Data Softdelete</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('mahasiswa')}}">Data Mahasiswa</a></li>
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('kriteria')}}">Data Kriteria</a></li>
-                        <li><i class="menu-icon fa fa-fort-awesome"></i><a href="{{route('surveyor')}}">Data Surveyor</a></li>
-                    </ul>
-                </li>
+                <h3 class="menu-title">Semua Data</h3><!-- /.menu-title -->
+                <button type="button" class="btn btn-large btn-block btn-default" id="bton" onclick="showFunction()">hide</button>
+                <span class="" id="hidden">
+                  <li class="menu-item-has-children dropdown" >
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-address-book"></i>Data Kriteria</a>
+                      <ul class="sub-menu children dropdown-menu">
+                          <li><i class="menu-icon fa fa-address-book"></i><a href="{{route('view-kriteria')}}">Daftar Kriteria</a></li>
+                          <li><i class="menu-icon fa fa-file"></i><a href="#" data-toggle="modal" data-target="#modaltambah">Tambah Kriteria</a></li>
+                      </ul>
+                  </li>
+                  <li class="menu-item-has-children dropdown" >
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-address-book"></i>Data Surveyor</a>
+                      <ul class="sub-menu children dropdown-menu">
+                          <li><i class="menu-icon fa fa-address-book"></i><a href="{{route('view-surveyor')}}">Daftar Surveyor</a></li>
+                          <li><i class="menu-icon fa fa-file"></i><a href="{{route('add-surveyor')}}">Tambah Surveyor</a></li>
+                      </ul>
+                  </li>
+                  <li class="menu-item-has-children dropdown" >
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-address-book"></i>Perhitungan Moora</a>
+                      <ul class="sub-menu children dropdown-menu">
+                          <li><i class="menu-icon fa fa-file"></i><a href="{{route('perhitungan1')}}">Matriks Data Nilai</a></li>
+                          <li><i class="menu-icon fa fa-file"></i><a href="{{route('perhitungan2')}}">Matriks Normalisasi</a></li>
+                          <li><i class="menu-icon fa fa-file"></i><a href="{{route('perhitungan3')}}">Nilai Terbobot</a></li>
+                          <li><i class="menu-icon fa fa-file"></i><a href="{{route('perhitungan4')}}">Nilai Yi</a></li>
+                          <li><i class="menu-icon fa fa-file"></i><a href="{{route('perhitungan5')}}">Nilai Rating</a></li>
+                          {{-- <li><i class="menu-icon fa fa-file"></i><a href="{{route('print')}}">Print</a></li> --}}
+                      </ul>
+                  </li>
+                  <li class="menu-item-has-children dropdown" >
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-address-book"></i>Data Softdelete</a>
+                      <ul class="sub-menu children dropdown-menu">
+                          <li><i class="menu-icon fa fa-file"></i><a href="{{route('mahasiswa')}}">Data Mahasiswa</a></li>
+                          <li><i class="menu-icon fa fa-file"></i><a href="{{route('kriteria')}}">Data Kriteria</a></li>
+                          <li><i class="menu-icon fa fa-file"></i><a href="{{route('surveyor')}}">Data Surveyor</a></li>
+                      </ul>
+                  </li>
+                </span>
             </ul>
+
         </div><!-- /.navbar-collapse -->
     </nav>
 </aside><!-- /#left-panel -->

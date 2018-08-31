@@ -31,7 +31,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Data Mahasiswa</strong>
+                            <strong class="card-title">Data Mahasiswa Softdelete</strong>
                         </div>
                         <div class="card-body">
                           <font size="2">

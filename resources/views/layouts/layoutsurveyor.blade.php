@@ -22,18 +22,42 @@
                   <div class="brand-text d-none d-md-inline-block"><span>Surveyor</span><strong class="text-primary">Dashboard</strong></div></a></div>
               <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <!-- Log out-->
-                <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link logout" onclick="event.preventDefault();
-                              document.getElementById('logout-form').submit();">
-                 {{ __('Logout') }}
-                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                     @csrf
-                 </form>
-                  <i class="fa fa-sign-out"></i></a></li>
-              </ul>
-            </div>
+                <li class="nav-item">
+                  <button type="button" class="btn btn-link" data-target="#modallogout" id="buttonlink" data-toggle="modal">
+                    logout
+                    <i class="fa fa-sign-out"></i>
+                  </button>
+              </li>
+            </ul>
           </div>
-        </nav>
-      </header>
+        </div>
+      </nav>
+    </header>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modallogout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Keluar Sistem</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            apa anda yakin ingin keluar?
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+
+          </div>
+          <div class="modal-footer">
+            <button type="submit"  class="btn btn-danger" >Ya</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Tidak</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
       <!-- Breadcrumb-->
       <div class="breadcrumb-holder">
         <div class="container-fluid">

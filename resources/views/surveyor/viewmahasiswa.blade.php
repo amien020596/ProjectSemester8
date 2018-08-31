@@ -49,11 +49,17 @@ Lihat Data Mahasiswa | Bidikmisi
                         <th scope="row">{{$loop->iteration}}</th>
                         <td class="text-center" >{{$key->nim}}</td>
                         <td class="text-center" >{{$key->nama}}</td>
-                        <td class="text-center" >{{$key->jurusan}}</td>
-                        <td class="text-center" >{{$key->fakultas}}</td>
+                        <td class="text-center" >{{$key->jurusan->jurusan}}</td>
+                        <td class="text-center" >{{$key->fakultas->fakultas}}</td>
                         <td class="text-center" >
+                          <span data-toggle="tooltip" data-placement="top" title="Detail Data Mahasiswa">
+                          <button  class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal{{$key->nim}}" data-target-id="" >Detail</button>
+                          </span>
+                          <span data-toggle="tooltip" data-placement="top" title="Ubah Data Mahasiswa">
+                          <button  class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalubah{{$key->nim}}" data-target-id="" >Ubah</button>
+                          </span>
                           <span data-toggle="tooltip" data-placement="top" title="Hapus Data Mahasiswa">
-                          <button  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal{{$key->nim}}" data-target-id="" >Detail</button>
+                          <button  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalhapus{{$key->nim}}" data-target-id="" >Hapus</button>
                           </span>
                         </td>
                       </tr>
@@ -74,7 +80,7 @@ Lihat Data Mahasiswa | Bidikmisi
                                   </div>
                                   <div class="form-group">
                                     <label>Fakultas Mahasiswa</label>
-                                    <input type="text" placeholder="Nama" disabled value="{{$key->fakultas}}" class="form-control">
+                                    <input type="text" placeholder="Nama" disabled value="{{$key->fakultas->fakultas}}" class="form-control">
                                   </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -84,7 +90,7 @@ Lihat Data Mahasiswa | Bidikmisi
                                   </div>
                                   <div class="form-group">
                                     <label>Jurusan Mahasiswa</label>
-                                    <input type="text" placeholder="NIM" disabled value="{{$key->jurusan}}" class="form-control">
+                                    <input type="text" placeholder="NIM" disabled value="{{$key->jurusan->jurusan}}" class="form-control">
                                   </div>
                                 </div>
                               </div>
@@ -104,6 +110,45 @@ Lihat Data Mahasiswa | Bidikmisi
                             <div class="modal-footer">
                               <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
                             </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="modalubah{{$key->nim}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                        <div role="document" class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 id="exampleModalLabel" class="modal-title">Ubah Mahasiswa</h5>
+                              <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                            </div>
+                            <div class="modal-body">
+                              Apa Anda yakin Mengubah Data Mahasiswa {{$key->nama}} ?
+                            </div>
+                            <form class="" action="{{route('ubah-mahasiswa-surveyor',['id'=>$key->nim])}}">
+                              <div class="modal-footer">
+                                <button type="submit" name="" class="btn btn-danger">Ya</button>
+                                <button type="button" data-dismiss="modal" class="btn btn-secondary">Tidak</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="modalhapus{{$key->nim}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                        <div role="document" class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 id="exampleModalLabel" class="modal-title">Hapus Mahasiswa {{$key->nama}}</h5>
+                              <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                            </div>
+                            <div class="modal-body">
+                              Apa Anda yakin menghapus Data Mahasiswa {{$key->nama}} ?
+                            </div>
+                            <form class="" action="{{route('hapus-mahasiswa-surveyor',['id'=>$key->nim])}}" method="post">
+                              @csrf
+                              <div class="modal-footer">
+                                <button type="submit" name="" class="btn btn-danger">Ya</button>
+                                <button type="button" data-dismiss="modal" class="btn btn-secondary">Tidak</button>
+                              </div>
+                            </form>
                           </div>
                         </div>
                       </div>

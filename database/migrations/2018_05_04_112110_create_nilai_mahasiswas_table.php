@@ -21,7 +21,7 @@ class CreateNilaiMahasiswasTable extends Migration
             $table->foreign('id_kriteria')->references('id')->on('kriterias')->onDelete('cascade');
             $table->unsignedInteger('nilai');
             $table->unsignedInteger('id_user');
-            $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->SoftDeletes();
         });

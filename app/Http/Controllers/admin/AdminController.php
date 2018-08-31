@@ -58,14 +58,13 @@ class AdminController extends Controller
                   $user = User::where('id',Auth::user()->id);
                   $user->update([
                     'email'=>$request->email,
-                    'picture'=>$picture
                   ]);
-
                   $user_profile = user_profile::where('user_id',Auth::user()->id);
                   $user_profile->update([
                     'firstname'=>$request->firstname,
                     'lastname'=>$request->lastname,
-                    'address'=>$request->address
+                    'address'=>$request->address,
+                    'picture'=>$picture
                   ]);
 
                     return redirect()->route('admin-setting')->with('success', 'Update Data Success');

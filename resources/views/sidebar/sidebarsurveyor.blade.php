@@ -3,7 +3,7 @@
     <!-- Sidebar Header    -->
     <div class="sidenav-header d-flex align-items-center justify-content-center">
       <!-- User Info-->
-      <div class="sidenav-header-inner text-center"><img src="{{asset('storage/'.Auth::user()->picture)}}" alt="person" class="img-fluid img-thumbnail">
+      <div class="sidenav-header-inner text-center"><img src="{{asset('storage/'.$user->picture)}}" alt="person" class="img-fluid img-thumbnail">
         <h2 class="h5">{{Auth::user()->name}}</h2><span>{{Auth::user()->role}}</span>
       </div>
       <!-- Small Brand information, appears on minimized sidebar-->

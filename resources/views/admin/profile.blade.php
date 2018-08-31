@@ -68,6 +68,7 @@
                 </div>
             </div>
           @endif
+
     <div class="col-lg-8">
         <div class="card">
             <div class="card-header">
@@ -85,7 +86,7 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>{{$admin->firstname}}{{$admin->lastname}}</td>
+                      <td>{{$admin->firstname}} {{$admin->lastname}}</td>
                       <td>{{$admin->address}}</td>
                       <td>{{$admin->user->email}}</td>
                       <td>{{$admin->user->role}}</td>
@@ -102,7 +103,7 @@
            </div>
            <div class="card-body">
                <div class="mx-auto d-block">
-                   <img class=" mx-auto d-block" width="100px" src="{{asset('storage/'.$admin->user->picture)}}" alt="Card image cap">
+                   <img class=" mx-auto d-block" width="100px" src="{{asset('storage/'.$admin->picture)}}" alt="Card image cap">
                    <h5 class="text-sm-center mt-2 mb-1">{{$admin->firstname}}</h5>
                </div>
                <hr>

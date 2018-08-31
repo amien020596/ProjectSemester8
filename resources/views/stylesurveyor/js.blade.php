@@ -37,5 +37,10 @@
       })
     });
     });
+
+      var btn = document.getElementById('buttonlink');
+      btn.style.textDecoration = "none";
+      btn.style.color = "white";
+      btn.style.fontSize = "15px";
     
 </script>

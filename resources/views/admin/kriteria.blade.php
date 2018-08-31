@@ -20,6 +20,7 @@
                   </div>
                   @endif
                   @if ($errors->any())
+                    <div class="col-lg-12">
                       <div class="alert alert-danger">
                           <ul>
                               @foreach ($errors->all() as $error)
@@ -27,6 +28,7 @@
                               @endforeach
                           </ul>
                       </div>
+                    </div>
                   @endif
                 <div class="col-md-12">
                     <div class="card">
@@ -115,15 +117,21 @@
                     <div class="row">
                       <label class="col-md-2">Jenis</label>
                       <div class="col-md-10">
-                        <label><input type='radio' name='jenis' value='cost'<?php echo ($key->jenis == "cost") ? "checked" : " " ?>>Cost</label>
-                        <label><input type='radio' name='jenis' value='benefit' <?php echo ($key->jenis == "benefit") ? "checked" : " "?>>Benefit</label>
+                        <label><input type='radio' name='jenis' value='cost'{{ ($key->jenis == "cost") ? "checked" : " " }}>Cost</label>
+                        <label><input type='radio' name='jenis' value='benefit' {{ ($key->jenis == "benefit") ? "checked" : " "}}>Benefit</label>
                       </div>
                     </div>
                   </div>
                   <div class="form-group container">
                     <div class="row">
                       <label class="col-md-2">Bobot</label>
-                      <input type="numeric" name="bobot" class="form-control col-md-10" value="{{$key->bobot}}">
+                      <select name="bobot" id="select" class="form-control col-md-2">
+                        <option value="1" {{($key->bobot == 1)? "selected":""}}>1</option>
+                        <option value="2" {{($key->bobot == 2)? "selected":""}}>2</option>
+                        <option value="3" {{($key->bobot == 3)? "selected":""}}>3</option>
+                        <option value="4" {{($key->bobot == 4)? "selected":""}}>4</option>
+                        <option value="5" {{($key->bobot == 5)? "selected":""}}>5</option>
+                      </select>
                     </div>
                   </div>
                 </div>
@@ -166,7 +174,14 @@
                 <div class="form-group container">
                   <div class="row">
                     <label class="col-md-2">Bobot</label>
-                    <input type="numeric" name="bobot" class="form-control col-md-10" value="">
+                    {{-- <input type="numeric" name="bobot" class="form-control col-md-10" value=""> --}}
+                    <select name="bobot" id="select" class="form-control col-md-2">
+                      <option value="1" >1</option>
+                      <option value="2" >2</option>
+                      <option value="3" >3</option>
+                      <option value="4" >4</option>
+                      <option value="5" >5</option>
+                    </select>
                   </div>
                 </div>
               </div>

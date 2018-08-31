@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\kriteria;
 use App\nilai_mahasiswa;
+use App\user_profile;
+use Auth;
 use Validator;
 
 class adminKriteriaSetting extends Controller
@@ -20,8 +22,10 @@ class adminKriteriaSetting extends Controller
      */
     public function index()
     {
+        $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
         $kriteria = kriteria::all();
-        return view("admin.kriteria")->with('Dkriteria',$kriteria);
+        $data = ['admin'=>$admin,'Dkriteria'=>$kriteria];
+        return view('admin.kriteria',$data);
     }
 
     /**
@@ -134,7 +138,6 @@ class adminKriteriaSetting extends Controller
     public function destroy($id)
     {
       $kriteria = kriteria::find($id)->first();
-
 
       if(!isset($kriteria)){
         return redirect()->route('view-kriteria')->with('error', 'The id does not exist');

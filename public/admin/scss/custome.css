@@ -1,0 +1,21 @@
+.modal-backdrop{
+  display: none;
+}
+.modal-backdrop.show{
+  display: none;
+}
+.user-area .user-avatar {
+    float: right;
+    margin-top: 0px;
+    width: 65px;
+}
+.hidden{
+  display: none;
+}
+.show{
+  display: block;
+}
+.open{
+  padding: 0px 2px 2px 2px;
+  border-radius: 5px;
+}

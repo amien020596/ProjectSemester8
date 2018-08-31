@@ -40,19 +40,6 @@
                               </div>
                             </div>
                             <div class="row form-group">
-                              <div class="col col-md-2"><label for="password-input" class=" form-control-label">No Hp</label></div>
-                              <div class="col-12 col-md-6">
-                                <input type="text" id="text-input" name="no_hp" value="{{$Dsurveyor->no_hp}}" placeholder="Masukan No Hp" class="form-control">
-                              </div>
-                              <div class="col-12 col-md-4">
-                                @if ($errors->has('no_hp'))
-                                <h6>
-                                      <p class="text-danger">*<small>{{ $errors->first('no_hp') }}</small></p>
-                                </h6>
-                                @endif
-                              </div>
-                            </div>
-                            <div class="row form-group">
                               <div class="col col-md-2"><label for="password-input" class=" form-control-label">Email</label></div>
                               <div class="col-12 col-md-6">
                                 <input type="email" id="text-input" name="email" value="{{$Dsurveyor->user->email}}" placeholder="Masukan Email" class="form-control">

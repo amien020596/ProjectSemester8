@@ -59,7 +59,7 @@
                                       <a class="btn btn-info btn-sm" href="{{route('detail-mahasiswa',['id'=>$key->nim])}}">Detail</a>
                                       </span>
                                       <span data-toggle="tooltip" data-placement="top" title="Edit Data Mahasiswa">
-                                      <a class="btn btn-success btn-sm" href="{{route('edit-mahasiswa',['id'=>$key->nim])}}">Edit</a>
+                                      <a class="btn btn-success btn-sm" href="{{route('edit-mahasiswa',['id'=>$key->nim])}}">Ubah</a>
                                       </span>
                                       <span data-toggle="tooltip" data-placement="top" title="Hapus Data Mahasiswa">
                                       <button  class="btn btn-danger btn-sm" data-toggle="modal" data-target="#ModalHapus{{$key->nim}}" data-target-id="{{$key->nim}}" >Hapus</button>

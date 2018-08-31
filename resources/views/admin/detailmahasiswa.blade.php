@@ -32,25 +32,37 @@
                               @if($errors->has('nama'))<p class="help-block text text-danger">*{{$errors->first('nama')}}</p>@endif
                             </div>
                             <div class="form-group">
-                              <label for="">NIM</label>
+                              <label for="">NIM Mahasiswa</label>
                               <input type="number" disabled class="form-control" id="" value="{{ $mahasiswa->nim }}" name="nim" placeholder="NIM">
                               @if($errors->has('nim'))<p class="help-block text text-danger">*{{$errors->first('nim')}}</p>@endif
                             </div>
                             <div class="form-group">
+
                               <div class="row">
-                                <div class="col-lg-3 row1">
-                                  <label for="">Fakultas</label>
+
+                                <div class="col-lg-6 ">
+                                  <label for="">Fakultas Mahasiswa</label>
                                 </div>
-                                <div class="col-lg-3 row2">
-                                  {{ $Dfakultas->fakultas }}
+                                <div class="col-lg-6 ">
+                                  <label for="">Jurusan Mahasiswa</label>
                                 </div>
-                                <div class="col-lg-3 row1">
-                                  <label for="">Jurusan</label>
-                                </div>
-                                <div class="col-lg-3 row2">
-                                  {{ $Djurusan->jurusan }}
-                                </div>
+
                               </div>
+                              <div class="row">
+
+                                <div class="col-lg-6 ">
+                                  <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="" disabled value="{{ $Dfakultas->fakultas }}"></input>
+                                  </div>
+                                </div>
+                                <div class="col-lg-6 ">
+                                  <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="" disabled value="{{ $Djurusan->jurusan }}"></input>
+                                  </div>
+                                </div>
+
+                              </div>
+
                             </div>
                           </div>
                       </div>

@@ -18,7 +18,8 @@ class nilai_mahasiswa extends Model
   }
 
   public function mahasiswainput(){
-    return $this->belongsTo('App\datamahasiswa','nim','id');
+    // reference itu ke tabel ini tapi local ke tabel joinannya
+    return $this->belongsTo('App\datamahasiswa','nim','nim');
   }
 
   public function kearahkriteria(){

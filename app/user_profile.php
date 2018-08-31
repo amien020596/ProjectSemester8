@@ -11,7 +11,7 @@ class user_profile extends Model
   protected $dates = ['deleted_at'];
 
   protected $fillable = [
-      'firstname', 'lastname', 'no_hp', 'address','user_id'
+      'firstname', 'lastname', 'address','user_id','picture'
   ];
 
   public function user()

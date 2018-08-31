@@ -9,6 +9,7 @@ use App\user_profile;
 use App\kriteria;
 use App\nilai_mahasiswa;
 use App\datafakultas;
+use Auth;
 use App\datamahasiswa;
 
 class adminsoftdelete extends Controller
@@ -19,10 +20,11 @@ class adminsoftdelete extends Controller
     }
 
     public function surveyorsoftdelete(){
-
+      $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
       $surveyor = user_profile::with('user')->onlyTrashed()->get();
+      $data = ['admin'=>$admin,'Dsurveyor'=>$surveyor];
       //return $surveyor;
-      return view('admin.softsurveyor')->with('Dsurveyor',$surveyor);
+      return view('admin.softsurveyor')->with($data);
     }
 
     public function retrivesurveyor($id){
@@ -45,7 +47,7 @@ class adminsoftdelete extends Controller
               'id_kriteria'=>$kriteriaid->id
             ];
             $nilai = nilai_mahasiswa::where($where)->first();
-              if($kriteriaid->id==$nilai->id_kriteria){
+              if($kriteriaid->id==$nilai['id_kriteria'] && $nilai != null){
                 nilai_mahasiswa::where($where)->delete();
               }
           }
@@ -60,10 +62,11 @@ class adminsoftdelete extends Controller
         return redirect()->route('surveyor')->with('error', 'The id does not exist');
       }
 
-      user_profile::where('user_id',$id)->onlyTrashed()->forceDelete();
-      User::where('id',$id)->forceDelete();
       datamahasiswa::where('id_user',$id)->onlyTrashed()->forceDelete();
       nilai_mahasiswa::where('id_user',$id)->onlyTrashed()->forceDelete();
+      user_profile::where('user_id',$id)->onlyTrashed()->forceDelete();
+      User::where('id',$id)->forceDelete();
+
 
       return redirect()->route('surveyor')->with('success', 'Delete Permanent Data Account Success');
     }
@@ -72,7 +75,9 @@ class adminsoftdelete extends Controller
 
       $kriteria = kriteria::onlyTrashed()->get();
       //return $kriteria;
-      return view('admin.softkriteria')->with('Dkriteria',$kriteria);
+      $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
+      $data = ['admin'=>$admin,'Dkriteria'=>$kriteria];
+      return view('admin.softkriteria')->with($data);
     }
 
     public function retrivekriteria($id){
@@ -97,7 +102,7 @@ class adminsoftdelete extends Controller
                     }
                 }
 
-      return redirect()->route('kriteria')->with('success', 'Restore Data Kriteria Success');
+      return redirect()->route('kriteria')->with('success', 'Restore Data Mahasiswa Success');
     }
 
     public function deletekriteria($id){
@@ -106,8 +111,8 @@ class adminsoftdelete extends Controller
         return redirect()->route('kriteria')->with('error', 'The id does not exist');
       }
 
-      kriteria::where('id',$id)->forceDelete();
       nilai_mahasiswa::where('id_kriteria',$id)->forceDelete();
+      kriteria::where('id',$id)->forceDelete();
       return redirect()->route('kriteria')->with('success', 'Delete Permanent Data Kriteria Success');
     }
 
@@ -115,7 +120,9 @@ class adminsoftdelete extends Controller
 
       $mahasiswa = datamahasiswa::onlyTrashed()->with('fakultas')->with('jurusan')->get();
       //return $mahasiswa;
-      return view('admin.softmahasiswa')->with('Dmahasiswa',$mahasiswa);
+      $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
+      $data = ['admin'=>$admin,'Dmahasiswa'=>$mahasiswa];
+      return view('admin.softmahasiswa')->with($data);
     }
 
     public function retrivemahasiswa($nim){
@@ -135,12 +142,13 @@ class adminsoftdelete extends Controller
                     'id_kriteria'=>$kriteriadelete->id,
                   ];
                   $nilai = nilai_mahasiswa::where($where)->first();
-                    if($kriteriadelete->id==$nilai->id_kriteria){
+                  // dd($nilai);
+                    if($kriteriadelete->id==$nilai['id_kriteria'] && $nilai != null){
                       nilai_mahasiswa::where($where)->delete();
                     }
                 }
 
-      return redirect()->route('mahasiswa')->with('success', 'Restore Data Kriteria Success');
+      return redirect()->route('mahasiswa')->with('success', 'Restore Data mahasiswa Success');
     }
 
     public function deletemahasiswa($nim){
@@ -149,8 +157,8 @@ class adminsoftdelete extends Controller
         return redirect()->route('mahasiswa')->with('error', 'The id does not exist');
       }
 
-      datamahasiswa::where('nim',$nim)->forceDelete();
       nilai_mahasiswa::where('nim',$nim)->forceDelete();
+      datamahasiswa::where('nim',$nim)->forceDelete();
       return redirect()->route('mahasiswa')->with('success', 'Delete Permanent Data Mahasiswa Success');
     }
 

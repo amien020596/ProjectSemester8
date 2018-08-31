@@ -28,11 +28,14 @@ class surveyormahasiswasetting extends Controller
      }
     public function index()
     {
-      $datamahasiswa = DB::table('datamahasiswas')->where('id_user','=', Auth::user()->id)->select('datamahasiswas.nim','datamahasiswas.nama','datajurusans.jurusan','datafakultas.fakultas')->join('datafakultas','datamahasiswas.id_fakultas','=','datafakultas.id')->join('datajurusans', 'datamahasiswas.id_jurusan', '=', 'datajurusans.id')->get();
+      $userprofile = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
+      $datamahasiswa = datamahasiswa::with('fakultas')->with('jurusan')->where('id_user','=', Auth::user()->id)->get();
+      //return $datamahasiswa;
       $kriteria = kriteria::all();
       $data = array(
         'Dmahasiswa'=>$datamahasiswa,
-        'kriteria'=>$kriteria
+        'kriteria'=>$kriteria,
+        'user'=>$userprofile,
       );
         return view('surveyor.viewmahasiswa')->with($data);
     }
@@ -44,9 +47,16 @@ class surveyormahasiswasetting extends Controller
      */
     public function create()
     {
+      $userprofile = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
+
         $data = datafakultas::all();
         $kriteria = kriteria::all();
-        return view('surveyor.formmahasiswa',['Dfakultas'=>$data,'Dkritria'=>$kriteria]);
+        $data = [
+          'user'=>$userprofile,
+          'Dfakultas'=>$data,
+          'Dkritria'=>$kriteria
+        ];
+        return view('surveyor.formmahasiswa',$data);
     }
     public function selectfakultas(){
       $fakultas_id = Input::get('fakultas_id');
@@ -126,9 +136,11 @@ class surveyormahasiswasetting extends Controller
           return redirect()->route('view-mahasiswa-surveyor')->with('success', 'Insert Data Mahasiswa Success');
     }
     public function settingpassword(){
-      return view('surveyor.passwordsetting');
+      $userprofile = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
+      $data = ['user'=>$userprofile];
+      return view('surveyor.passwordsetting',$data);
     }
-    public function storepassword(Request $request){
+    public function savepassword(Request $request){
 
       $validator = Validator::make($request->all(), [
             'password'=>'required|confirmed|min:6'
@@ -160,7 +172,6 @@ class surveyormahasiswasetting extends Controller
       $data = array(
         'user'=>$userprofile
       );
-      //return $data;
       return view('surveyor.profilesetting')->with($data);
     }
     public function saveprofile(Request $request){
@@ -188,14 +199,14 @@ class surveyormahasiswasetting extends Controller
                 $user = User::where('id',Auth::user()->id);
                 $user->update([
                   'email'=>$request->email,
-                  'picture'=>$picture
                 ]);
 
                 $user_profile = user_profile::where('user_id',Auth::user()->id);
                 $user_profile->update([
                   'firstname'=>$request->firstname,
                   'lastname'=>$request->lastname,
-                  'address'=>$request->address
+                  'address'=>$request->address,
+                  'picture'=>$picture
                 ]);
 
                   return redirect()->route('profile-mahasiswa-surveyor')->with('success', 'Update Data Success');
@@ -224,7 +235,17 @@ class surveyormahasiswasetting extends Controller
      */
     public function edit($id)
     {
-        //
+      $mahasiswa = datamahasiswa::where('nim',$id)->first();
+      $fakultas = datafakultas::all();
+      $kriteria = kriteria::all();
+      $userprofile = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
+      $data = [
+        'mahasiswa'=>$mahasiswa,
+        'Dfakultas'=>$fakultas,
+        'Dkritria'=>$kriteria,
+        'user'=>$userprofile
+      ];
+      return view('surveyor.ubahmahasiswa')->with($data);
     }
 
     /**
@@ -234,9 +255,65 @@ class surveyormahasiswasetting extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $nim)
     {
-        //
+      $validator = Validator::make($request->all(), [
+            'nama'=>'required',
+            'nim'=>'required',
+            'fakultas'=>'required',
+            'jurusan'=>'required'
+        ]);
+
+      if ($validator->fails()) {
+          return redirect()->back()
+                      ->withErrors($validator)
+                      ->withInput();
+      }
+
+            if($request->fakultas == 0){
+              return redirect()->route('ubah-mahasiswa-surveyor',['id'=>$nim])->with('error', 'Kolom Fakultas Tidak Boleh Kosong');
+            }
+
+            if($request->jurusan == 0){
+              return redirect()->route('ubah-mahasiswa-surveyor',['id'=>$nim])->with('error', 'Kolom Jurusan Tidak Boleh Kosong');
+            }
+            $s=8;
+            if($request->$s >= 5){
+              return redirect()->route('ubah-mahasiswa-surveyor',['id'=>$nim])->with('error', 'Nilai Kolom HM Rumah Tidak lebih dari 4 ');
+            }
+            $s=11;
+            if($request->$s >= 4){
+              return redirect()->route('ubah-mahasiswa-surveyor',['id'=>$nim])->with('error', 'Nilai Kolom Dinding Tidak Lebih dari 3 ');
+            }
+
+            $nilaiforceDelete = nilai_mahasiswa::where('nim',$nim)->forceDelete();
+            $datamahasiswa = datamahasiswa::where('nim', $nim)->update([
+              'nim'=>$request->nim,
+              'nama'=>$request->nama,
+              'id_fakultas'=>$request->fakultas,
+              'id_jurusan'=>$request->jurusan
+            ]);
+
+            $kriteria = kriteria::all();
+            foreach ($kriteria as $key => $value) {
+              $a = $value->id;
+              if($request->$a == null){
+                $request->$a = 0;
+              }
+
+              $nilai = nilai_mahasiswa::create([
+              'id_kriteria'=>$value->id,
+              'nilai'=>$request->$a,
+              'nim'=>$request->nim,
+              'id_user'=>Auth::user()->id
+              ]);
+            }
+
+            if($datamahasiswa != True || $nilai != True){
+              //ini perlu diperbaiki lagi
+              return redirect()->route('view-mahasiswa-surveyor')->with('error', 'Update Data Mahasiswa Failed');
+            }
+            return redirect()->route('view-mahasiswa-surveyor')->with('success', 'Update Data Mahasiswa Success');
     }
 
     /**
@@ -247,6 +324,12 @@ class surveyormahasiswasetting extends Controller
      */
     public function destroy($id)
     {
-        //
+      $mahasiswa = datamahasiswa::find($id)->first();
+      if(!isset($mahasiswa)){
+        return redirect()->route('view-mahasiswa-surveyor')->with('error', 'The NIM does not exist');
+      }
+      $mahasiswa = datamahasiswa::where('nim',$id)->delete();
+      $nilai_mahasiswa = nilai_mahasiswa::where('nim',$id)->delete();
+      return redirect()->route('view-mahasiswa-surveyor')->with('success', 'Delete Data Mahasiswa Success');
     }
 }

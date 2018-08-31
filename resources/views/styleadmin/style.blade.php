@@ -25,6 +25,7 @@
         <link rel="stylesheet" href="{{asset('admin/css/lib/datatable/dataTables.bootstrap.min.css')}}">
         <!-- <link rel="stylesheet" href="assets/css/bootstrap-select.less"> -->
         <link rel="stylesheet" href="{{asset('admin/scss/style.css')}}">
+        <link rel="stylesheet" href="{{asset('admin/scss/custome.css')}}">
 
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
         <script>

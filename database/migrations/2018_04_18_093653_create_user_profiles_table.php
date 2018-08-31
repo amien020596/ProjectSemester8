@@ -18,8 +18,9 @@ class CreateUserProfilesTable extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('address');
+            $table->string('picture')->nullable();
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->SoftDeletes();
             $table->timestamps();
         });

@@ -13,8 +13,10 @@
                         </div>
                         <div class="card-body">
                           <font size="2">
-                            <table id="bootstrap-data-table" class="table table-striped table-bordered ">
-                              <thead>
+
+                            <table id="bootstrap-data-table" style="overflow-x:auto;" class="table table-striped table-bordered ">
+
+                              {{-- <thead> --}}
                                 <tr>
 
                                   <th class="text-center">NIM</th>
@@ -23,8 +25,8 @@
                                   @endforeach
                                   <th class="text-center">Yi</th>
                                 </tr>
-                              </thead>
-                              <tbody>
+                              {{-- </thead> --}}
+                              {{-- <tbody> --}}
                                 @foreach ($id as $key => $nim)
 
                                   <tr>
@@ -39,8 +41,11 @@
                                         <td class="text-center">{{number_format($bobot["$nim->nim"],5)}}</td>
                                   </tr>
                                 @endforeach
-                              </tbody>
+                              {{-- </tbody> --}}
+
                             </table>
+
+
                           </font>
                         </div>
                     </div>

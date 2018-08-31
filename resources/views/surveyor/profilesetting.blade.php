@@ -95,7 +95,7 @@ Setting Profile {{Auth::user()->name}} | Bidikmisi
               <h4>Foto Profile</h4>
             </div>
             <div class="card-body">
-              <img src="{{asset('storage/'.$user->user->picture)}}" alt="" width="200px">
+              <img src="{{asset('storage/'.$user->picture)}}" alt="" width="200px">
             </div>
           </div>
         </div>

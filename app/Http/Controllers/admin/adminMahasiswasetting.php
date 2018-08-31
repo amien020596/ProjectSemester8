@@ -8,6 +8,7 @@ use App\datamahasiswa;
 use App\datafakultas;
 use App\datajurusan;
 use App\nilai_mahasiswa;
+use App\user_profile;
 use App\kriteria;
 use Illuminate\Support\Facades\DB;
 use Validator;
@@ -24,28 +25,28 @@ class adminMahasiswasetting extends Controller
      {
          $this->middleware('auth:admin');
      }
-    public function index()
-    {
-      //$mahasiswa = DB::table('datamahasiswas')->select('datamahasiswas.nim','datamahasiswas.nama')->get();
-      //$mahasiswa = DB::table('datafakultas')->select('datafakultas.fakultas','datafakultas.id')->get();
-      //$mahasiswa = DB::table('datamahasiswas')->select('datamahasiswas.nim','datamahasiswas.nama','datajurusans.jurusan','datafakultas.fakultas')->join('datafakultas','datamahasiswas.id_fakultas','=','datafakultas.id')->join('datajurusans', 'datamahasiswas.id_jurusan', '=', 'datajurusans.id')->get();
-      $mahasiswa = datamahasiswa::with('fakultas')->with('jurusan')->get();
-      //return $mahasiswa;
-      return view('admin.mahasiswa')->with('Dmahasiswa',$mahasiswa);
-    }
+      public function index(){
+        $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
+        $mahasiswa = datamahasiswa::with('fakultas')->with('jurusan')->get();
+        $data = ['admin'=>$admin,'Dmahasiswa'=>$mahasiswa];
+        return view('admin.mahasiswa',$data);
+        
+      }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         $data = datafakultas::all();
         $kriteria = kriteria::all();
+        $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
         //return $kriteria;
-        return view('admin/addmahasiswa',['Dfakultas'=>$data,'Dkritria'=>$kriteria]);
+        $data = ['Dfakultas'=>$data,'Dkritria'=>$kriteria,'admin'=>$admin];
+        return view('admin.addmahasiswa',$data);
     }
+
     public function selectfakultas(){
       $fakultas_id = Input::get('fakultas_id');
       $jurusan = datajurusan::where('id_fakultas', '=', $fakultas_id)->get();
@@ -58,8 +59,7 @@ class adminMahasiswasetting extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
       $kriteria = kriteria::all();
         $validator = Validator::make($request->all(), [
               'nama'=>'required',
@@ -131,17 +131,18 @@ class adminMahasiswasetting extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($nim)
-    {
-      $mahasiswa = datamahasiswa::find($nim)->first();
+    public function show($nim){
+      $mahasiswa = datamahasiswa::where('nim',$nim)->first();
       $fakultas = datafakultas::find($mahasiswa->id_fakultas)->select('fakultas')->first();
       $jurusan = datajurusan::find($mahasiswa->id_jurusan)->select('jurusan')->first();
       $kriteria = kriteria::all();
+      $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
       $data = [
         'mahasiswa'=>$mahasiswa,
         'Dfakultas'=>$fakultas,
         'Djurusan'=>$jurusan,
-        'kriteria'=>$kriteria
+        'kriteria'=>$kriteria,
+        'admin'=>$admin
       ];
       return view('admin.detailmahasiswa')->with($data);
     }
@@ -152,16 +153,17 @@ class adminMahasiswasetting extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($nim)
-    {
+    public function edit($nim){
 
         $mahasiswa = datamahasiswa::where('nim',$nim)->first();
         $fakultas = datafakultas::all();
         $kriteria = kriteria::all();
+        $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
         $data = [
           'mahasiswa'=>$mahasiswa,
           'Dfakultas'=>$fakultas,
-          'kriteria'=>$kriteria
+          'kriteria'=>$kriteria,
+          'admin'=>$admin
         ];
         return view('admin.updatemahasiswa')->with($data);
     }
@@ -177,8 +179,7 @@ class adminMahasiswasetting extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
       $validator = Validator::make($request->all(), [
             'nama'=>'required',
             'nim'=>'required',
@@ -245,8 +246,7 @@ class adminMahasiswasetting extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy($id)
-    {
+    public function destroy($id){
       $mahasiswa = datamahasiswa::find($id)->first();
       if(!isset($mahasiswa)){
         return redirect()->route('view-mahasiswa')->with('error', 'The NIM does not exist');
