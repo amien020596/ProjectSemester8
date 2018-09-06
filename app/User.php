@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role','picture'
+        'name', 'email', 'password', 'role'
     ];
 
     /**
@@ -35,6 +35,7 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\user_profile');
     }
+
     public function userinput()
     {
         return $this->belongsTo('App\nilai_mahasiswa');

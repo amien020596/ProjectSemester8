@@ -4,6 +4,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\kriteria;
+use App\nilai_mahasiswa;
+use App\user_profile;
+use Auth;
 use Validator;
 
 class adminKriteriaSetting extends Controller
@@ -19,8 +22,10 @@ class adminKriteriaSetting extends Controller
      */
     public function index()
     {
+        $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
         $kriteria = kriteria::all();
-        return view("admin.kriteria")->with('Dkriteria',$kriteria);
+        $data = ['admin'=>$admin,'Dkriteria'=>$kriteria];
+        return view('admin.kriteria',$data);
     }
 
     /**
@@ -139,7 +144,7 @@ class adminKriteriaSetting extends Controller
       }
 
       $kriteria = kriteria::where('id',$id)->delete();
-
+      $nilai_mahasiswa = nilai_mahasiswa::where('id_kriteria',$id)->delete();
       return redirect()->route('view-kriteria')->with('success', 'Delete Kriteria Success');
     }
 }

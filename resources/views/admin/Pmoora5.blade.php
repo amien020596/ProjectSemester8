@@ -9,35 +9,28 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Data Nilai Normalisasi Terbobot (Yi)</strong>
+                            <strong class="card-title">Data Nilai Ranking</strong>
                         </div>
                         <div class="card-body">
-                          <font size="1">
+                          <font size="3">
                             <table id="bootstrap-data-table" class="table table-striped table-bordered ">
                               <thead>
                                 <tr>
-
                                   <th class="text-center">NIM</th>
-                                  @foreach ($kriteria as $key => $value)
-                                  <th class="text-center">{{$value["kriteria"]}}</th>
-                                  @endforeach
                                   <th class="text-center">Yi</th>
-                                  <th class="text-center">Rating</th>
+                                  <th class="text-center">Ranking</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                @foreach ($id as $key => $nim)
-
-                                  <tr>
+                                @if (isset($id))
+                                  @foreach ($id as $key => $nim)
+                                    <tr>
                                       <td class="text-center">{{$nim->nim}}</td>
-                                      @foreach ($kriteria as $key => $value)
-                                      <td class="text-center">{{number_format($nilai["$nim->nim"]["$value->id"],5)}}</td>
-                                      {{-- <td class="text-center">{{$nilai["$nim->nim"]["$value->id"]}}</td> --}}
-                                      @endforeach
-                                        <td class="text-center">{{number_format($bobot["$nim->nim"],5)}}</td>
-                                        <td class="text-center">{{$rating["$nim->nim"]}}</td>
-                                  </tr>
-                                @endforeach
+                                      <td class="text-center">{{$nim->nilai}}</td>
+                                      <td class="text-center">{{$loop->iteration}}</td>
+                                    </tr>
+                                  @endforeach
+                                @endif
                               </tbody>
                             </table>
                           </font>

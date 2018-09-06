@@ -1,13 +1,13 @@
 @extends('layouts.layoutsurveyor')
 @section('title')
-ini title nya
+Surveyor Dashboard | Bidikmisi
 @endsection
 @section('body')
   <section>
     <div class="container-fluid">
       <!-- Page Header-->
       <header>
-        <h1 class="h3 display">Tables            </h1>
+        <h1 class="h3 display">Tables</h1>
       </header>
       <div class="row">
         <div class="col-lg-6">

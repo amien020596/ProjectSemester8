@@ -4,9 +4,13 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use App\User;
 use App\user_profile;
+use App\nilai_mahasiswa;
+use App\datamahasiswa;
 use Storage;
+use Auth;
 use Validator;
 class AdminSettingSurveyor extends Controller
 {
@@ -22,14 +26,15 @@ class AdminSettingSurveyor extends Controller
      */
     public function index()
     {
-
-      // $surveyor = new User;
-      // $surveyor->where('user_id',1);
-      // $surveyor->profile();
-      //$surveyor = $admin::surveyor()->select('fullname','picture')->where('user_id',Auth::user()->id)->get();
       $surveyor = User::with('profile')->where('role','surveyor')->get();
-      //return $surveyor;
-      return view('admin.surveyor')->with('Dsurveyor',$surveyor);
+      $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
+      $data = [
+        'admin'=>$admin,
+        'Dsurveyor'=>$surveyor
+      ];
+
+      // return view('admin.surveyor')->with('Dsurveyor',$surveyor);
+      return view('admin.surveyor',$data);
     }
 
 
@@ -40,7 +45,9 @@ class AdminSettingSurveyor extends Controller
      */
     public function create()
     {
-      return view('admin.addsurveyor');
+      $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
+      $data = ['admin'=>$admin];
+      return view('admin.addsurveyor',$data);
     }
 
     /**
@@ -54,10 +61,9 @@ class AdminSettingSurveyor extends Controller
       $validator = Validator::make($request->all(), [
             'firstname'=>'required|alpha',
             'lastname'=>'required|alpha',
-            'no_hp'=>'required|numeric',
-            'email'=>'required|email',
+            'email'=>'required|email|unique:users,email',
             'address'=>'required',
-            'password'=>'required|min:6',
+            'password'=>'required|confirmed|min:6',
             'file'=>'required|image|mimes:jpeg,bmp,png'
         ]);
         if ($validator->fails()) {
@@ -65,27 +71,30 @@ class AdminSettingSurveyor extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-
-        $ext = $request->file('file')->getClientOriginalExtension();
-        $filename = str_slug(strtolower($request->firstname)).'-.'.$ext;
-        $picture = $request->file('file')->storeAs('Filepicture',$filename);
-
       $user = User::create([
         'name' => $request->firstname,
         'email' => $request->email,
         'password' => bcrypt($request->password),
-        'role' => 'surveyor',
-        'picture' => $picture
+        'role' => 'surveyor'
       ]);
 
       $getid = User::where('email',$request->email)->first();
+
+      $ext = $request->file('file')->getClientOriginalExtension();
+      $filename = str_slug(strtolower($request->firstname)).'-'.$getid->id.'.'.$ext;
+      $picture = $request->file('file')->storeAs('Filepicture',$filename);
+
       $user_profile = user_profile::create([
         'firstname' => $request->firstname,
         'lastname' => $request->lastname,
-        'no_hp' => $request->no_hp,
         'address' => $request->address,
-        'user_id' => $getid->id
+        'user_id' => $getid->id,
+        'picture' => $picture
       ]);
+      // $user_profile = DB::table('user_profiles')->insert([
+      //
+      //                 ]);
+
       if($user == false || $user_profile == false){
             return redirect()->route('view-surveyor')->with('error', 'Add Data Surveyor Failed');
       }
@@ -118,8 +127,10 @@ class AdminSettingSurveyor extends Controller
     {
       //id yang digunakan adalah id tabel user
       $surveyor = user_profile::with('user')->where('user_id',$id)->first();
+      $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
+      $data = ['admin'=>$admin,'Dsurveyor'=>$surveyor];
       //return $surveyor;
-      return view('admin.updatesurveyor')->with('Dsurveyor',$surveyor);
+      return view('admin.updatesurveyor')->with($data);
     }
 
     /**
@@ -134,10 +145,9 @@ class AdminSettingSurveyor extends Controller
       $validator = Validator::make($request->all(), [
             'firstname'=>'required|alpha',
             'lastname'=>'required|alpha',
-            'no_hp'=>'required|numeric',
             'email'=>'required|email',
             'address'=>'required',
-            'file'=>'required|image|mimes:jpeg,bmp,png'
+            // 'file'=>'required|image|mimes:jpeg,bmp,png'
         ]);
         if ($validator->fails()) {
             return redirect()->back()
@@ -146,33 +156,58 @@ class AdminSettingSurveyor extends Controller
         }
 
         $users = user_profile::where('user_id', $id)->first();
+
         if(!isset($users)){
           return redirect()->route('view-surveyor')->with('error', 'The id does not exist');
         }
+        $user;
+        $user_profile;
 
-        if(User::find($id)->picture){
-          Storage::delete(User::find($id)->picture);
+        if($request->file === null){
+            // $ext = $request->file('file')->getClientOriginalExtension();
+            // $filename = str_slug(strtolower($request->firstname)).'-'.$id.'.'.$ext;
+            // $picture = $request->file('file')->storeAs('Filepicture',$filename);
+
+            $user = User::where('id',$id);
+            $user->update([
+              'email'=>$request->email,
+            ]);
+
+            $user_profile = user_profile::where('user_id',$id);
+            $user_profile->update([
+              'firstname'=>$request->firstname,
+              'lastname'=>$request->lastname,
+              'address'=>$request->address,
+            ]);
+        }else{
+
+            if(User::find($id)->picture){
+              Storage::delete(User::find($id)->picture);
+            }
+
+            $ext = $request->file('file')->getClientOriginalExtension();
+            $filename = str_slug(strtolower($request->firstname)).'-'.$id.'.'.$ext;
+            $picture = $request->file('file')->storeAs('Filepicture',$filename);
+
+            $user = User::where('id',$id);
+            $user->update([
+              'email'=>$request->email,
+
+            ]);
+
+            $user_profile = user_profile::where('user_id',$id);
+            $user_profile->update([
+              'firstname'=>$request->firstname,
+              'lastname'=>$request->lastname,
+              'address'=>$request->address,
+              'picture'=>$picture
+            ]);
         }
-
-        $ext = $request->file('file')->getClientOriginalExtension();
-        $filename = str_slug(strtolower($request->firstname)).'-'.$id.'.'.$ext;
-        $picture = $request->file('file')->storeAs('Filepicture',$filename);
-
-        $user = User::where('id',$id);
-        $user->update([
-          'email'=>$request->email,
-          'picture'=>$picture
-        ]);
-
-        $user_profile = user_profile::where('user_id',$id);
-        $user_profile->update([
-          'firstname'=>$request->firstname,
-          'lastname'=>$request->lastname,
-          'no_hp'=>$request->no_hp,
-          'address'=>$request->address
-        ]);
-
-          return redirect()->route('view-surveyor')->with('success', 'Update Data Success');
+          if($user === false || $user_profile === false){
+            return redirect()->route('view-surveyor')->with('error', 'Update Data Failed');
+          }else{
+              return redirect()->route('view-surveyor')->with('success', 'Update Data Success');
+          }
 
      }
 
@@ -208,6 +243,9 @@ class AdminSettingSurveyor extends Controller
 
         $user = User::where('id',$id)->delete();
         $user_profile = user_profile::where('user_id',$id)->delete();
+
+        $nilai_mahasiswa = nilai_mahasiswa::where('id_user',$id)->delete();
+        $mahasiswa = datamahasiswa::where('id_user',$id)->delete();
 
         return redirect()->route('view-surveyor')->with('success', 'Delete Account Success');
     }

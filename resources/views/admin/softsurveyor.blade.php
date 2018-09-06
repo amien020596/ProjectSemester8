@@ -25,7 +25,7 @@
                   <div class="col-lg-12">
                       <div class="card">
                           <div class="card-header">
-                              <strong class="card-title">Stripped Table</strong>
+                              <strong class="card-title">Data Surveyor Softdelete</strong>
                           </div>
                           <div class="card-body">
                               <table class="table table-bordered">
@@ -33,7 +33,6 @@
                                   <tr>
                                     <th scope="col" class="text-center" >No</th>
                                     <th scope="col" class="text-center" >Nama</th>
-                                    <th scope="col" class="text-center" >No Hp</th>
                                     <th scope="col" class="text-center" >Alamat</th>
 
                                     <th scope="col" class="text-center" >Action</th>
@@ -45,7 +44,6 @@
                                   <tr>
                                       <th scope="row" class="text-center" >{{$loop->iteration}}</th>
                                       <td class="text-center" >{{$key->firstname}} {{$key->lastname}}</td>
-                                      <td class="text-center" >{{$key->no_hp}}</td>
                                       <td class="text-center" >{{str_limit($key->address,25)}}</td>
 
                                       <td class="text-center">

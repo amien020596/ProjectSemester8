@@ -7,6 +7,19 @@
       <div class="animated fadeIn">
           <div class="row">
   <!-- kita butuh ini -->
+              <?php
+                $flash = Session::get('success') || Session::get('error');
+                $type = Session::get('success') ? 'success' : 'danger';
+                $desc = Session::get('success') ? session('success') : session('error');
+              ?>
+            @if ($flash)
+              <div class="col-lg-12">
+                  <div class="alert alert-{{ $type }}">
+                      {{ $desc }}
+                      <span class="close-flash float-right" style="cursor: pointer;">&times;</span>
+                  </div>
+              </div>
+            @endif
 
             <div class="col-lg-12">
                       <div class="card">
@@ -18,7 +31,7 @@
                             {{ csrf_field() }}
                             <div class="row form-group">
                               <div class="col col-md-2"><label for="text-input" class=" form-control-label">Nama Depan</label></div>
-                              <div class="col-12 col-md-6"><input type="text" id="text-input" name="firstname" value="" placeholder="Masukan Nama Depan" class="form-control"></div>
+                              <div class="col-12 col-md-6"><input type="text" id="text-input" name="firstname" value="{{old('firstname')}}" placeholder="Masukan Nama Depan" class="form-control"></div>
                               <div class="col-12 col-md-4">
                                 @if ($errors->has('firstname'))
                                 <h6>
@@ -29,7 +42,7 @@
                             </div>
                             <div class="row form-group">
                               <div class="col col-md-2"><label for="email-input" class=" form-control-label">Nama Belakang</label></div>
-                              <div class="col-12 col-md-6"><input type="text" id="text-input" name="lastname" value="" placeholder="Masukan Nama Belakang" class="form-control"></div>
+                              <div class="col-12 col-md-6"><input type="text" id="text-input" name="lastname" value="{{old('lastname')}}" placeholder="Masukan Nama Belakang" class="form-control"></div>
                               <div class="col-12 col-md-4">
                                 @if ($errors->has('lastname'))
                                 <h6>
@@ -39,22 +52,9 @@
                               </div>
                             </div>
                             <div class="row form-group">
-                              <div class="col col-md-2"><label for="password-input" class=" form-control-label">No Hp</label></div>
-                              <div class="col-12 col-md-6">
-                                <input type="text" id="text-input" name="no_hp" value="" placeholder="Masukan No Hp" class="form-control">
-                              </div>
-                              <div class="col-12 col-md-4">
-                                @if ($errors->has('no_hp'))
-                                <h6>
-                                      <p class="text-danger">*<small>{{ $errors->first('no_hp') }}</small></p>
-                                </h6>
-                                @endif
-                              </div>
-                            </div>
-                            <div class="row form-group">
                               <div class="col col-md-2"><label for="password-input" class=" form-control-label">Email</label></div>
                               <div class="col-12 col-md-6">
-                                <input type="email" id="text-input" name="email" value="" placeholder="Masukan Email" class="form-control">
+                                <input type="email" id="text-input" name="email" value="{{old('email')}}" placeholder="Masukan Email" class="form-control">
                               </div>
                               <div class="col-12 col-md-4">
                                 @if ($errors->has('email'))
@@ -78,9 +78,22 @@
                               </div>
                             </div>
                             <div class="row form-group">
+                              <div class="col col-md-2"><label for="password-input" class=" form-control-label">Password confirmation</label></div>
+                              <div class="col-12 col-md-6">
+                                <input type="password" id="text-input" name="password_confirmation" value="" placeholder="Masukan konfirmasi password" class="form-control">
+                              </div>
+                              <div class="col-12 col-md-4">
+                                @if ($errors->has('password'))
+                                <h6>
+                                      <p class="text-danger">*<small>{{ $errors->first('password') }}</small></p>
+                                </h6>
+                                @endif
+                              </div>
+                            </div>
+                            <div class="row form-group">
                               <div class="col col-md-2"><label for="textarea-input" class=" form-control-label">Alamat</label></div>
                               <div class="col-12 col-md-6">
-                                <textarea name="address" id="textarea-input" rows="9" placeholder="Content..." class="form-control"></textarea>
+                                <textarea name="address" id="textarea-input" rows="9" placeholder="Content..." class="form-control">{{old('address')}}</textarea>
                               </div>
                               <div class="col-12 col-md-4">
                                 @if ($errors->has('address'))
@@ -94,14 +107,11 @@
                               <div class="col col-md-2"><label for="file-input" class=" form-control-label">Foto</label></div>
                               <div class="col-12 col-md-6">
                                 <input type="file" name="file" class="form-control-file">
-
-                            </div>
-                            <div class="col-12 col-md-4">
-                              @if ($errors->has('file'))
-                              <h6>
-                                    <p class="text-danger">*<small>{{ $errors->first('file') }}</small></p>
-                              </h6>
-                              @endif
+                                @if ($errors->has('file'))
+                                <h6>
+                                      <p class="text-danger">*<small>{{ $errors->first('file') }}</small></p>
+                                </h6>
+                                @endif
                             </div>
                             </div>
                         </div>

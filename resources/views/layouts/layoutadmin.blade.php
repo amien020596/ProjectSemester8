@@ -32,44 +32,44 @@
                 <div class="col-sm-5">
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="{{asset('images/admin.jpg')}}" alt="User Avatar">
+                            <img class="user-avatar rounded" height="auto" width="auto" src="{{asset('storage/'.$admin->picture)}}" alt="User Avatar">
                         </a>
 
-                        <div class="user-menu dropdown-menu">
-                                <a class="nav-link" href="{{route('admin-profile')}}"><i class="fa fa- user"></i>My Profile</a>
-                                <a class="nav-link" href="{{route('admin-setting')}}"><i class="fa fa -cog"></i>Settings</a>
-                                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                              document.getElementById('logout-form').submit();">{{ __('Logout') }}
-                                              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                  @csrf
-                                              </form>
-                                              <i class="fa fa-power -off"></i></a>
+                        <div class="user-menu dropdown-menu bg-dark">
+                                <a class="nav-link text-white" href="{{route('admin-setting')}}"><i class="fa fa-cog"></i> Setting Profile</a>
+                                {{-- <a class="nav-link text-white" data-target="#modallogout" href="" data-togle="modal" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">{{ __('Logout') }}
+                                              <i class="fa fa-power -off"></i></a> --}}
+                                <button type="button" class="btn btn-link" data-target="#modallogout" id="buttonlink" data-toggle="modal"><i class="fa fa-sign-out"></i> Keluar</button>
                         </div>
                     </div>
-
-                    <div class="language-select dropdown" id="language-select">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown"  id="language" aria-haspopup="true" aria-expanded="true">
-                            <i class="flag-icon flag-icon-us"></i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="language" >
-                            <div class="dropdown-item">
-                                <span class="flag-icon flag-icon-fr"></span>
-                            </div>
-                            <div class="dropdown-item">
-                                <i class="flag-icon flag-icon-es"></i>
-                            </div>
-                            <div class="dropdown-item">
-                                <i class="flag-icon flag-icon-us"></i>
-                            </div>
-                            <div class="dropdown-item">
-                                <i class="flag-icon flag-icon-it"></i>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
+            <!-- Modal -->
+            <div class="modal fade" id="modallogout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Keluar Sistem</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    apa anda yakin ingin keluar?
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit"  class="btn btn-danger" >Ya</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Tidak</button>
+                  </div>
+                  </form>
+                </div>
+              </div>
+            </div>
         </header><!-- /header -->
         <!-- Header-->
 
@@ -85,9 +85,8 @@
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Table</a></li>
-                            <li class="active">Data table</li>
+
+                            <li class="active">Dashboard Admin</li>
                         </ol>
                     </div>
                 </div>

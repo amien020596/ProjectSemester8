@@ -112,7 +112,7 @@ class LoginController extends Controller
           switch ($role->role) {
             case 'admin':
               $guard = "admin";
-              $this->redirectTo = '/admin-home';
+              $this->redirectTo = '/admin/admin-home';
               break;
 
             default:

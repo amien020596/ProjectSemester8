@@ -14,13 +14,17 @@ class CreateDatamahasiswasTable extends Migration
     public function up()
     {
         Schema::create('datamahasiswas', function (Blueprint $table) {
-            $table->bigInteger('nim',20)->unsigned();
+            $table->Integer('id')->autoIncrement();
+            $table->unsignedBigInteger('nim')->unique();
             $table->string('nama');
             $table->unsignedInteger('id_fakultas');
             $table->foreign('id_fakultas')->references('id')->on('datafakultas');
             $table->unsignedInteger('id_jurusan');
             $table->foreign('id_jurusan')->references('id')->on('datajurusans');
+            $table->unsignedInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+            $table->SoftDeletes();
         });
     }
 

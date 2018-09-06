@@ -10,6 +10,6 @@ class datafakultas extends Model
       return $this->hasMany('App\datajurusan');
     }
     public function mahasiswa(){
-      return $this->hasMany('App\datamahasiswa');
+      return $this->hasMany('App\datamahasiswa','id_fakultas');
     }
 }

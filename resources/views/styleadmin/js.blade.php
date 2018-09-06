@@ -22,7 +22,12 @@
           });
           $('.modal').on('show.bs.modal', function (event) {
             $(body).css('padding-right', 0);
-          })
+          });
+
+          if ($('.cie').length) {
+              IsEmpty();
+          }
+
         } );
         $(document).ready(function() {
           $('#bootstrap-data-table-export').DataTable();
@@ -42,4 +47,53 @@
         });
       });
 
+      function Redirect(){
+        window.location = "http://localhost:8000/admin/mahasiswa/mahasiswa";
+      }
+      function IsEmpty(){
+        alert("Nilai Kriteria Tidak Boleh Kosong, Pindah ke halaman Mahasiswa");
+        setTimeout(function(){
+          	Redirect();
+          }, 1000);
+      }
+      function CekIsEmpty(){
+        var x = document.getElementById("EmptyValue");
+        if(x){
+          IsEmpty();
+        }
+      }
+
+        var btn = document.getElementById('buttonlink');
+        btn.style.textDecoration = "none";
+        btn.style.paddingLeft = "0px";
+        btn.style.color = "white";
+        btn.style.fontSize = "15px";
+
+      var click = $("#menuToggle");
+
+      click[0].onclick = function(){
+        $("#bton").toggleClass("open");
+        return false;
+      };
+
+      function showFunction(){
+         var hidden = document.getElementById('bton');
+         var content = document.getElementById('hidden');
+             if (hidden.textContent === "show") {
+               content.classList.remove("hidden");
+               hidden.innerHTML = "hide";
+               content.classList.add("show");
+       //         idHidden.style.display = "none";
+
+            } else {
+              content.classList.add("hidden");
+              hidden.innerHTML = "show";
+              content.classList.remove("show");
+      //         idHidden.style.display = "block";
+            }
+        }
+        window.onload = function(){
+          showFunction();
+        };
+      // console.log(click);
     </script>

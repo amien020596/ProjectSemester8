@@ -17,10 +17,10 @@ class CreateUserProfilesTable extends Migration
             $table->increments('id');
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('no_hp')->nullable();
             $table->string('address');
+            $table->string('picture')->nullable();
             $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->SoftDeletes();
             $table->timestamps();
         });

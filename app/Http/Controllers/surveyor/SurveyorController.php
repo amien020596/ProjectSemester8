@@ -14,7 +14,7 @@ class SurveyorController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:web');
     }
 
     /**
@@ -24,6 +24,6 @@ class SurveyorController extends Controller
      */
     public function index()
     {
-        return view('surveyor.dashboard');
+        return redirect()->route('view-mahasiswa-surveyor');
     }
 }

@@ -1,0 +1,50 @@
+.masthead{
+  background:
+  linear-gradient(to bottom,rgba(0,22,22,.1) 0,rgba(22,22,22,.5) 75%,#161616 100%);
+}
+.image{
+  background:url(http://localhost:8000/assets/img/undip.jpg);
+  /* max-width: 100%; */
+  background-size: 100% 100%;
+}
+#mainNav .navbar-brand{
+  padding:.5rem 0;color:rgba(0,0,0,.5)
+}
+#mainNav .nav-link{
+  transition:none;padding:2rem 1.5rem;color:rgba(0,0,0,.5)
+}
+.masthead h1 {
+  /* background: -webkit-linear-gradient(rgba(255,255,255,.9),rgba(255,255,255,0)); */
+  -webkit-text-fill-color:transparent;
+}
+#imgbidikmisi{
+  width:70%;
+}
+.masthead h2 {
+    max-width: 20rem;
+    font-size: 1.5rem;
+}
+.classv1{
+    border-left: 4px solid #06263E;
+    height: 20px;
+}
+.imgcreator{
+  width:160px;
+}
+#logo.imgcreator{
+  height: 215px;
+  width: 175px;
+}
+.card-body{
+  flex: 1 1 auto;
+  padding: 0.1rem;
+}
+  /* @media (min-width: 576px){
+    .container {
+      max-width: 540px;
+      }
+    .classv1{
+      border-left: 4px solid #06263E;
+      height: 40px;
+      }
+} */
