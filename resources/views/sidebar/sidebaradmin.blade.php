@@ -25,8 +25,7 @@
                     </ul>
                 </li>
                 <h3 class="menu-title">Semua Data</h3><!-- /.menu-title -->
-                <button type="button" class="btn btn-large btn-block btn-default" id="bton" onclick="showFunction()">hide</button>
-                <span class="" id="hidden">
+
                   <li class="menu-item-has-children dropdown" >
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-address-book"></i>Data Kriteria</a>
                       <ul class="sub-menu children dropdown-menu">
@@ -60,7 +59,7 @@
                           <li><i class="menu-icon fa fa-file"></i><a href="{{route('surveyor')}}">Data Surveyor</a></li>
                       </ul>
                   </li>
-                </span>
+                
             </ul>
 
         </div><!-- /.navbar-collapse -->
