@@ -30,7 +30,7 @@ class adminMahasiswasetting extends Controller
         $mahasiswa = datamahasiswa::with('fakultas')->with('jurusan')->get();
         $data = ['admin'=>$admin,'Dmahasiswa'=>$mahasiswa];
         return view('admin.mahasiswa',$data);
-        
+
       }
 
     /**
@@ -156,15 +156,20 @@ class adminMahasiswasetting extends Controller
     public function edit($nim){
 
         $mahasiswa = datamahasiswa::where('nim',$nim)->first();
-        $fakultas = datafakultas::all();
+        $fakultas = datafakultas::where('id',$mahasiswa->id_fakultas)->first();
+        $jurusan = datajurusan::where('id',$mahasiswa->id_jurusan)->first();
         $kriteria = kriteria::all();
+        $fakultasAll = datafakultas::all();
         $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
         $data = [
           'mahasiswa'=>$mahasiswa,
           'Dfakultas'=>$fakultas,
+          'DF'=>$fakultasAll,
+          'Djurusan'=>$jurusan,
           'kriteria'=>$kriteria,
           'admin'=>$admin
         ];
+        //return $data;
         return view('admin.updatemahasiswa')->with($data);
     }
 

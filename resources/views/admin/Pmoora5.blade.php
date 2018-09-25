@@ -13,7 +13,7 @@
                         </div>
                         <div class="card-body">
                           <font size="3">
-                            <table id="bootstrap-data-table" class="table table-striped table-bordered ">
+                            <table id="bootstrap-data-table" class="table table-striped table-bordered">
                               <thead>
                                 <tr>
                                   <th class="text-center">NIM</th>

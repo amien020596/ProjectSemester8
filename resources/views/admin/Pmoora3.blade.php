@@ -13,7 +13,7 @@
                         </div>
                         <div class="card-body">
                           <font size="1">
-                            <table id="bootstrap-data-table" class="table table-striped table-bordered ">
+                            <table id="bootstrap-data-table" class="table table-striped table-bordered table-responsive">
                               <thead>
                                 <tr>
 

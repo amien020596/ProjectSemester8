@@ -14,7 +14,7 @@
                         <div class="card-body">
                           <font size="2">
 
-                            <table id="bootstrap-data-table" style="overflow-x:auto;" class="table table-striped table-bordered ">
+                            <table id="bootstrap-data-table" style="overflow-x:auto;" class="table table-striped table-bordered table-responsive">
 
                               {{-- <thead> --}}
                                 <tr>

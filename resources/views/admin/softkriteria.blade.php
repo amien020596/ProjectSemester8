@@ -1,6 +1,6 @@
 @extends('layouts.layoutadmin')
 @section('title')
-  Daftar Kriteria
+  Data Sampah Kriteria
 @endsection
       @section('body')
         <div class="content mt-3">
@@ -31,7 +31,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Data Kriteria Softdelete</strong>
+                            <strong class="card-title">Data Sampah Kriteria</strong>
                         </div>
                         <div class="card-body">
                   <table id="bootstrap-data-table" class="table table-striped table-bordered">

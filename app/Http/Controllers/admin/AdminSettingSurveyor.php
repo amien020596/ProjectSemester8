@@ -61,6 +61,7 @@ class AdminSettingSurveyor extends Controller
       $validator = Validator::make($request->all(), [
             'firstname'=>'required|alpha',
             'lastname'=>'required|alpha',
+            'username'=>'required|alpha',
             'email'=>'required|email|unique:users,email',
             'address'=>'required',
             'password'=>'required|confirmed|min:6',
@@ -72,7 +73,7 @@ class AdminSettingSurveyor extends Controller
                         ->withInput();
         }
       $user = User::create([
-        'name' => $request->firstname,
+        'name' => $request->username,
         'email' => $request->email,
         'password' => bcrypt($request->password),
         'role' => 'surveyor'
@@ -145,6 +146,7 @@ class AdminSettingSurveyor extends Controller
       $validator = Validator::make($request->all(), [
             'firstname'=>'required|alpha',
             'lastname'=>'required|alpha',
+            'username'=>'required|alpha',
             'email'=>'required|email',
             'address'=>'required',
             // 'file'=>'required|image|mimes:jpeg,bmp,png'
@@ -171,6 +173,7 @@ class AdminSettingSurveyor extends Controller
             $user = User::where('id',$id);
             $user->update([
               'email'=>$request->email,
+              'name'=>$request->username,
             ]);
 
             $user_profile = user_profile::where('user_id',$id);
@@ -192,7 +195,7 @@ class AdminSettingSurveyor extends Controller
             $user = User::where('id',$id);
             $user->update([
               'email'=>$request->email,
-
+              'name'=>$request->username,
             ]);
 
             $user_profile = user_profile::where('user_id',$id);
@@ -244,8 +247,8 @@ class AdminSettingSurveyor extends Controller
         $user = User::where('id',$id)->delete();
         $user_profile = user_profile::where('user_id',$id)->delete();
 
-        $nilai_mahasiswa = nilai_mahasiswa::where('id_user',$id)->delete();
-        $mahasiswa = datamahasiswa::where('id_user',$id)->delete();
+        // $nilai_mahasiswa = nilai_mahasiswa::where('id_user',$id)->delete();
+        // $mahasiswa = datamahasiswa::where('id_user',$id)->delete();
 
         return redirect()->route('view-surveyor')->with('success', 'Delete Account Success');
     }

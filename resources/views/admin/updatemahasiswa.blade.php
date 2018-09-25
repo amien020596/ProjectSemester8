@@ -43,8 +43,9 @@
                               <select class="form-control" name="fakultas" id="fakultas" required>
                                 <option value="0" disable selected>=== Pilih Fakultas ===</option>
                                 @if($errors->has('fakultas'))<p class="help-block text text-danger">*{{$errors->first('fakultas')}}</p>@endif
-                                @foreach ($Dfakultas as $key => $value)
-                                  <option value="{{$value->id}}">{{$value->fakultas}}</option>
+                                  {{-- <option value="{{$Dfakultas->id}}" selected>{{$Dfakultas->fakultas}}</option> --}}
+                                @foreach ($DF as $key => $value)
+                                  <option value="{{$value->id}}" {{$value->id===$mahasiswa->id_fakultas?"selected":""}}>{{$value->fakultas}}</option>
                                 @endforeach
                               </select>
                             </div>
@@ -53,6 +54,7 @@
                               <select class="form-control" name="jurusan" id="jurusan" required>
                                 <option value="0" disable="true" selected="true">=== Pilih Jurusan ===</option>
                                 @if($errors->has('jurusan'))<p class="help-block text text-danger">*{{$errors->first('jurusan')}}</p>@endif
+                                  <option value="{{$Djurusan->id}}" selected>{{$Djurusan->jurusan}}</option>
                               </select>
                             </div>
                             <div class="row">

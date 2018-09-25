@@ -25,7 +25,7 @@
                   <div class="col-lg-12">
                       <div class="card">
                           <div class="card-header">
-                              <strong class="card-title">Stripped Table</strong>
+                              <strong class="card-title">Data Surveyor</strong>
                           </div>
                           <div class="card-body">
                             <font size="3">
@@ -132,27 +132,39 @@
                 <div class="modal-body">
                   <div class="form-group container">
                     <div class="row">
-                      <label class="col-md-2">Nama</label>
-                      <input type="email" disabled class="form-control col-md-10" value="{{$key['profile']['firstname']}}{{$key['profile']['lastname']}}">
+                      <label class="col-md-3">Nama depan</label>
+                      <input type="email" disabled class="form-control col-md-9" value="{{$key['profile']['firstname']}}">
                     </div>
                   </div>
                   <div class="form-group container">
                     <div class="row">
-                      <label class="col-md-2">email</label>
-                      <input type="email" disabled class="form-control col-md-10" value="{{$key->email}}">
+                      <label class="col-md-3">Nama Belakang</label>
+                      <input type="email" disabled class="form-control col-md-9" value="{{$key['profile']['lastname']}}">
                     </div>
                   </div>
                   <div class="form-group container">
                     <div class="row">
-                      <label class="col-md-2">Alamat</label>
-                      <textarea rows="8"  disabled class="form-control col-md-10" cols="80"> {{$key['profile']['address']}}</textarea>
+                      <label class="col-md-3">Username</label>
+                      <input type="email" disabled class="form-control col-md-9" value="{{$key->name}}">
+                    </div>
+                  </div>
+                  <div class="form-group container">
+                    <div class="row">
+                      <label class="col-md-3">email</label>
+                      <input type="email" disabled class="form-control col-md-9" value="{{$key->email}}">
+                    </div>
+                  </div>
+                  <div class="form-group container">
+                    <div class="row">
+                      <label class="col-md-3">Alamat</label>
+                      <textarea rows="8" disabled class="form-control col-md-9" cols="80"> {{$key['profile']['address']}}</textarea>
                     </div>
                   </div>
 
                   <div class="form-group container">
                     <div class="row">
-                      <label class="col-md-2">foto</label>
-                      <div class="col-md-10">
+                      <label class="col-md-3">foto</label>
+                      <div class="col-md-9">
                         <img src="{{asset('storage/'.$key['profile']['picture'])}}" alt="" width="150px">
                       </div>
                     </div>

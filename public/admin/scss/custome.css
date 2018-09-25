@@ -19,3 +19,8 @@
   padding: 0px 2px 2px 2px;
   border-radius: 5px;
 }
+@media screen and (max-width: 570px){
+  #logoSidebar{
+    display: none;
+  }
+}
