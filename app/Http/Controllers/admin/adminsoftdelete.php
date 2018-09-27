@@ -36,8 +36,8 @@ class adminsoftdelete extends Controller
 
         user_profile::where('user_id',$id)->onlyTrashed()->restore();
         User::where('id',$id)->onlyTrashed()->restore();
-        datamahasiswa::where('id_user',$id)->onlyTrashed()->restore();
-        nilai_mahasiswa::where('id_user',$id)->onlyTrashed()->restore();
+        // datamahasiswa::where('id_user',$id)->onlyTrashed()->restore();
+        // nilai_mahasiswa::where('id_user',$id)->onlyTrashed()->restore();
 
           $kriteriadelete = kriteria::onlyTrashed()->get();
 

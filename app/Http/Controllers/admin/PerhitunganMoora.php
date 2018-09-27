@@ -248,8 +248,11 @@ class PerhitunganMoora extends Controller
       public function print(){
 
         $bobot = hasilbobot::orderBy('nilai','ASC')->first();
+
         if($bobot != null){
               $hasilbobot = hasilbobot::with('datamahasiswa','datamahasiswa.fakultas','datamahasiswa.jurusan')->orderBy('nilai','DESC')->get();
+              // return $hasilbobot;
+              // die();
               $data = [
               'id'=>$hasilbobot,
             ];

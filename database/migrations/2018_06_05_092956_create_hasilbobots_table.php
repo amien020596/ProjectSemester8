@@ -22,6 +22,7 @@ class CreateHasilbobotsTable extends Migration
             $table->foreign('nim')->references('nim')->on('datamahasiswas')->onDelete('cascade');
             $table->decimal('nilai',8, 4);
             $table->timestamps();
+            $table->SoftDeletes();
         });
     }
 

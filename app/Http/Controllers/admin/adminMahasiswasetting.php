@@ -8,6 +8,7 @@ use App\datamahasiswa;
 use App\datafakultas;
 use App\datajurusan;
 use App\nilai_mahasiswa;
+use App\hasilbobot;
 use App\user_profile;
 use App\kriteria;
 use Illuminate\Support\Facades\DB;
@@ -50,6 +51,7 @@ class adminMahasiswasetting extends Controller
     public function selectfakultas(){
       $fakultas_id = Input::get('fakultas_id');
       $jurusan = datajurusan::where('id_fakultas', '=', $fakultas_id)->get();
+      // return $jurusan;
       return response()->json($jurusan);
     }
 
@@ -258,6 +260,7 @@ class adminMahasiswasetting extends Controller
       }
       $mahasiswa = datamahasiswa::where('nim',$id)->delete();
       $nilai_mahasiswa = nilai_mahasiswa::where('nim',$id)->delete();
+      $hasilbobot = hasilbobot::where('nim',$id)->delete();
       return redirect()->route('view-mahasiswa')->with('success', 'Delete Data Mahasiswa Success');
     }
 }
