@@ -246,9 +246,8 @@ class PerhitunganMoora extends Controller
             return view('admin/hasilperhitungan')->with($data);
         }
       public function print(){
-
+        $this->hasilperhitungan();
         $bobot = hasilbobot::orderBy('nilai','ASC')->first();
-
         if($bobot != null){
               $hasilbobot = hasilbobot::with('datamahasiswa','datamahasiswa.fakultas','datamahasiswa.jurusan')->orderBy('nilai','DESC')->get();
               // return $hasilbobot;
