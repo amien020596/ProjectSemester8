@@ -3,6 +3,7 @@
   Hasil Normalisasi Terbobot
 @endsection
       @section('body')
+
         <div class="content mt-3">
             <div class="animated fadeIn">
                 <div class="row">

@@ -22,26 +22,20 @@ class PerhitunganMoora extends Controller
               $kriteria = kriteria::select('id','kriteria')->get();
               $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
               $rows = $this->analisaData();
-              //return $rows;
               $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
-
               $data = [
                 'kriteria'=>$kriteria,
                 'nilai'=>$rows,
                 'id'=>$nim,
                 'admin'=>$admin
               ];
-
               return view('admin/Pmoora1')->with($data);
          }
+
       public function PerhitunganHasilNormalisasi(){
          $kriteria = kriteria::select('id','kriteria')->get();
-
          $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
-
            $hasilnormalisasi = $this->HasilNormalisasi($kriteria);
-          // return $hasilnormalisasi;
-           //print_r($hasilnormalisasi);
            $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
            $data = [
              'kriteria'=>$kriteria,
@@ -49,39 +43,34 @@ class PerhitunganMoora extends Controller
              'id'=>$nim,
              'admin'=>$admin
            ];
-
         return view('admin/Pmoora2')->with($data);
-
        }
-      public function nilaioptimasiterbobot(){
 
+      public function nilaioptimasiterbobot(){
          $kriteria = kriteria::select('id','kriteria','jenis','bobot')->get();
          $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
-
          $hasilnormalisasiterbobot = $this->NormalisasiTerbobot($kriteria);
-         //
-        // return $hasilnormalisasiterbobot;
-        $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
+         $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
          $data = [
            'kriteria'=>$kriteria,
            'nilai'=>$hasilnormalisasiterbobot,
            'id'=>$nim,
            'admin'=>$admin
          ];
-
          return view('admin/Pmoora3')->with($data);
        }
+
       public function nilaioptimasiterbobotYi(){
          $kriteria = kriteria::select('id','kriteria','jenis','bobot')->get();
          $kriteriaMax = kriteria::select('id','kriteria','jenis','bobot')->where('jenis','=','benefit')->get();
-
          $hasilnormalisasiterbobot = $this->NormalisasiTerbobot($kriteria);
          $hasilnormalisasiterbobotMax = $this->NormalisasiTerbobotMax($kriteriaMax);
+         // return $hasilnormalisasiterbobotMax;
+         // die();
          $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
          $mahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->first();
          $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
            if(isset($mahasiswa)){
-
                $nilaimahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->get();
                 foreach ($nilaimahasiswa as $key => $value) {
                   $name1 = $value->nim;
@@ -103,7 +92,6 @@ class PerhitunganMoora extends Controller
                 if(empty($hasilbobotMin)){
                   $hasilbobotMin = 0;
                 }
-
                 foreach ($nilaimahasiswa as $key => $value) {
                   $name1 = $value->nim;
                   $BFhasilbobot[$name1] = $hasilbobotMin[$name1] - $hasilbobotMax[$name1];
@@ -112,7 +100,6 @@ class PerhitunganMoora extends Controller
           }else{
             $hasilbobot = null;
           }
-
          $data = [
            'kriteria'=>$kriteria,
            'nilai'=>$hasilnormalisasiterbobot,
@@ -120,21 +107,29 @@ class PerhitunganMoora extends Controller
            'bobot'=>$hasilbobot,
            'admin'=>$admin
          ];
-
         return view('admin/Pmoora4')->with($data);
        }
+
       public function nilairating(){
+        $kriteriamahasiswa = kriteria::select('id')->get();
+        foreach ($kriteriamahasiswa as $key => $value) {
+          $ceknilaimahasiswa = nilai_mahasiswa::select('nim')->get();
+          foreach ($ceknilaimahasiswa as $key => $nilai) {
+            $getnilai = nilai_mahasiswa::where('nim','=',$nilai->nim )->where('id_kriteria','=',$value->id )->first();
+            if(empty($getnilai)){
+              return redirect()->route('perhitungan3');
+            }
+          }
+        }
+
         $kriteria = kriteria::select('id','kriteria','jenis','bobot')->get();
         $kriteriaMax = kriteria::select('id','kriteria','jenis','bobot')->where('jenis','=','benefit')->get();
-
         $hasilnormalisasiterbobot = $this->NormalisasiTerbobot($kriteria);
         $hasilnormalisasiterbobotMax = $this->NormalisasiTerbobotMax($kriteriaMax);
-        //return $hasilnormalisasiterbobot;
         $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
         $mahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->first();
         $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
           if(isset($mahasiswa)){
-
               $nilaimahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->get();
                foreach ($nilaimahasiswa as $key => $value) {
                  $name1 = $value->nim;
@@ -142,7 +137,6 @@ class PerhitunganMoora extends Controller
                    $hasilbobotMin[$name1]=array_sum($hasilnormalisasiterbobot[$name1]);
                  }
                }
-                //return $hasilbobotMin;
                $nilaimahasiswa2 = kriteria::where('jenis','=','benefit')->get();
                foreach ($nilaimahasiswa2 as $key => $value) {
                  $nilaimahasiswa3 = nilai_mahasiswa::where('id_kriteria','=',$value->id)->get();
@@ -151,7 +145,6 @@ class PerhitunganMoora extends Controller
                    $hasilbobotMax[$name1]=array_sum($hasilnormalisasiterbobotMax[$name1]);
                  }
                }
-               // return $hasilbobotMax;
                if(empty($hasilbobotMax)){
                  $hasilbobotMax = 0;
                }
@@ -163,7 +156,6 @@ class PerhitunganMoora extends Controller
                  $BFhasilbobot[$name1] = $hasilbobotMin[$name1] - $hasilbobotMax[$name1];
                  $hasilbobot[$name1] =  $hasilbobotMax[$name1] - $BFhasilbobot[$name1];
                }
-
                $kuikui = hasilbobot::all();
                if(!empty($kuikui)){
                  hasilbobot::truncate();
@@ -172,8 +164,6 @@ class PerhitunganMoora extends Controller
                  $this->inputhasilbobot($nim,$hasilbobot);
                }
              $hasilbobot = hasilbobot::orderBy('nilai','DESC')->get();
-             //$hasilbobot = hasilbobot::with('datamahasiswa')->get();
-             //dd($hasilbobot);
            }else{
              $hasilbobot = null;
            }
@@ -184,18 +174,26 @@ class PerhitunganMoora extends Controller
 
           return view('admin/Pmoora5')->with($data);
         }
+
       public function hasilperhitungan(){
+        $kriteriamahasiswa = kriteria::select('id')->get();
+        foreach ($kriteriamahasiswa as $key => $value) {
+          $ceknilaimahasiswa = nilai_mahasiswa::select('nim')->get();
+          foreach ($ceknilaimahasiswa as $key => $nilai) {
+            $getnilai = nilai_mahasiswa::where('nim','=',$nilai->nim )->where('id_kriteria','=',$value->id )->first();
+            if(empty($getnilai)){
+              return redirect()->route('perhitungan3');
+            }
+          }
+        }
           $kriteria = kriteria::select('id','kriteria','jenis','bobot')->get();
           $kriteriaMax = kriteria::select('id','kriteria','jenis','bobot')->where('jenis','=','benefit')->get();
-
           $hasilnormalisasiterbobot = $this->NormalisasiTerbobot($kriteria);
           $hasilnormalisasiterbobotMax = $this->NormalisasiTerbobotMax($kriteriaMax);
-          //return $hasilnormalisasiterbobot;
           $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
           $mahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->first();
           $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
             if(isset($mahasiswa)){
-
                 $nilaimahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->get();
                  foreach ($nilaimahasiswa as $key => $value) {
                    $name1 = $value->nim;
@@ -203,7 +201,6 @@ class PerhitunganMoora extends Controller
                      $hasilbobotMin[$name1]=array_sum($hasilnormalisasiterbobot[$name1]);
                    }
                  }
-                  //return $hasilbobotMin;
                  $nilaimahasiswa2 = kriteria::where('jenis','=','benefit')->get();
                  foreach ($nilaimahasiswa2 as $key => $value) {
                    $nilaimahasiswa3 = nilai_mahasiswa::where('id_kriteria','=',$value->id)->get();
@@ -212,7 +209,6 @@ class PerhitunganMoora extends Controller
                      $hasilbobotMax[$name1]=array_sum($hasilnormalisasiterbobotMax[$name1]);
                    }
                  }
-                 // return $hasilbobotMax;
                  if(empty($hasilbobotMax)){
                    $hasilbobotMax = 0;
                  }
@@ -224,7 +220,6 @@ class PerhitunganMoora extends Controller
                    $BFhasilbobot[$name1] = $hasilbobotMin[$name1] - $hasilbobotMax[$name1];
                    $hasilbobot[$name1] =  $hasilbobotMax[$name1] - $BFhasilbobot[$name1];
                  }
-
                  $kuikui = hasilbobot::all();
                  if(!empty($kuikui)){
                    hasilbobot::truncate();
@@ -232,9 +227,7 @@ class PerhitunganMoora extends Controller
                  }else{
                    $this->inputhasilbobot($nim,$hasilbobot);
                  }
-               //$hasilbobot = hasilbobot::orderBy('nilai','DESC')->get();
                $hasilbobot = hasilbobot::with('datamahasiswa')->orderBy('nilai','DESC')->get();
-               //dd($hasilbobot);
              }else{
                $hasilbobot = null;
              }
@@ -242,9 +235,9 @@ class PerhitunganMoora extends Controller
                      'id'=>$hasilbobot,
                      'admin'=>$admin
                    ];
-
             return view('admin/hasilperhitungan')->with($data);
         }
+
       public function print(){
         $this->hasilperhitungan();
         $bobot = hasilbobot::orderBy('nilai','ASC')->first();
@@ -434,28 +427,49 @@ class PerhitunganMoora extends Controller
           }
 
         }
-      function NormalisasiTerbobotMax($kriteria){
-          $mahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->first();
 
+      function NormalisasiTerbobotMax($kriteria){
+        $kriteriamahasiswa = kriteria::select('id')->get();
+        foreach ($kriteriamahasiswa as $key => $value) {
+          $ceknilaimahasiswa = nilai_mahasiswa::select('nim')->get();
+          foreach ($ceknilaimahasiswa as $key => $nilai) {
+            $getnilai = nilai_mahasiswa::where('nim','=',$nilai->nim )->where('id_kriteria','=',$value->id )->first();
+            if(empty($getnilai)){
+              return redirect()->route('perhitungan3');
+            }
+          }
+        }
+
+          $mahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->first();
           if(isset($mahasiswa)){
               $nilaimahasiswa = kriteria::where('jenis','=','benefit')->get();
+              $nilaimahasiswa2 = nilai_mahasiswa::where('id_kriteria','=',12)->first();
 
+              // foreach ($$nilaimahasiswa as $key => $value) {
+              //   $nilaimahasiswa2 = nilai_mahasiswa::where('id_kriteria','=',$value->id)->get();
+              // }
+              // return $nilaimahasiswa;
+              // if($nilaimahasiswa2 == null){
+              //   return "kosong";
+              // }else{
+              //   return "tidak kosong";
+              // }
+              // die();
               foreach ($nilaimahasiswa as $key => $value) {
                   $nilaimahasiswa2 = nilai_mahasiswa::where('id_kriteria','=',$value->id)->get();
-
-                  foreach ($nilaimahasiswa2 as $key => $value) {
-                    $name1 = $value->nim;
-                    $name2 = $value->id_kriteria;
-
-                    $rows[$name1][$name2]=$value->nilai;
-                  }
+                  //$ceknilaimahasiswa2 = count($nilaimahasiswa2);
+                     foreach ($nilaimahasiswa2 as $key => $value) {
+                      $name1 = $value->nim;
+                      $name2 = $value->id_kriteria;
+                      $rows[$name1][$name2]=$value->nilai;
+                    }
               }
 
-              // return $nilaimahasiswa2;
-
-
-              //return $rows;
-
+              // if(empty($rows)){
+              //
+              // }
+              //
+              // die();
               $results = array();
               foreach ($kriteria as $id) {
                 $k = array();
@@ -472,13 +486,13 @@ class PerhitunganMoora extends Controller
                 unset($k);
 
               }
-              //return $results;
+
               $hasil = array();
               foreach ($results as $key => $value) {
 
                 $hasil["kriteria$key"] = sqrt(array_sum($value));
               }
-              // return $hasil;
+
               foreach ($nilaimahasiswa as $key => $value) {
                 $nilaimahasiswa2 = nilai_mahasiswa::where('id_kriteria','=',$value->id)->get();
                 foreach ($nilaimahasiswa2 as $key => $value) {
@@ -493,14 +507,10 @@ class PerhitunganMoora extends Controller
                   return $hasilnormalisasiterbobot = array();
                 }
                 return $hasilnormalisasiterbobot;
-
               }else{
-
               $nilaimahasiswa = nilai_mahasiswa::select('nim','id_kriteria','nilai')->get();
               return $nilaimahasiswa;
-
             }
-
           }
 
       function nilaibobot($id_kriteria){

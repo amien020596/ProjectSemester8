@@ -237,11 +237,14 @@ class surveyormahasiswasetting extends Controller
     {
       $mahasiswa = datamahasiswa::where('nim',$id)->first();
       $fakultas = datafakultas::all();
+      $jurusan = datajurusan::where('id',$mahasiswa->id_jurusan)->first();
+      // return $jurusan;
       $kriteria = kriteria::all();
       $userprofile = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
       $data = [
         'mahasiswa'=>$mahasiswa,
         'Dfakultas'=>$fakultas,
+        'Djurusan'=>$jurusan,
         'Dkritria'=>$kriteria,
         'user'=>$userprofile
       ];

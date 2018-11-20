@@ -46,8 +46,8 @@
                           <li><i class="menu-icon fa fa-file"></i><a href="{{route('perhitungan1')}}">Matriks Data Nilai</a></li>
                           <li><i class="menu-icon fa fa-file"></i><a href="{{route('perhitungan2')}}">Matriks Normalisasi</a></li>
                           <li><i class="menu-icon fa fa-file"></i><a href="{{route('perhitungan3')}}">Nilai Terbobot</a></li>
-                          <li><i class="menu-icon fa fa-file"></i><a href="{{route('perhitungan4')}}">Nilai Yi</a></li>
-                          <li><i class="menu-icon fa fa-file"></i><a href="{{route('perhitungan5')}}">Nilai Rating</a></li>
+                          <li><i class="menu-icon fa fa-file"></i><a href="{{route('perhitungan4')}}">Nilai Perhitungan Yi</a></li>
+                          <li><i class="menu-icon fa fa-file"></i><a href="{{route('perhitungan5')}}">Nilai Ranking</a></li>
                           {{-- <li><i class="menu-icon fa fa-file"></i><a href="{{route('print')}}">Print</a></li> --}}
                       </ul>
                   </li>

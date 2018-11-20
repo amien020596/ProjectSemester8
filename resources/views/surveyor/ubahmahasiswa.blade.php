@@ -49,7 +49,7 @@ Input Mahasiswa | Bidikmisi
                       <option value="0" disable selected>=== Pilih Fakultas ===</option>
                       @if($errors->has('fakultas'))<p class="help-block text text-danger">*{{$errors->first('fakultas')}}</p>@endif
                       @foreach ($Dfakultas as $key => $value)
-                        <option value="{{$value->id}}">{{$value->fakultas}}</option>
+                        <option value="{{$value->id}}" {{$value->id===$mahasiswa->id_fakultas?"selected":""}}>{{$value->fakultas}}</option>
                       @endforeach
                     </select>
                 </div>
@@ -57,7 +57,7 @@ Input Mahasiswa | Bidikmisi
                 <div class="form-group">
                   <label class=" form-control-label">Jurusan</label>
                     <select name="jurusan" class="form-control"  id="jurusan" required>
-                      <option value="0" disable="true" selected="true">=== Pilih Jurusan ===</option>
+                      <option value="{{$Djurusan->id}}" selected>{{$Djurusan->jurusan}}</option>
                       @if($errors->has('jurusan'))<p class="help-block text text-danger">*{{$errors->first('jurusan')}}</p>@endif
                     </select>
                 </div>
