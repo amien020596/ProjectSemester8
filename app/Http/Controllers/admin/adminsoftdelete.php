@@ -36,8 +36,8 @@ class adminsoftdelete extends Controller
 
         user_profile::where('user_id',$id)->onlyTrashed()->restore();
         User::where('id',$id)->onlyTrashed()->restore();
-        datamahasiswa::where('id_user',$id)->onlyTrashed()->restore();
-        nilai_mahasiswa::where('id_user',$id)->onlyTrashed()->restore();
+        // datamahasiswa::where('id_user',$id)->onlyTrashed()->restore();
+        // nilai_mahasiswa::where('id_user',$id)->onlyTrashed()->restore();
 
           $kriteriadelete = kriteria::onlyTrashed()->get();
 
@@ -128,9 +128,16 @@ class adminsoftdelete extends Controller
     public function retrivemahasiswa($nim){
 
       $mahasiswa = datamahasiswa::where('nim', $nim)->onlyTrashed()->first();
+
       if(!isset($mahasiswa)){
         return redirect()->route('mahasiswa')->with('error', 'The id does not exist');
       }
+
+      // $admin = user_profile::where('user_id',$mahasiswa->id_user)->onlyTrashed()->first();
+      //
+      // if(isset($admin)){
+      //   return redirect()->route('mahasiswa')->with('error', 'Cant Restorge Because Surveyor Already Softdelete');
+      // }
 
       datamahasiswa::where('nim',$nim)->onlyTrashed()->restore();
       nilai_mahasiswa::where('nim',$nim)->onlyTrashed()->restore();

@@ -85,7 +85,7 @@ class DatabaseSeeder extends Seeder
                 array('id_fakultas'=>'8','jurusan'=>'Kimia'),//30
                 array('id_fakultas'=>'8','jurusan'=>'Matematika'),//31
                 array('id_fakultas'=>'8','jurusan'=>'Statistika'),//32
-                array('id_fakultas'=>'9','jurusan'=>'Teknik Sistem Komputer'),//33
+                array('id_fakultas'=>'9','jurusan'=>'Teknik Komputer'),//33
                 array('id_fakultas'=>'9','jurusan'=>'Arsitektur'),//34
                 array('id_fakultas'=>'9','jurusan'=>'Teknik Elektro'),//35
                 array('id_fakultas'=>'9','jurusan'=>'Teknik Geodesi'),//36

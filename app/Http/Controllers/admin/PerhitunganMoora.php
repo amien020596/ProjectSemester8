@@ -18,7 +18,7 @@ class PerhitunganMoora extends Controller
         $this->middleware('auth:admin');
     }
 
-      public function PerhitunganHasilAnalisaData(){
+      public function matriksDataNilai(){
               $kriteria = kriteria::select('id','kriteria')->get();
               $nim = nilai_mahasiswa::select('nim')->groupBy('nim')->having('nim', '>',0)->get();
               $rows = $this->analisaData();
@@ -246,10 +246,12 @@ class PerhitunganMoora extends Controller
             return view('admin/hasilperhitungan')->with($data);
         }
       public function print(){
-
+        $this->hasilperhitungan();
         $bobot = hasilbobot::orderBy('nilai','ASC')->first();
         if($bobot != null){
               $hasilbobot = hasilbobot::with('datamahasiswa','datamahasiswa.fakultas','datamahasiswa.jurusan')->orderBy('nilai','DESC')->get();
+              // return $hasilbobot;
+              // die();
               $data = [
               'id'=>$hasilbobot,
             ];
@@ -289,7 +291,6 @@ class PerhitunganMoora extends Controller
         }else{
           return redirect()->route('view-mahasiswa')->with('error', 'Data Mahasiswa Belum dihitung, Hitung data mahasiswa terlebih dahulu');
         }
-
         // return $image_file;
       }
 
@@ -358,7 +359,12 @@ class PerhitunganMoora extends Controller
             foreach ($nilaimahasiswa as $key => $value) {
               $name1 = $value->nim;
               $name2 = $value->id_kriteria;
-              $hasilnormalisasi[$name1][$name2]=$rows[$name1][$name2]/$hasil["kriteria$value->id_kriteria"];
+
+              if($rows[$name1][$name2] == 0 && $hasil["kriteria$value->id_kriteria"]== 0){
+                $hasilnormalisasi[$name1][$name2]=0;
+              }else{
+                $hasilnormalisasi[$name1][$name2]=$rows[$name1][$name2]/$hasil["kriteria$value->id_kriteria"];
+              }
             }
           return $hasilnormalisasi;
 
@@ -411,7 +417,12 @@ class PerhitunganMoora extends Controller
                 $name1 = $value->nim;
                 $name2 = $value->id_kriteria;
                 $nilaibobot = $this->nilaibobot($value->id_kriteria);
-                $hasilnormalisasiterbobot[$name1][$name2]=($rows[$name1][$name2]/$hasil["kriteria$value->id_kriteria"])*$nilaibobot->bobot;
+
+                if($rows[$name1][$name2] == 0 && $hasil["kriteria$value->id_kriteria"] == 0){
+                  $hasilnormalisasiterbobot[$name1][$name2]=0;
+                }else{
+                  $hasilnormalisasiterbobot[$name1][$name2]=($rows[$name1][$name2]/$hasil["kriteria$value->id_kriteria"])*$nilaibobot->bobot;
+                }
             }
             return $hasilnormalisasiterbobot;
 

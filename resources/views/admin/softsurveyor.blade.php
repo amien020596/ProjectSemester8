@@ -1,7 +1,7 @@
 
 @extends('layouts.layoutadmin')
 @section('title')
-  SoftDelete Data Surveyor
+  Data Sampah Surveyor
 @endsection
 @section('body')
   {{-- ini yang diambil --}}
@@ -25,7 +25,7 @@
                   <div class="col-lg-12">
                       <div class="card">
                           <div class="card-header">
-                              <strong class="card-title">Data Surveyor Softdelete</strong>
+                              <strong class="card-title">Data Sampah Surveyor</strong>
                           </div>
                           <div class="card-body">
                               <table class="table table-bordered">

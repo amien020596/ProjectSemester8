@@ -76,24 +76,24 @@
         return false;
       };
 
-      function showFunction(){
-         var hidden = document.getElementById('bton');
-         var content = document.getElementById('hidden');
-             if (hidden.textContent === "show") {
-               content.classList.remove("hidden");
-               hidden.innerHTML = "hide";
-               content.classList.add("show");
-       //         idHidden.style.display = "none";
-
-            } else {
-              content.classList.add("hidden");
-              hidden.innerHTML = "show";
-              content.classList.remove("show");
-      //         idHidden.style.display = "block";
-            }
-        }
-        window.onload = function(){
-          showFunction();
-        };
-      // console.log(click);
+      // function showFunction(){
+      //    var hidden = document.getElementById('bton');
+      //    var content = document.getElementById('hidden');
+      //        if (hidden.textContent === "show") {
+      //          content.classList.remove("hidden");
+      //          hidden.innerHTML = "hide";
+      //          content.classList.add("show");
+      //  //         idHidden.style.display = "none";
+      //
+      //       } else {
+      //         content.classList.add("hidden");
+      //         hidden.innerHTML = "show";
+      //         content.classList.remove("show");
+      // //         idHidden.style.display = "block";
+      //       }
+      //   }
+      //   window.onload = function(){
+      //     showFunction();
+      //   };
+      
     </script>

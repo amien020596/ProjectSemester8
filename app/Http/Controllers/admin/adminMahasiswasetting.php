@@ -8,6 +8,7 @@ use App\datamahasiswa;
 use App\datafakultas;
 use App\datajurusan;
 use App\nilai_mahasiswa;
+use App\hasilbobot;
 use App\user_profile;
 use App\kriteria;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +31,7 @@ class adminMahasiswasetting extends Controller
         $mahasiswa = datamahasiswa::with('fakultas')->with('jurusan')->get();
         $data = ['admin'=>$admin,'Dmahasiswa'=>$mahasiswa];
         return view('admin.mahasiswa',$data);
-        
+
       }
 
     /**
@@ -50,6 +51,7 @@ class adminMahasiswasetting extends Controller
     public function selectfakultas(){
       $fakultas_id = Input::get('fakultas_id');
       $jurusan = datajurusan::where('id_fakultas', '=', $fakultas_id)->get();
+      // return $jurusan;
       return response()->json($jurusan);
     }
 
@@ -156,15 +158,20 @@ class adminMahasiswasetting extends Controller
     public function edit($nim){
 
         $mahasiswa = datamahasiswa::where('nim',$nim)->first();
-        $fakultas = datafakultas::all();
+        $fakultas = datafakultas::where('id',$mahasiswa->id_fakultas)->first();
+        $jurusan = datajurusan::where('id',$mahasiswa->id_jurusan)->first();
         $kriteria = kriteria::all();
+        $fakultasAll = datafakultas::all();
         $admin = user_profile::with('user')->where('user_id',Auth::user()->id)->first();
         $data = [
           'mahasiswa'=>$mahasiswa,
           'Dfakultas'=>$fakultas,
+          'DF'=>$fakultasAll,
+          'Djurusan'=>$jurusan,
           'kriteria'=>$kriteria,
           'admin'=>$admin
         ];
+        //return $data;
         return view('admin.updatemahasiswa')->with($data);
     }
 
@@ -253,6 +260,7 @@ class adminMahasiswasetting extends Controller
       }
       $mahasiswa = datamahasiswa::where('nim',$id)->delete();
       $nilai_mahasiswa = nilai_mahasiswa::where('nim',$id)->delete();
+      $hasilbobot = hasilbobot::where('nim',$id)->delete();
       return redirect()->route('view-mahasiswa')->with('success', 'Delete Data Mahasiswa Success');
     }
 }

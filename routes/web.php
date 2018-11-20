@@ -66,7 +66,7 @@ Route::Group(['prefix'=>'admin','namespace'=>'admin'],
         });
     Route::Group(['prefix'=>'perhitungan'],
         function(){
-          Route::get('perhitungan1','PerhitunganMoora@PerhitunganHasilAnalisaData')->name('perhitungan1');
+          Route::get('perhitungan1','PerhitunganMoora@matriksDataNilai')->name('perhitungan1');
           Route::get('perhitungan2','PerhitunganMoora@PerhitunganHasilNormalisasi')->name('perhitungan2');
           Route::get('perhitungan3','PerhitunganMoora@nilaioptimasiterbobot')->name('perhitungan3');
           Route::get('perhitungan4','PerhitunganMoora@nilaioptimasiterbobotYi')->name('perhitungan4');

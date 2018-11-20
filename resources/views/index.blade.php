@@ -95,7 +95,7 @@
       </div>
     </section>
 
-    <!-- Signup Section -->
+    {{-- <!-- Signup Section -->
     <section id="signup" class="signup-section">
       <div class="container">
         <div class="row">
@@ -106,125 +106,63 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> --}}
 
     <!-- Contact Section -->
-    <section class="contact-section bg-black">
+    <section  id="signup" class="contact-section bg-black">
       <div class="container">
-
         <div class="row">
-
-          <div class="col-md-2 mb-3 mb-md-0">
+          <div class="col-3 col-md-2 col-lg-2">
             <img src="{{asset('assets/img/21120114140074.jpg')}}" class="img-thumbnail imgcreator" alt="creator" id="">
           </div>
-
-          <div class="col-md-7 mb-3 mb-md-0">
+          <div class="col-6 col-md-8 col-lg-8">
             <div class="card py-4 h-100">
               <div class="card-body text-center">
                 <div class="row">
-                  <div class="col-md-3"></div>
-                  {{-- <div class="col-md-3">
-                    <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-                    <h4 class="text-uppercase m-0">Nama</h4>
+                  <div class="col-12 col-md-12">
+                    <div class="small text-black-50 textInfo">Amien Kurniawan</div>
                   </div>
-                  <div class="col-md-2">
-                    <div class="classv1"></div>
-                  </div>--}}
-                  <div class="col-md-6">
-                    <div class="small text-black-50">Amien Kurniawan</div>
-                  </div>
-                  <div class="col-md-3"></div>
                 </div>
                 <div class="row">
-                  <div class="col-md-3"></div>
-                  {{-- <div class="col-md-3">
-                    <i class="fas fa-envelope text-primary mb-2"></i>
-                    <h4 class="text-uppercase m-0">Jurusan</h4>
-                  </div>
-                  <div class="col-md-2">
-                    <div class="classv1"></div>
-                  </div>--}}
-                  <div class="col-md-6">
-                    <div class="small text-black-50">
-                      <a href="#">Teknik Sistem Komputer</a>
+                  <div class="col-12 col-md-12">
+                    <div class="small text-black-50 textInfo">
+                      Departemen Teknik Komputer
                     </div>
                   </div>
-                  <div class="col-md-3"></div>
                 </div>
                 <div class="row">
-                  <div class="col-md-3"></div>
-                  {{-- <div class="col-md-3">
-                    <i class="fas fa-mobile-alt text-primary mb-2"></i>
-                    <h4 class="text-uppercase m-0">Fakultas</h4>
+                  <div class="col-12 col-md-12">
+                    <div class="small text-black-50 textInfo">Teknik</div>
                   </div>
-                  <div class="col-md-2">
-                    <div class="classv1"></div>
-                  </div> --}}
-                  <div class="col-md-6">
-                    <div class="small text-black-50">Teknik</div>
-                  </div>
-                  <div class="col-md-3"></div>
                 </div>
                 <div class="row">
-                  {{-- <div class="col-md-3">
-                    <i class="fas fa-envelope text-primary mb-2"></i>
-                    <h4 class="text-uppercase m-0">Universitas</h4>
-                  </div>
-                  <div class="col-md-2">
-                    <div class="classv1"></div>
-                  </div> --}}
-                  <div class="col-md-3"></div>
-                  <div class="col-md-6">
-                    <div class="small text-black-50">
-                      <a href="#">Universitas Diponegoro</a>
+                  <div class="col-12 col-md-12">
+                    <div class="small text-black-50 textInfo">
+                      Universitas Diponegoro
                     </div>
                   </div>
-                  <div class="col-md-3"></div>
                 </div>
                 <div class="row">
-                  {{-- <div class="col-md-3">
-                    <i class="fas fa-envelope text-primary mb-2"></i>
-                    <h4 class="text-uppercase m-0">Email</h4>
-                  </div>
-                  <div class="col-md-2">
-                    <div class="classv1"></div>
-                  </div> --}}
-                  <div class="col-md-3"></div>
-                  <div class="col-md-6">
-                    <div class="small text-black-50">
-                      <a href="#">akurniawan@student.ce.undip.ac.id</a>
+                  <div class="col-12 col-md-12">
+                    <div class="small text-black-50 textInfo">
+                      akurniawan@student.ce.undip.ac.id
                     </div>
                   </div>
-                  <div class="col-md-3"></div>
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="col-md-3 mb-3 mb-md-0">
+          <div class="col-3 col-md-2 col-lg-2 ">
             <img src="{{asset('assets/img/logo-undip.png')}}" class="img-thumbnail imgcreator" alt="creator" id="logo">
           </div>
         </div>
-
-        <div class="social d-flex justify-content-center">
-          <a href="#" class="mx-2">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="#" class="mx-2">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" class="mx-2">
-            <i class="fab fa-github"></i>
-          </a>
-        </div>
-
       </div>
     </section>
 
     <!-- Footer -->
     <footer class="bg-black small text-center text-white-50">
       <div class="container">
-        Copyright &copy; Your Website 2018
+        Copyright &copy; Bootstrap 2018
       </div>
     </footer>
 

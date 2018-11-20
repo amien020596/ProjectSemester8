@@ -16,6 +16,8 @@ class CreateDatamahasiswasTable extends Migration
         Schema::create('datamahasiswas', function (Blueprint $table) {
             $table->Integer('id')->autoIncrement();
             $table->unsignedBigInteger('nim')->unique();
+            //$table->foreign('nim')->references('nim')->on('hasilbobot')->onDelete('cascade');
+            //$table->foreign('nim')->references('nim')->on('nilai_mahasiswas')->onUpdate('cascade');
             $table->string('nama');
             $table->unsignedInteger('id_fakultas');
             $table->foreign('id_fakultas')->references('id')->on('datafakultas');
@@ -26,6 +28,7 @@ class CreateDatamahasiswasTable extends Migration
             $table->timestamps();
             $table->SoftDeletes();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

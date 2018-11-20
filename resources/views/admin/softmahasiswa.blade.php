@@ -1,6 +1,6 @@
 @extends('layouts.layoutadmin')
 @section('title')
-  Daftar Kriteria
+  Data Sampah Mahasiswa
 @endsection
       @section('body')
         <div class="content mt-3">
@@ -31,7 +31,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Data Mahasiswa Softdelete</strong>
+                            <strong class="card-title">Data Sampah Mahasiswa</strong>
                         </div>
                         <div class="card-body">
                           <font size="2">

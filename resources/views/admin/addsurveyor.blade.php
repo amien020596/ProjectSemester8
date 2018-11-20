@@ -52,6 +52,17 @@
                               </div>
                             </div>
                             <div class="row form-group">
+                              <div class="col col-md-2"><label for="text-input" class=" form-control-label">Nama Pengguna</label></div>
+                              <div class="col-12 col-md-6"><input type="text" id="text-input" name="username" value="{{old('username')}}" placeholder="Masukan Nama Pengguna" class="form-control"></div>
+                              <div class="col-12 col-md-4">
+                                @if ($errors->has('username'))
+                                <h6>
+                                      <p class="text-danger">*<small>{{ $errors->first('username') }}</small></p>
+                                </h6>
+                                @endif
+                              </div>
+                            </div>
+                            <div class="row form-group">
                               <div class="col col-md-2"><label for="password-input" class=" form-control-label">Email</label></div>
                               <div class="col-12 col-md-6">
                                 <input type="email" id="text-input" name="email" value="{{old('email')}}" placeholder="Masukan Email" class="form-control">
@@ -93,7 +104,7 @@
                             <div class="row form-group">
                               <div class="col col-md-2"><label for="textarea-input" class=" form-control-label">Alamat</label></div>
                               <div class="col-12 col-md-6">
-                                <textarea name="address" id="textarea-input" rows="9" placeholder="Content..." class="form-control">{{old('address')}}</textarea>
+                                <textarea name="address" id="textarea-input" rows="9" placeholder="Alamat.." class="form-control">{{old('address')}}</textarea>
                               </div>
                               <div class="col-12 col-md-4">
                                 @if ($errors->has('address'))
