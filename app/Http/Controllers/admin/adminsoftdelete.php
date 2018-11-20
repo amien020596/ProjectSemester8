@@ -97,10 +97,11 @@ class adminsoftdelete extends Controller
                     'nim'=>$datanim->nim,
                   ];
                   $nilai = nilai_mahasiswa::where($where)->first();
-                    if($datanim->nim==$nilai->nim){
+                    if($datanim->nim==$nilai['nim']){
                       nilai_mahasiswa::where($where)->delete();
                     }
                 }
+
 
       return redirect()->route('kriteria')->with('success', 'Restore Data Mahasiswa Success');
     }
